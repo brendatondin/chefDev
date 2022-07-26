@@ -1,0 +1,20 @@
+{
+  "dependencies": {
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  },
+  "name": "projetomod4",
+  "version": "1.0.0",
+  "description": "projeto api de restaurante para o projete de modulo 4 resilia educacao",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./src/app.js",
+    "dev": "nodemon ./src/app.js"
+  },
+  "author": "",
+  "type": "module",
+  "license": "ISC"
+}

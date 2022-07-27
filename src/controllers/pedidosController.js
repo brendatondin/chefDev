@@ -90,7 +90,7 @@ const pedidosController = (app) => {
         const body = req.body
         try {
             validaPedido(body.comanda)
-            await PedindosModel.atualizaPedidos(comanda, {
+            await PedidosModel.atualizaPedidos(comanda, {
                 "comanda": body.comanda
             })
             res.json({

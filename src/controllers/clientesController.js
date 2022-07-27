@@ -93,6 +93,27 @@ const clientesController = (app) => {
             })
         }
     })
+
+    app.patch('/cliente/contato/id/:id', async (req, res) => {
+        const id = req.params.id
+        const body = req.body
+        try {
+            validaContato(body.contato)
+            await ClienteModel.atualizaCliente(id, {
+                "contato": body.contato
+            })
+            res.json({
+                "msg": "Contato atualizada",
+                "erro": false
+            })
+
+        } catch (error) {
+            res.json({
+                "msg": error.message,
+                "erro": true
+            })
+        }
+    })
 }
 
 

@@ -91,6 +91,26 @@ app.put('/cardapio/codigo/:codigo', async (req, res) => {
     }
 })
 
+app.patch('/cardapio/prato/codigo/:codigo', async (req, res) => {
+    const codigo = req.params.codigo
+    const body = req.body
+    try {
+        validaPrato(body.prato)
+        await CardapioModel.atualizaCardapio(codigo, {
+            "prato": body.prato
+        })
+        res.json({
+            "msg": "Prato atualizado",
+            "erro": false
+        })
+
+    } catch (error) {
+        res.json({
+            "msg": error.message,
+            "erro": true
+        })
+    }
+})
 
 
 

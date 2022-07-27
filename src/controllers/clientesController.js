@@ -37,6 +37,24 @@ const clientesController = (app) => {
         }
     })
 
+    app.post('/cliente', async (req, res) => {
+        const body = req.body
+        try {
+            const novoCliente = criacliente(body.nome, body.email, body.contato)
+            await ClienteModel.insereCliente(novoCliente)
+            res.json({
+                "msg": "Cliente inserido com sucesso",
+                "cliente": novoCliente,
+                "erro": false
+            })
+
+        } catch (error) {
+            res.json({
+                "msg": error.message,
+                "erro": true
+            })
+        }
+    })
 }
 
 

@@ -55,6 +55,24 @@ const pedidosController = (app) => {
         }
     })
 
+    app.delete('/pedidos/comanda/:comanda', async (req, res) => {
+        const comanda = req.params.comanda
+        try {
+            await PedidosModel.deletaPedido(comanda)
+
+            res.json({
+                "msg": "Comanda deletada com sucesso",
+                "erro": false
+            })
+
+        } catch (error) {
+            res.json({
+                "msg": error.message,
+                "erro": true
+            })
+        }
+    })
+
     
 }
 

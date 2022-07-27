@@ -73,6 +73,26 @@ const clientesController = (app) => {
             })
         }
     })
+
+    app.put('/cliente/id/:id', async (req, res) => {
+        const body = req.body
+        const id = req.params.id
+        try {
+            const clienteValidado = criaCliente(body.nome, body.email, body.contato)
+            await ClienteModel.atualizaCliente(id, clienteValidado)
+            res.json({
+                "msg": "Cliente atualizado com sucesso",
+                "cliente": clienteValidado,
+                "erro": false
+            })
+
+        } catch (error) {
+            res.json({
+                "msg": error.message,
+                "erro": true
+            })
+        }
+    })
 }
 
 

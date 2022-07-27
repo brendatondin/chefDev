@@ -1,16 +1,10 @@
-import usuarioModel from "../model/usuario.js"
-import {
-    criaUsuario,
-    validaSenha
-} from "../services/validacaoUsuario.js"
+const pedidosController = (app) => {
 
-const usuarioController = (app) => {
-
-    app.get('/usuario', async (req, res) => {
+    app.get('/pedidos', async (req, res) => {
         try {
-            const todosUsuarios = await usuarioModel.pegaUsuarios()
+            const todosPedidos = await PedidosModel.pegaPedidos()
             res.json({
-                "usuarios": todosUsuarios,
+                "pedidos": todosPedidos,
                 "erro": false
             })
         } catch (error) {
@@ -21,12 +15,12 @@ const usuarioController = (app) => {
         }
     })
 
-    app.get('/usuario/email/:email', async (req, res) => {
-        const email = req.params.email
+    app.get('/pedidos/comanda/:comanda', async (req, res) => {
+        const comanda = req.params.comanda
         try {
-            const usuario = await usuarioModel.pegaUmUsuarioEmail(email)
+            const pedido = await PedidosModel.pegaUmPedidoComanda(comanda)
             res.json({
-                "usuario": usuario,
+                "pedido": pedido,
                 "erro": false
             })
         } catch (error) {
@@ -36,15 +30,14 @@ const usuarioController = (app) => {
             })
         }
     })
-
-    app.post('/usuario', async (req, res) => {
+    app.post('/pedidos', async (req, res) => {
         const body = req.body
         try {
-            const novoUsuario = criaUsuario(body.nome, body.email, body.senha)
-            await usuarioModel.insereUsuario(novoUsuario)
+            const novoPedido = criaPedidos(body.prato, body.comanda, body.mesa)
+            await PedidosModel.inserePedidos(novoPedido)
             res.json({
-                "msg": "Usuário inserido com sucesso",
-                "usuario": novoUsuario,
+                "msg": "Pedido inserido com sucesso",
+                "cliente": novoPedido,
                 "erro": false
             })
 
@@ -56,13 +49,13 @@ const usuarioController = (app) => {
         }
     })
 
-    app.delete('/usuario/id/:id', async (req, res) => {
-        const id = req.params.id
+    app.delete('/pedidos/comanda/:comanda', async (req, res) => {
+        const comanda = req.params.comanda
         try {
-            await usuarioModel.deletaUsuario(id)
+            await PedidosModel.deletaPedido(comanda)
 
             res.json({
-                "msg": "Usuário deletado com sucesso",
+                "msg": "Comanda deletada com sucesso",
                 "erro": false
             })
 
@@ -73,16 +66,15 @@ const usuarioController = (app) => {
             })
         }
     })
-
-    app.put('/usuario/id/:id', async (req, res) => {
+    app.put('/cliente/comanda/:comanda', async (req, res) => {
         const body = req.body
-        const id = req.params.id
+        const comanda = req.params.comanda
         try {
-            const usuarioValidado = criaUsuario(body.nome, body.email, body.senha)
-            await usuarioModel.atualizaUsuario(id, usuarioValidado)
+            const pedidoValidado = criaPedidos(body.prato, body.comanda, body.mesa)
+            await PedidosModel.atualizaPedidos(comanda, pedidoValidado)
             res.json({
-                "msg": "Usuário atualizado com sucesso",
-                "usuario": usuarioValidado,
+                "msg": "Comanda atualizada com sucesso",
+                "cliente": pedidoValidado,
                 "erro": false
             })
 
@@ -93,17 +85,16 @@ const usuarioController = (app) => {
             })
         }
     })
-
-    app.patch('/usuario/senha/id/:id', async (req, res) => {
-        const id = req.params.id
+    app.patch('/pedidos/mesa/comanda/:comanda', async (req, res) => {
+        const comanda = req.params.comanda
         const body = req.body
         try {
-            validaSenha(body.senha)
-            await usuarioModel.atualizaUsuario(id, {
-                "senha": body.senha
+            validaPedido(body.comanda)
+            await PedidosModel.atualizaPedidos(comanda, {
+                "comanda": body.comanda
             })
             res.json({
-                "msg": "Senha atualizada",
+                "msg": "Comanda atualizada",
                 "erro": false
             })
 
@@ -114,7 +105,9 @@ const usuarioController = (app) => {
             })
         }
     })
+
+
 }
 
 
-export default usuarioController
+export default pedidosController

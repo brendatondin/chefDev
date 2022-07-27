@@ -55,6 +55,24 @@ const clientesController = (app) => {
             })
         }
     })
+
+    app.delete('/cliente/id/:id', async (req, res) => {
+        const id = req.params.id
+        try {
+            await ClienteModel.deletaCliente(id)
+
+            res.json({
+                "msg": "Cliente deletado com sucesso",
+                "erro": false
+            })
+
+        } catch (error) {
+            res.json({
+                "msg": error.message,
+                "erro": true
+            })
+        }
+    })
 }
 
 

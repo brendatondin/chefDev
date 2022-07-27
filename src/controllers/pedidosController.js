@@ -1,16 +1,16 @@
-import usuarioModel from "../model/usuario.js"
-import {
-    criaUsuario,
-    validaSenha
-} from "../services/validacaoUsuario.js"
 
-const usuarioController = (app) => {
 
-    app.get('/usuario', async (req, res) => {
+
+
+
+
+const pedidosController = (app) => {
+
+    app.get('/pedidos', async (req, res) => {
         try {
-            const todosUsuarios = await usuarioModel.pegaUsuarios()
+            const todosPedidos = await PedidosModel.pegaPedidos()
             res.json({
-                "usuarios": todosUsuarios,
+                "pedidos": todosPedidos,
                 "erro": false
             })
         } catch (error) {
@@ -21,12 +21,12 @@ const usuarioController = (app) => {
         }
     })
 
-    app.get('/usuario/email/:email', async (req, res) => {
-        const email = req.params.email
+    app.get('/pedido/comanda/:comanda', async (req, res) => {
+        const comanda = req.params.comanda
         try {
-            const usuario = await usuarioModel.pegaUmUsuarioEmail(email)
+            const pedido = await PedidosModel.pegaUmPedidoComanda(comanda)
             res.json({
-                "usuario": usuario,
+                "pedido": pedido,
                 "erro": false
             })
         } catch (error) {
@@ -37,84 +37,8 @@ const usuarioController = (app) => {
         }
     })
 
-    app.post('/usuario', async (req, res) => {
-        const body = req.body
-        try {
-            const novoUsuario = criaUsuario(body.nome, body.email, body.senha)
-            await usuarioModel.insereUsuario(novoUsuario)
-            res.json({
-                "msg": "Usuário inserido com sucesso",
-                "usuario": novoUsuario,
-                "erro": false
-            })
-
-        } catch (error) {
-            res.json({
-                "msg": error.message,
-                "erro": true
-            })
-        }
-    })
-
-    app.delete('/usuario/id/:id', async (req, res) => {
-        const id = req.params.id
-        try {
-            await usuarioModel.deletaUsuario(id)
-
-            res.json({
-                "msg": "Usuário deletado com sucesso",
-                "erro": false
-            })
-
-        } catch (error) {
-            res.json({
-                "msg": error.message,
-                "erro": true
-            })
-        }
-    })
-
-    app.put('/usuario/id/:id', async (req, res) => {
-        const body = req.body
-        const id = req.params.id
-        try {
-            const usuarioValidado = criaUsuario(body.nome, body.email, body.senha)
-            await usuarioModel.atualizaUsuario(id, usuarioValidado)
-            res.json({
-                "msg": "Usuário atualizado com sucesso",
-                "usuario": usuarioValidado,
-                "erro": false
-            })
-
-        } catch (error) {
-            res.json({
-                "msg": error.message,
-                "erro": true
-            })
-        }
-    })
-
-    app.patch('/usuario/senha/id/:id', async (req, res) => {
-        const id = req.params.id
-        const body = req.body
-        try {
-            validaSenha(body.senha)
-            await usuarioModel.atualizaUsuario(id, {
-                "senha": body.senha
-            })
-            res.json({
-                "msg": "Senha atualizada",
-                "erro": false
-            })
-
-        } catch (error) {
-            res.json({
-                "msg": error.message,
-                "erro": true
-            })
-        }
-    })
+    
 }
 
 
-export default usuarioController
+export default pedidosController

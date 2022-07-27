@@ -71,6 +71,26 @@ app.delete('/cardapio/codigo/:codigo', async (req, res) => {
     }
 })
 
+app.put('/cardapio/codigo/:codigo', async (req, res) => {
+    const body = req.body
+    const codigo = req.params.codigo
+    try {
+        const pratoValidado= criaPrato(body.prato, body.codigo)
+        await CardapioModel.atualizaCardapio(codigo, pratoValidado)
+        res.json({
+            "msg": "Prato atualizado com sucesso",
+            "prato": pratoValidado,
+            "erro": false
+        })
+
+    } catch (error) {
+        res.json({
+            "msg": error.message,
+            "erro": true
+        })
+    }
+})
+
 
 
 

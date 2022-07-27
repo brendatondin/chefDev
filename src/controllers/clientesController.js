@@ -37,7 +37,7 @@ const clientesController = (app) => {
         }
     })
 
-    app.post('/cliente', async (req, res) => {
+    app.post('/clientes', async (req, res) => {
         const body = req.body
         try {
             const novoCliente = criacliente(body.nome, body.email, body.contato)
@@ -56,7 +56,7 @@ const clientesController = (app) => {
         }
     })
 
-    app.delete('/cliente/id/:id', async (req, res) => {
+    app.delete('/clientes/id/:id', async (req, res) => {
         const id = req.params.id
         try {
             await ClienteModel.deletaCliente(id)
@@ -74,7 +74,7 @@ const clientesController = (app) => {
         }
     })
 
-    app.put('/cliente/id/:id', async (req, res) => {
+    app.put('/clientes/id/:id', async (req, res) => {
         const body = req.body
         const id = req.params.id
         try {
@@ -94,7 +94,7 @@ const clientesController = (app) => {
         }
     })
 
-    app.patch('/cliente/contato/id/:id', async (req, res) => {
+    app.patch('/clientes/contato/id/:id', async (req, res) => {
         const id = req.params.id
         const body = req.body
         try {

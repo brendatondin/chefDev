@@ -39,6 +39,8 @@ function populaTabelaClt() {
     });
 }
 
+<<<<<<< HEAD
+=======
 const PEDIDOS_SCHEMA = `
 CREATE TABLE IF NOT EXISTS "PEDIDOS" (
     "comanda" INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -67,10 +69,14 @@ function populaTabelaPd() {
     });
 }
 
+>>>>>>> ef68e94eeece2a6c2383dc5fb589084743fab391
 
 db.serialize(() => {
     criaTabelaClt();
     populaTabelaClt();
+<<<<<<< HEAD
+=======
     criaTabelaPd();
     populaTabelaPd()
+>>>>>>> ef68e94eeece2a6c2383dc5fb589084743fab391
 });

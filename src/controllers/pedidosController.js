@@ -1,9 +1,3 @@
-
-
-
-
-
-
 const pedidosController = (app) => {
 
     app.get('/pedidos', async (req, res) => {
@@ -91,8 +85,28 @@ const pedidosController = (app) => {
             })
         }
     })
+    app.patch('/pedidos/mesa/comanda/:comanda', async (req, res) => {
+        const comanda = req.params.comanda
+        const body = req.body
+        try {
+            validaPedido(body.comanda)
+            await PedidosModel.atualizaPedidos(comanda, {
+                "comanda": body.comanda
+            })
+            res.json({
+                "msg": "Comanda atualizada",
+                "erro": false
+            })
 
-    
+        } catch (error) {
+            res.json({
+                "msg": error.message,
+                "erro": true
+            })
+        }
+    })
+
+
 }
 
 

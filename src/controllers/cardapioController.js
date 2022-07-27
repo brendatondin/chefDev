@@ -53,6 +53,23 @@ app.post('/cardapio', async (req, res) => {
     }
 })
 
+app.delete('/cardapio/codigo/:codigo', async (req, res) => {
+    const id = req.params.id
+    try {
+        await CardapioModel.deletaPrato(codigo)
+
+        res.json({
+            "msg": "Prato deletado com sucesso",
+            "erro": false
+        })
+
+    } catch (error) {
+        res.json({
+            "msg": error.message,
+            "erro": true
+        })
+    }
+})
 
 
 

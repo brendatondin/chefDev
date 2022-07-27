@@ -21,7 +21,7 @@ const pedidosController = (app) => {
         }
     })
 
-    app.get('/pedido/comanda/:comanda', async (req, res) => {
+    app.get('/pedidos/comanda/:comanda', async (req, res) => {
         const comanda = req.params.comanda
         try {
             const pedido = await PedidosModel.pegaUmPedidoComanda(comanda)
@@ -29,6 +29,24 @@ const pedidosController = (app) => {
                 "pedido": pedido,
                 "erro": false
             })
+        } catch (error) {
+            res.json({
+                "msg": error.message,
+                "erro": true
+            })
+        }
+    })
+    app.post('/pedidos', async (req, res) => {
+        const body = req.body
+        try {
+            const novoPedido = criaPedidos(body.prato, body.comanda, body.mesa)
+            await PedidosModel.inserePedidos(novoPedido)
+            res.json({
+                "msg": "Pedido inserido com sucesso",
+                "cliente": novoPedido,
+                "erro": false
+            })
+
         } catch (error) {
             res.json({
                 "msg": error.message,

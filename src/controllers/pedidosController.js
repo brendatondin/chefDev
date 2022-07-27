@@ -72,6 +72,25 @@ const pedidosController = (app) => {
             })
         }
     })
+    app.put('/cliente/comanda/:comanda', async (req, res) => {
+        const body = req.body
+        const comanda = req.params.comanda
+        try {
+            const pedidoValidado = criaPedidos(body.prato, body.comanda, body.mesa)
+            await PedidosModel.atualizaPedidos(comanda, pedidoValidado)
+            res.json({
+                "msg": "Comanda atualizada com sucesso",
+                "cliente": pedidoValidado,
+                "erro": false
+            })
+
+        } catch (error) {
+            res.json({
+                "msg": error.message,
+                "erro": true
+            })
+        }
+    })
 
     
 }

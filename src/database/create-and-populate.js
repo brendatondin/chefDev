@@ -21,9 +21,9 @@ CREATE TABLE IF NOT EXISTS "CLIENTES" (
 const ADD_CLIENTES_DATA = `
 INSERT INTO CLIENTES (ID, NOME, EMAIL, CONTATO)
 VALUES 
-    (1, 'Eugênio Oliveira', 'eugenio.oliveira@bol.com.br', 99856847),
-    (2, 'Olívia Ribeiro', 'olivia.ribeiro@gmail.com', 465416541),
-    (3, 'Mirtes Faria Lima', 'mirtes_fl@yahoo.com', 694164184796)
+    (1, 'Hudson Uchoa', 'hudsonuchoa@bol.com.br', 99856847),
+    (2, 'Joca Moura', 'jocamoura@gmail.com', 465416541),
+    (3, 'Guilherme Da Mata', 'guilhermedamata@yahoo.com', 694164184796)
 `
 
 function criaTabelaClt() {

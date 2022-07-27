@@ -39,8 +39,38 @@ function populaTabelaClt() {
     });
 }
 
+const PEDIDOS_SCHEMA = `
+CREATE TABLE IF NOT EXISTS "PEDIDOS" (
+    "comanda" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "prato" varchar(64),
+    "mesa" numeric 
+);`;
+
+const ADD_PEDIDOS_DATA = `
+INSERT INTO PEDIDOS (COMANDA, PRATO, MESA)
+VALUES 
+    (1, 'Macarrão', 1),
+    (2, 'Pizza', 2),
+    (3, 'Hamburguer', 3)
+`
+
+function criaTabelaPd() {
+    db.run(PEDIDOS_SCHEMA, (error) => {
+        if (error) console.log("Erro ao criar tabela de pedidos");
+    });
+}
+
+
+function populaTabelaPd() {
+    db.run(ADD_PEDIDOS_DATA, (error) => {
+        if (error) console.log("Erro ao popular tabela de pedidos");
+    });
+}
+
 
 db.serialize(() => {
     criaTabelaClt();
     populaTabelaClt();
+    criaTabelaPd();
+    populaTabelaPd()
 });

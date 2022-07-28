@@ -95,11 +95,44 @@ function populaTabelaCd() {
     });
 }
 
+const FUNCIONARIOS_SCHEMA = `
+CREATE TABLE IF NOT EXISTS "FUNCIONARIOS" (
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "nome" varchar(64),
+    "email" varchar(64),
+    "cargo" varchar(64),
+    "salario" numeric,
+    "contato" numeric
+);`;
+
+const ADD_FUNCIONARIOS_DATA = `
+INSERT INTO FUNCIONARIOS ( NOME, EMAIL, CARGO, SALARIO, CONTATO)
+VALUES 
+    ('Mariana Silveira', 'mariana_silveira@bol.com.br', 'Chef', 5.000, 99856847),
+    ('Júlio Martins', 'julio_martins@gmail.com', 'Auxiliar de cozinha', 3.000, 465416541),
+    ('Milena Gasparini', 'milena_gasparini@yahoo.com', 'Recepcionista', 2.000, 694164184796)
+`
+
+function criaTabelaFunc() {
+    db.run(FUNCIONARIOS_SCHEMA, (error) => {
+        if (error) console.log("Erro ao criar tabela de funcionários");
+    });
+}
+
+
+function populaTabelaFunc() {
+    db.run(ADD_FUNCIONARIOS_DATA, (error) => {
+        if (error) console.log("Erro ao popular tabela de funcionários");
+    });
+}
+
 db.serialize(() => {
     criaTabelaClt();
     populaTabelaClt();
     criaTabelaPd();
     populaTabelaPd();
     criaTabelaCd();
-    populaTabelaCd()
+    populaTabelaCd();
+    criaTabelaFunc();
+    populaTabelaFunc()
 });

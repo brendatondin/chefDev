@@ -1,6 +1,6 @@
 import express from "express";
-import cardapioController from "./Controller/controller.js"
-import clientesController from "./Controller/clientesController.js"
+import cardapioController from "./controllers/cardapioController.js"
+import clientesController from "./controllers/clientesController.js"
 import pedidosController from "./controllers/pedidosController.js";
 
 const app = express();

@@ -72,5 +72,25 @@ app.delete('/funcionario/id/:id', async (req, res) => {
     }
 })
 
+app.put('/funcionario/id/:id', async (req, res) => {
+    const body = req.body
+    const id = req.params.id
+    try {
+        const funcionarioValidado = criaFuncionario(body.nome, body.email, body.cargo, body.salario, body.contato)
+        await funcionariosModel.atualizaFuncionario(id, funcionarioValidado)
+        res.json({
+            "msg": "Funcionários atualizado com sucesso",
+            "funcionario": funcionarioValidado,
+            "erro": false
+        })
+
+    } catch (error) {
+        res.json({
+            "msg": error.message,
+            "erro": true
+        })
+    }
+})
+
 export default funcionariosController
 

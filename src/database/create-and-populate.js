@@ -19,11 +19,11 @@ CREATE TABLE IF NOT EXISTS "CLIENTES" (
 );`;
 
 const ADD_CLIENTES_DATA = `
-INSERT INTO CLIENTES (ID, NOME, EMAIL, CONTATO)
+INSERT INTO CLIENTES ( NOME, EMAIL, CONTATO)
 VALUES 
-    (1, 'Hudson Uchoa', 'hudsonuchoa@bol.com.br', 99856847),
-    (2, 'Joca Moura', 'jocamoura@gmail.com', 465416541),
-    (3, 'Guilherme Da Mata', 'guilhermedamata@yahoo.com', 694164184796)
+    ('Hudson Uchoa', 'hudsonuchoa@bol.com.br', 99856847),
+    ('Joca Moura', 'jocamoura@gmail.com', 465416541),
+    ('Guilherme Da Mata', 'guilhermedamata@yahoo.com', 694164184796)
 `
 
 function criaTabelaClt() {
@@ -47,11 +47,11 @@ CREATE TABLE IF NOT EXISTS "PEDIDOS" (
 );`;
 
 const ADD_PEDIDOS_DATA = `
-INSERT INTO PEDIDOS (COMANDA, PRATO, MESA)
+INSERT INTO PEDIDOS ( PRATO, MESA)
 VALUES 
-    (1, 'Macarrão', 1),
-    (2, 'Pizza', 2),
-    (3, 'Hamburguer', 3)
+    ('Macarrão', 1),
+    ('Pizza', 2),
+    ('Hamburguer', 3)
 `
 
 function criaTabelaPd() {
@@ -67,10 +67,72 @@ function populaTabelaPd() {
     });
 }
 
+const CARDAPIO_SCHEMA = `
+CREATE TABLE IF NOT EXISTS CARDAPIO (
+    CODIGO INTEGER PRIMARY KEY AUTOINCREMENT,
+    PRATO varchar(64)
+    
+);`;
+
+const ADD_CARDAPIO_DATA = `
+INSERT INTO CARDAPIO (PRATO)
+VALUES 
+    ( 'Frutos do mar'),
+    ( 'Massa Italiana'),
+    ( 'Sobremesa')
+`
+
+function criaTabelaCd() {
+    db.run(CARDAPIO_SCHEMA, (error) => {
+        if (error) console.log("Erro ao criar tabela de cardapio");
+    });
+}
+
+
+function populaTabelaCd() {
+    db.run(ADD_CARDAPIO_DATA, (error) => {
+        if (error) console.log("Erro ao popular tabela de cardapio");
+    });
+}
+
+const FUNCIONARIOS_SCHEMA = `
+CREATE TABLE IF NOT EXISTS "FUNCIONARIOS" (
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "nome" varchar(64),
+    "email" varchar(64),
+    "cargo" varchar(64),
+    "salario" numeric,
+    "contato" numeric
+);`;
+
+const ADD_FUNCIONARIOS_DATA = `
+INSERT INTO FUNCIONARIOS ( NOME, EMAIL, CARGO, SALARIO, CONTATO)
+VALUES 
+    ('Mariana Silveira', 'mariana_silveira@bol.com.br', 'Chef', 5.000, 99856847),
+    ('Júlio Martins', 'julio_martins@gmail.com', 'Auxiliar de cozinha', 3.000, 465416541),
+    ('Milena Gasparini', 'milena_gasparini@yahoo.com', 'Recepcionista', 2.000, 694164184796)
+`
+
+function criaTabelaFunc() {
+    db.run(FUNCIONARIOS_SCHEMA, (error) => {
+        if (error) console.log("Erro ao criar tabela de funcionários");
+    });
+}
+
+
+function populaTabelaFunc() {
+    db.run(ADD_FUNCIONARIOS_DATA, (error) => {
+        if (error) console.log("Erro ao popular tabela de funcionários");
+    });
+}
 
 db.serialize(() => {
     criaTabelaClt();
     populaTabelaClt();
     criaTabelaPd();
-    populaTabelaPd()
+    populaTabelaPd();
+    criaTabelaCd();
+    populaTabelaCd();
+    criaTabelaFunc();
+    populaTabelaFunc()
 });

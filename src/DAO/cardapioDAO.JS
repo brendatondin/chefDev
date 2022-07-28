@@ -1,7 +1,7 @@
 import db from "../database/db-sqlite.js"
 
 const cardapioDAO  = {
-    pegaTodosUsuarios : ()=>{
+    pegaCardapio : ()=>{
         const PEGA_CARDAPIO = `
         SELECT * FROM CARDAPIO
         `
@@ -13,8 +13,7 @@ const cardapioDAO  = {
                     resolve(row)
             })
         })
-    }
-
+    },
 }
 
 export default cardapioDAO

@@ -92,5 +92,27 @@ app.put('/funcionario/id/:id', async (req, res) => {
     }
 })
 
+app.patch('/funcionario/contato/id/:id', async (req, res) => {
+    const id = req.params.id
+    const body = req.body
+    try {
+        validaFuncionario(body.contato)
+        await funcionariosModel.atualizaFuncionario(id, {
+            "contato": body.contato
+        })
+        res.json({
+            "msg": "Contato atualizada",
+            "erro": false
+        })
+
+    } catch (error) {
+        res.json({
+            "msg": error.message,
+            "erro": true
+        })
+    }
+})
+
+
 export default funcionariosController
 

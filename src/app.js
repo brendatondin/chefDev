@@ -7,12 +7,14 @@ const port = 3000;
 
 app.use(express.json());
 
+
 cardapioController(app)
 pedidosController(app)
 
 
 
-
+cardapioController(app)
+clientesController(app)
 
 
 

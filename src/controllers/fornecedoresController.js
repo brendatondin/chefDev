@@ -51,6 +51,24 @@ const fornecedoresController = (app) => {
         }
     })
 
+    app.delete('/fornecedores/id/:id', async (req, res) => {
+        const id = req.params.id
+        try {
+            await FornecedoresModel.deletaFornecedor(id)
+
+            res.json({
+                "msg": "Fornecedor deletado com sucesso",
+                "erro": false
+            })
+
+        } catch (error) {
+            res.json({
+                "msg": error.message,
+                "erro": true
+            })
+        }
+    })
+
 
 
 }

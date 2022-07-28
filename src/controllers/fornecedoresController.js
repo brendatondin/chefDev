@@ -69,6 +69,26 @@ const fornecedoresController = (app) => {
         }
     })
 
+    app.put('/fornecedores/id/:id', async (req, res) => {
+        const body = req.body
+        const id = req.params.id
+        try {
+            const fornecedorValidado = criaFornecedor(body.nome, body.email, body.contato)
+            await FornecedoresModel.atualizaFornecedor(id, fornecedorValidado)
+            res.json({
+                "msg": "Fornecedor atualizado com sucesso",
+                "fornecedor": fornecedorValidado,
+                "erro": false
+            })
+
+        } catch (error) {
+            res.json({
+                "msg": error.message,
+                "erro": true
+            })
+        }
+    })
+
 
 
 }

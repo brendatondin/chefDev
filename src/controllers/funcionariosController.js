@@ -54,5 +54,23 @@ app.post('/funcionarios', async (req, res) => {
     }
 })
 
+app.delete('/funcionario/id/:id', async (req, res) => {
+    const id = req.params.id
+    try {
+        await funcionariosModel.deletaFuncionario(id)
+
+        res.json({
+            "msg": "Funcionário deletado com sucesso",
+            "erro": false
+        })
+
+    } catch (error) {
+        res.json({
+            "msg": error.message,
+            "erro": true
+        })
+    }
+})
+
 export default funcionariosController
 

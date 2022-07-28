@@ -1,13 +1,13 @@
 import express from "express";
 import reservasController from "./controllers/reservasController.js" 
-import autenticacao from './middleware/autenticacao.js'
+import autenticacao from './middleware/autenticacaoReservas.js'
 
 const app = express();
 const port = 3000;
 
 app.use(express.json());
 
-autenticacao(app)
+autenticacao(app) 
 
 reservasController(app);
 

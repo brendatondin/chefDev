@@ -16,6 +16,21 @@ const fornecedoresController = (app) => {
         }
     })
 
+    app.get('/fornecedores/contato/:contato', async (req, res) => {
+        const contato = req.params.contato
+        try {
+            const fornecedor = await FornecedoresModel.pegaUmFornecedorContato(contato)
+            res.json({
+                "Fornecedor": fornecedor,
+                "erro": false
+            })
+        } catch (error) {
+            res.json({
+                "msg": error.message,
+                "erro": true
+            })
+        }
+    })
 
 
 

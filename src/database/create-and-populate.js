@@ -126,6 +126,37 @@ function populaTabelaFunc() {
     });
 }
 
+const FORNECEDORES_SCHEMA = `
+CREATE TABLE IF NOT EXISTS "FORNECEDORES" (
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "nome" varchar(64),
+    "email" varchar(64),
+    "contato" numeric 
+);`;
+
+const ADD_FORNECEDORES_DATA = `
+INSERT INTO FORNECEDORES ( NOME, EMAIL, CONTATO)
+VALUES 
+    ('Casa das massas', 'casadasmassas@gmail.com', 1535001010),
+    ('Peixaria bons mares', 'pbonsmares@hotmail.com', 1432302020),
+    ('Hortifruti verdurão', 'hverdurao@outlook.com', 1535320000),
+    ('Distribuidora nosso tempero', 'dtnossotempero@outlook.com', 4135350000),
+    ('Carnes rei', 'carnesrei@hotmail.com.br', 1133330000)
+`
+
+function criaTabelaFornecedores() {
+    db.run(FORNECEDORES_SCHEMA, (error) => {
+        if (error) console.log("Erro ao criar tabela de fornecedores");
+    });
+}
+
+
+function populaTabelaFornecedores() {
+    db.run(ADD_FORNECEDORES_DATA, (error) => {
+        if (error) console.log("Erro ao popular tabela de fornecedores");
+    });
+}
+
 db.serialize(() => {
     criaTabelaClt();
     populaTabelaClt();
@@ -134,5 +165,7 @@ db.serialize(() => {
     criaTabelaCd();
     populaTabelaCd();
     criaTabelaFunc();
-    populaTabelaFunc()
+    populaTabelaFunc();
+    criaTabelaFornecedores();
+    populaTabelaFornecedores()
 });

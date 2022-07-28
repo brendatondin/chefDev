@@ -1,8 +1,6 @@
-
-
-
-
-
+import clientesDAO from "../DAO/clientesDAO.js";
+import ClientesModel from "../models/ClientesModel.js";
+import Validacoes from "../services/clientesValidacao.js";
 
 const clientesController = (app) => {
 
@@ -24,15 +22,16 @@ const clientesController = (app) => {
     app.get('/clientes/contato/:contato', async (req, res) => {
         const contato = req.params.contato
         try {
-            const cliente = await ClientesModel.pegaUmClienteContato(contato)
+            const cliente = await Validacoes._validaContato(contato, clientesDAO.pegaUmClienteContato)
             res.json({
                 "cliente": cliente,
+                "msg": `o contato ${contato} esta no banco de dados`,
                 "erro": false
             })
         } catch (error) {
             res.json({
                 "msg": error.message,
-                "erro": true
+                "error": true
             })
         }
     })

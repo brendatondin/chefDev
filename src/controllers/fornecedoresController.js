@@ -32,6 +32,24 @@ const fornecedoresController = (app) => {
         }
     })
 
+    app.post('/fornecedores', async (req, res) => {
+        const body = req.body
+        try {
+            const novoFornecedor = criaFornecedor(body.nome, body.email, body.contato)
+            await FornecedoresModel.insereFornecedor(novoFornecedor)
+            res.json({
+                "msg": "Fornecedor inserido com sucesso",
+                "fornecedor": novoFornecedor,
+                "erro": false
+            })
+
+        } catch (error) {
+            res.json({
+                "msg": error.message,
+                "erro": true
+            })
+        }
+    })
 
 
 

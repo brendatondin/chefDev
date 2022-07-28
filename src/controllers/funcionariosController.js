@@ -35,5 +35,24 @@ const funcionariosController = (app) => {
     })
 }
 
+app.post('/funcionarios', async (req, res) => {
+    const body = req.body
+    try {
+        const novoFuncionario = criafuncionario(body.nome, body.email, body.cargo, body.salario, body.contato)
+        await funcionariosModel.insereFuncionario(novoCliente)
+        res.json({
+            "msg": "Funcionário inserido com sucesso",
+            "funcionario": novoFuncionario,
+            "erro": false
+        })
+
+    } catch (error) {
+        res.json({
+            "msg": error.message,
+            "erro": true
+        })
+    }
+})
+
 export default funcionariosController
 

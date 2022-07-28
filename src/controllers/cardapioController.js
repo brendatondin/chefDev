@@ -1,3 +1,4 @@
+import CardapioModel from "../models/cardapioModel.js"
 const cardapioController = (app) => {
 
     app.get('/cardapio', async (req, res) => {

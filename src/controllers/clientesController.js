@@ -21,10 +21,10 @@ const clientesController = (app) => {
         }
     })
 
-    app.get('/clientes/email/:email', async (req, res) => {
-        const email = req.params.email
+    app.get('/clientes/contato/:contato', async (req, res) => {
+        const contato = req.params.contato
         try {
-            const cliente = await ClientesModel.pegaUmClienteEmail(email)
+            const cliente = await ClientesModel.pegaUmClienteContato(contato)
             res.json({
                 "cliente": cliente,
                 "erro": false

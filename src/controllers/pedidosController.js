@@ -1,3 +1,6 @@
+import PedidosModel from "../models/PedidosModel.js"
+import db from "../database/db-sqlite.js"
+
 const pedidosController = (app) => {
 
     app.get('/pedidos', async (req, res) => {

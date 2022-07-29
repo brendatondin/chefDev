@@ -29,6 +29,39 @@ const clientesDAO  = {
             })
         })
     },
+
+    insereCliente : (cliente)=>{
+        const INSERE_CLIENTES = `
+        INSERT INTO CLIENTES (nome, email, contato)
+        VALUES (?,?,?)
+        `
+        return new Promise((resolve, reject)=>{
+            db.run(INSERE_CLIENTES,
+                cliente.nome, cliente.email, cliente.contato,
+                (error)=>{
+                    if(error)
+                        reject(error)
+                    else
+                        resolve(cliente)
+                }
+            )
+        })
+    },
+
+    deletaCliente : (id)=>{
+        const DELETA_CLIENTE = `
+        DELETE FROM CLIENTES
+        WHERE id = ?
+        `
+        return new Promise((resolve, reject)=>{
+            db.get(DELETA_CLIENTE, id, (error, row)=>{
+                if(error)
+                    reject(error)
+                else
+                    resolve(row)
+            })
+        })
+    },
 }
 
 export default clientesDAO

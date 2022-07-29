@@ -7,6 +7,15 @@ const Validacoes = {
         }else{
             return cliente
         }
+    },
+
+    _validaPedidos : async (comanda, callback)=>{
+        const pedidos = await callback(comanda)
+        if(pedidos === undefined){
+            throw new Error (`comanda: ${comanda} não encontrado!`)
+        }else{
+            return pedidos
+        }
     }
 }
 

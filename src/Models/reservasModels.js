@@ -25,7 +25,13 @@ export default class Reserva {
 const reservasModel = {
     verReservas : async ()=>{
         return await reservasDAO.verReservas()
-    }
+    },
+
+    verUmaReserva : async (nomeCliente)=>{
+        return await reservasDAO.verUmaReserva(nomeCliente)
+    },
+
+
 
 }
 

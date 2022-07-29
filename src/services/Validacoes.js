@@ -18,6 +18,15 @@ const Validacoes = {
         }
     },
 
+    _ValidaDeleta : async (id, callback)=>{
+        const cliente = await callback(id)
+        if(cliente == undefined){
+            throw new Error(`Aviso: ${id} foi deletado!`)
+        }else{
+            return cliente
+        }
+    },
+
 }
 
 export default Validacoes

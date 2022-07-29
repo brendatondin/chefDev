@@ -47,6 +47,21 @@ const clientesDAO  = {
             )
         })
     },
+
+    deletaCliente : (id)=>{
+        const DELETA_CLIENTE = `
+        DELETE FROM CLIENTES
+        WHERE id = ?
+        `
+        return new Promise((resolve, reject)=>{
+            db.get(DELETA_CLIENTE, id, (error, row)=>{
+                if(error)
+                    reject(error)
+                else
+                    resolve(row)
+            })
+        })
+    },
 }
 
 export default clientesDAO

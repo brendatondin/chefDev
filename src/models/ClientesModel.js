@@ -10,6 +10,9 @@ const ClientesModel = {
     insereCliente :  async(cliente)=>{
         return await clientesDAO.insereCliente(cliente)
     },
+    deletaCliente : async(id)=>{
+        return await clientesDAO.deletaCliente(id)
+    },
 }
 
 export default ClientesModel

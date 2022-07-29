@@ -13,6 +13,9 @@ const ClientesModel = {
     deletaCliente : async(id)=>{
         return await clientesDAO.deletaCliente(id)
     },
+    atualizaCliente : async (id)=>{
+        return await clientesDAO.atualizaCliente(id)
+    }
 }
 
 export default ClientesModel

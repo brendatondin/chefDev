@@ -27,6 +27,24 @@ const Validacoes = {
         }
     },
 
+    _ValidaAtualiza : async (id, callback, novoBody)=>{
+        const cliente = await callback(id, novoBody)
+            if(cliente === undefined){
+                throw new Error("Não conseguimos atualizar essa informação no banco de dados")
+            }else{
+                return cliente
+            }
+        
+    },
+
+    _ValidaReqBody : async (body)=>{
+        if(body.nome && body.email && body.contato){
+            return body
+        }else{
+            throw new Error ("Não foi possivel atualizar essa informação!")
+        }
+    }
+
 }
 
 export default Validacoes

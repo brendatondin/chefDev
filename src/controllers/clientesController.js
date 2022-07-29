@@ -75,8 +75,10 @@ const clientesController = (app) => {
 
     app.put('/clientes/id/:id', async (req, res) => {
         const cliente = req.params.id
+        const body = req.body
         try {
-            const atualizaCliente = await Validacoes._ValidaDeleta(cliente, clientesDAO.atualizaCliente)
+            const novoBody = await Validacoes._ValidaReqBody(body)
+            const atualizaCliente = await Validacoes._ValidaAtualiza(cliente, clientesDAO.atualizaCliente, novoBody )
             res.json({
                 "msg": "Cliente atualizado com sucesso",
                 "nome": atualizaCliente,

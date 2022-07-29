@@ -3,19 +3,19 @@ import reservasModel from "../models/reservasModels.js";
 
 const reservasController = (app) => {
 
-    app.get('/reservas', (req, res) => {
+    app.get('/reservas', async (req, res) => {
 
         try {
-            const reservasModel = await reservasModel.verReservas()
+            const reservas = await reservasModel.verReservas()
 
             res.json(
                 {
-                    "reservas": Reserva.verReservas(),
+                    "reservas": reservas,
                     "erro": false
                 }
             )
         } catch (error) {
-            res.jason({
+            res.json({
                 "msg": error.message,
                 "erro": true
             })
@@ -23,7 +23,7 @@ const reservasController = (app) => {
 
     })
 
-    app.get('/reservas/nomeCliente/:nomeCliente', async (req, res) => {
+    /*app.get('/reservas/nomeCliente/:nomeCliente', async (req, res) => {
         const nomeCliente = req.params.nomeCliente
 
         try {
@@ -84,7 +84,7 @@ const reservasController = (app) => {
                 "erro": true
             })
         }
-    })
+    })*/
 }
 
 

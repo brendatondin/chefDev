@@ -22,7 +22,7 @@ const clientesController = (app) => {
     app.get('/clientes/contato/:contato', async (req, res) => {
         const contato = req.params.contato
         try {
-            const cliente = await Validacoes._validaContato(contato, clientesDAO.pegaUmClienteContato)
+            const cliente = await Validacoes._validaGet(contato, clientesDAO.pegaUmClienteContato)
             res.json({
                 "cliente": cliente,
                 "msg": `o contato ${contato} esta no banco de dados`,
@@ -37,13 +37,13 @@ const clientesController = (app) => {
     })
 
     app.post('/clientes', async (req, res) => {
-        const body = req.body
+        const cliente = req.body
         try {
-            const novoCliente = criacliente(body.nome, body.email, body.contato)
-            await ClienteModel.insereCliente(novoCliente)
+            const insereCliente = await Validacoes._validaGet(cliente, clientesDAO.insereCliente)
+            //const insereCliente = await clientesDAO.insereCliente(cliente.nome, cliente.email, cliente.contato)
             res.json({
                 "msg": "Cliente inserido com sucesso",
-                "cliente": novoCliente,
+                "nome": insereCliente,
                 "erro": false
             })
 
@@ -56,15 +56,15 @@ const clientesController = (app) => {
     })
 
     app.delete('/clientes/id/:id', async (req, res) => {
-        const id = req.params.id
+        const cliente = req.params.id
         try {
-            await ClienteModel.deletaCliente(id)
+            const deletaCliente = await Validacoes._ValidaDeleta(cliente, clientesDAO.deletaCliente)
 
             res.json({
                 "msg": "Cliente deletado com sucesso",
+                "cliente" : deletaCliente,
                 "erro": false
             })
-
         } catch (error) {
             res.json({
                 "msg": error.message,
@@ -74,14 +74,12 @@ const clientesController = (app) => {
     })
 
     app.put('/clientes/id/:id', async (req, res) => {
-        const body = req.body
-        const id = req.params.id
+        const cliente = req.params.id
         try {
-            const clienteValidado = criaCliente(body.nome, body.email, body.contato)
-            await ClienteModel.atualizaCliente(id, clienteValidado)
+            const atualizaCliente = await Validacoes._ValidaDeleta(cliente, clientesDAO.atualizaCliente)
             res.json({
                 "msg": "Cliente atualizado com sucesso",
-                "cliente": clienteValidado,
+                "nome": atualizaCliente,
                 "erro": false
             })
 

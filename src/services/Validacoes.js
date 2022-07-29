@@ -1,9 +1,9 @@
 const Validacoes = {
 
-    _validaContato : async (contato, callback)=>{
+    _validaGet : async (contato, callback)=>{
         const cliente = await callback(contato)
         if(cliente === undefined){
-            throw new Error (`contato: ${contato} não encontrado!`)
+            throw new Error (`Aviso: ${contato} não encontrado!`)
         }else{
             return cliente
         }
@@ -16,7 +16,8 @@ const Validacoes = {
         }else{
             return pedidos
         }
-    }
+    },
+
 }
 
 export default Validacoes

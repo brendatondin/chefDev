@@ -1,4 +1,4 @@
-import bd from "../database/database.js"
+//import bd from "../database/database.js"
 
 let id = 0
 

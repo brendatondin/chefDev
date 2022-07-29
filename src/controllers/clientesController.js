@@ -1,6 +1,6 @@
 import clientesDAO from "../DAO/clientesDAO.js";
 import ClientesModel from "../models/ClientesModel.js";
-import Validacoes from "../services/clientesValidacao.js";
+import Validacoes from "../services/Validacoes.js";
 
 const clientesController = (app) => {
 

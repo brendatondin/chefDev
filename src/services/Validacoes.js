@@ -1,5 +1,3 @@
-import clientesDAO from "../DAO/clientesDAO.js"
-
 const Validacoes = {
 
     _validaContato : async (contato, callback)=>{

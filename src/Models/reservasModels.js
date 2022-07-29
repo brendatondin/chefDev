@@ -1,23 +1,22 @@
-import bd from "../database/database.js"
+const reservasModel = {
+    verReservas : async ()=>{
+        return await reservasDAO.verReservas()
+    },
 
-let id = 0
+    verUmaReserva : async (nomeCliente)=>{
+        return await reservasDAO.verUmaReserva(nomeCliente)
+    },
 
-export default class Reserva {
-    constructor(nomeCliente, data, hora, lugares, mesa){
-        this.id = id++
-        this.nomeCliente = nomeCliente
-        this.data = data
-        this.hora = hora
-        this.lugares = lugares
-        this.mesa = mesa
-        this.dataAgendamento = new Date()
-    }
+    agendarReserva : async (reserva)=>{
+        return await reservasDAO.agendarReserva(reserva)
+    },
 
-    agendarReserva = (reserva) =>{
-        bd.push(reserva)
-    }
+    deletaReserva : async (nomeCliente)=>{
+        return await reservasDAO.deletaReserva(nomeCliente)
+    },
 
-    static verReservas = () =>{
-        return bd
-    }
+
+
 }
+
+export default reservasModel

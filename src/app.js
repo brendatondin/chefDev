@@ -4,7 +4,6 @@ import clientesController from "./controllers/clientesController.js"
 import pedidosController from "./controllers/pedidosController.js"
 import fornecedoresController from "./controllers/fornecedoresController.js"
 import reservasController from "./controllers/reservasController.js"
-
 const app = express();
 const port = 3000;
 

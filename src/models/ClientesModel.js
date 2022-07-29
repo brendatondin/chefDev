@@ -6,7 +6,10 @@ const ClientesModel = {
     },
     pegaUmClienteContato : async (contato)=>{
         return await clientesDAO.pegaUmClienteContato(contato)
-    }
+    },
+    insereCliente :  async(cliente)=>{
+        return await clientesDAO.insereCliente(cliente)
+    },
 }
 
 export default ClientesModel

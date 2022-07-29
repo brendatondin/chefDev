@@ -29,6 +29,24 @@ const clientesDAO  = {
             })
         })
     },
+
+    insereCliente : (cliente)=>{
+        const INSERE_CLIENTES = `
+        INSERT INTO CLIENTES (nome, email, contato)
+        VALUES (?,?,?)
+        `
+        return new Promise((resolve, reject)=>{
+            db.run(INSERE_CLIENTES,
+                cliente.nome, cliente.email, cliente.contato,
+                (error)=>{
+                    if(error)
+                        reject(error)
+                    else
+                        resolve(cliente)
+                }
+            )
+        })
+    },
 }
 
 export default clientesDAO

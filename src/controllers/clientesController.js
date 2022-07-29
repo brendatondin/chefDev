@@ -40,7 +40,6 @@ const clientesController = (app) => {
         const cliente = req.body
         try {
             const insereCliente = await Validacoes._validaGet(cliente, clientesDAO.insereCliente)
-            //const insereCliente = await clientesDAO.insereCliente(cliente.nome, cliente.email, cliente.contato)
             res.json({
                 "msg": "Cliente inserido com sucesso",
                 "nome": insereCliente,

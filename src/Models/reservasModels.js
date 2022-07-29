@@ -31,6 +31,14 @@ const reservasModel = {
         return await reservasDAO.verUmaReserva(nomeCliente)
     },
 
+    agendarReserva : async (reserva)=>{
+        return await reservasDAO.agendarReserva(reserva)
+    },
+
+    deletaReserva : async (nomeCliente)=>{
+        return await reservasDAO.deletaReserva(nomeCliente)
+    },
+
 
 
 }

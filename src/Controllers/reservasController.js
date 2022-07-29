@@ -69,7 +69,7 @@ const reservasController = (app) => {
     })
 
     app.delete('/reservas/nomeCliente/:nomeCliente', async (req, res) => {
-        const id = req.params.nomeCliente
+        const nomeCliente = req.params.nomeCliente
         try {
             await reservasModel.deletaReserva(nomeCliente)
 

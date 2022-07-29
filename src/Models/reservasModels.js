@@ -1,4 +1,4 @@
-import bd from "../database/database.js"
+/* import bd from "../database/database.js"
 
 let id = 0
 
@@ -17,7 +17,16 @@ export default class Reserva {
         bd.push(reserva)
     }
 
-    static verReservas = () =>{
+    verReservas = () =>{
         return bd
     }
+} */
+
+const reservasModel = {
+    verReservas : async ()=>{
+        return await reservasDAO.verReservas()
+    }
+
 }
+
+export default reservasModel

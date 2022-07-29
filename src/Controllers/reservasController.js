@@ -1,17 +1,26 @@
-import Reserva from "../models/reservasModels.js";
+import reservasModel from "../models/reservasModels.js";
 
 
 const reservasController = (app) => {
 
     app.get('/reservas', (req, res) => {
-        const reserva = new Reserva()
 
-        res.json(
-            {
-                "reservas": Reserva.verReservas(),
-                "erro": false
-            }
-        )
+        try {
+            const reservasModel = await reservasModel.verReservas()
+
+            res.json(
+                {
+                    "reservas": Reserva.verReservas(),
+                    "erro": false
+                }
+            )
+        }catch(error){
+            res.jason({
+                "msg": error.message,
+                "erro": true
+            })
+        }
+
     })
 
 

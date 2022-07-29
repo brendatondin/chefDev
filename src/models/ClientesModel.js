@@ -1,9 +1,21 @@
+import clientesDAO from "../DAO/clientesDAO.js"
+const ClientesModel = {
 
-
-export default class ClienteModel{
-
-insereCliente = (Cliente)=>{
-    
+    pegaCliente : async ()=>{
+        return await clientesDAO.pegaCliente()
+    },
+    pegaUmClienteContato : async (contato)=>{
+        return await clientesDAO.pegaUmClienteContato(contato)
+    },
+    insereCliente :  async(cliente)=>{
+        return await clientesDAO.insereCliente(cliente)
+    },
+    deletaCliente : async(id)=>{
+        return await clientesDAO.deletaCliente(id)
+    },
+    atualizaCliente : async (id)=>{
+        return await clientesDAO.atualizaCliente(id)
+    }
 }
 
-}
+export default ClientesModel

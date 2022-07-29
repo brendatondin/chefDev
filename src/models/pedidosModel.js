@@ -1,8 +1,11 @@
-class PedidosModel{
-    constructor(comanda, prato, mesa){
-        this.comanda = comanda
-        this.prato = prato
-        this.mesa = mesa
+import pedidosDAO from "../DAO/pedidosDAO.js"
+const PedidosModel = {
+
+    pegaPedidos : async ()=>{
+        return await pedidosDAO.pegaPedidos()
+    },
+    pegaUmPedidoComanda : async (comanda)=>{
+        return await pedidosDAO.pegaUmPedidoComanda(comanda)
     }
 }
 

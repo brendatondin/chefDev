@@ -1,5 +1,6 @@
 import PedidosModel from "../models/PedidosModel.js"
 import pedidosDAO from "../DAO/pedidosDAO.js"
+import Validacoes from "../services/Validacoes.js";
 
 const pedidosController = (app) => {
 
@@ -21,9 +22,10 @@ const pedidosController = (app) => {
     app.get('/pedidos/comanda/:comanda', async (req, res) => {
         const comanda = req.params.comanda
         try {
-            const pedido = await PedidosModel.pegaUmPedidoComanda(comanda)
+            const pedido = await Validacoes._validaPedidos(comanda, pedidosDAO.pegaUmPedidoComanda)
             res.json({
                 "pedido": pedido,
+                "msg": `o pedido ${comanda} esta no banco de dados`,
                 "erro": false
             })
         } catch (error) {

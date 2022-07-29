@@ -68,6 +68,25 @@ const reservasController = (app) => {
 
     })
 
+    app.delete('/reservas/nomeCliente/:nomeCliente', async (req, res) => {
+        const id = req.params.nomeCliente
+        try {
+            await reservasModel.deletaReserva(nomeCliente)
+
+            res.json({
+                "msg": "Reserva deletada com sucesso",
+                "erro": false
+            })
+
+        } catch (error) {
+            res.json({
+                "msg": error.message,
+                "erro": true
+            })
+        }
+    })
 }
+
+
 
 export default reservasController

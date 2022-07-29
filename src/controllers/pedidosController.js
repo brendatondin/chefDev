@@ -1,5 +1,5 @@
 import PedidosModel from "../models/PedidosModel.js"
-import db from "../database/db-sqlite.js"
+import pedidosDAO from "../DAO/pedidosDAO.js"
 
 const pedidosController = (app) => {
 

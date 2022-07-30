@@ -6,7 +6,10 @@ const PedidosModel = {
     },
     pegaUmPedidoComanda : async (comanda)=>{
         return await pedidosDAO.pegaUmPedidoComanda(comanda)
-    }
+    },
+    inserePedidos :  async(pedidos)=>{
+        return await pedidosDAO.inserePedidos(pedidos)
+    },
 }
 
 export default PedidosModel

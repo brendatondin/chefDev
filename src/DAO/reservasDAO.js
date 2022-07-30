@@ -42,22 +42,34 @@ const reservasDAO = {
             db.run(AGENDA_RESERVA,
                 reserva.nomeCliente, reserva.data, reserva.hora, reserva.lugares, reserva.mesa,
                 (error)=>{
-                    if(error)
+                    if(error){
                         reject(error)
-                    else
+                    }else
                         resolve({
-                            sucess:"Reserva agendada."
+                            success:"Reserva agendada."
                         })
                 }
             )
         })
     },
 
-/*
-    deletaReserva : () =>{
-        
+
+    deletaReserva : (idReserva) =>{
+        const DELETA_RESERVA = `
+        DELETE FROM RESERVAS
+        WHERE idReserva = ?
+        `
+        return new Promise((resolve, reject)=>{
+            db.get(DELETA_RESERVA, idReserva, (error, row)=>{
+                if(error)
+                    reject(error)
+                else
+                    resolve(row)
+            })
+        })
     },
- */
-}
+    }
+
+
 
 export default reservasDAO

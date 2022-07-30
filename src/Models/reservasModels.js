@@ -12,11 +12,11 @@ const reservasModel = {
     agendarReserva : async (reserva)=>{
         return await reservasDAO.agendarReserva(reserva)
     },
-/*
+
     deletaReserva : async (nomeCliente)=>{
         return await reservasDAO.deletaReserva(nomeCliente)
     },
- */
+
 
 
 }

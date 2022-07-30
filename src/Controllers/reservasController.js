@@ -68,14 +68,15 @@ const reservasController = (app) => {
 
     })
 
-/* 
-    app.delete('/reservas/nomeCliente/:nomeCliente', async (req, res) => {
-        const nomeCliente = req.params.nomeCliente
+
+    app.delete('/reservas/idReserva/:idReserva', async (req, res) => {
+        const idReserva = req.params.idReserva
         try {
-            await reservasModel.deletaReserva(nomeCliente)
+            const deletaReserva = await Validacoes._ValidaDeleta(idReserva, reservasDAO.deletaReserva)
 
             res.json({
                 "msg": "Reserva deletada com sucesso",
+                "deletaReserva": deletaReserva,
                 "erro": false
             })
 
@@ -85,9 +86,7 @@ const reservasController = (app) => {
                 "erro": true
             })
         }
-    })*/
+    })
 }
-
-
 
 export default reservasController

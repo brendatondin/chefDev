@@ -12,7 +12,7 @@ const Validacoes = {
     _ValidaDeleta : async (id, callback)=>{
         const cliente = await callback(id)
         if(cliente == undefined){
-            throw new Error(`Aviso: ${id} foi deletado!`)
+            throw new Error(`Aviso: ${id} não deletado!`)
         }else{
             return cliente
         }

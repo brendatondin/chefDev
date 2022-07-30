@@ -62,6 +62,25 @@ const clientesDAO  = {
             })
         })
     },
+    atualizaCliente : (id, novoCliente)=>{
+        const ATUALIZA_CLIENTE = `
+        UPDATE CLIENTES
+        SET nome = ?, email = ?, contato = ?
+        WHERE id = ?
+        `
+        return new Promise((resolve, reject)=>{
+            db.run(ATUALIZA_CLIENTE,
+                novoCliente.nome, novoCliente.email, novoCliente.contato,
+                id,
+                (error)=>{
+                    if(error)
+                        reject(error)
+                    else
+                        resolve(novoCliente)
+                }
+            )
+        })  
+    }
 }
 
 export default clientesDAO

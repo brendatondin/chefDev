@@ -46,5 +46,20 @@ const funcionariosDAO = {
                 }
             )
         })
+    },
+
+    deletaFuncionario: (id) => {
+        const DELETA_FUNCIONARIO = `
+        DELETE FROM FUNCIONARIOS
+        WHERE id = ?
+        `
+        return new Promise((resolve, reject) => {
+            db.get(DELETA_FUNCIONARIO, id, (error, row) => {
+                if (error)
+                    reject(error)
+                else
+                    resolve(row)
+            })
+        })
     }
 }

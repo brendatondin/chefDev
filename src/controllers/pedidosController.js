@@ -1,14 +1,16 @@
-import PedidosModel from "../models/PedidosModel.js"
-import pedidosDAO from "../DAO/pedidosDAO.js"
-import Validacoes from "../services/Validacoes.js";
+import usuarioModel from "../model/usuario.js"
+import {
+    criaUsuario,
+    validaSenha
+} from "../services/validacaoUsuario.js"
 
-const pedidosController = (app) => {
+const usuarioController = (app) => {
 
-    app.get('/pedidos', async (req, res) => {
+    app.get('/usuario', async (req, res) => {
         try {
-            const todosPedidos = await PedidosModel.pegaPedidos()
+            const todosUsuarios = await usuarioModel.pegaUsuarios()
             res.json({
-                "pedidos": todosPedidos,
+                "usuarios": todosUsuarios,
                 "erro": false
             })
         } catch (error) {
@@ -19,13 +21,13 @@ const pedidosController = (app) => {
         }
     })
 
-    app.get('/pedidos/comanda/:comanda', async (req, res) => {
-        const comanda = req.params.comanda
+
+    app.get('/usuario/email/:email', async (req, res) => {
+        const email = req.params.email
         try {
-            const pedido = await Validacoes._validaGet(comanda, pedidosDAO.pegaUmPedidoComanda)
+            const usuario = await usuarioModel.pegaUmUsuarioEmail(email)
             res.json({
-                "pedido": pedido,
-                "msg": `o pedido ${comanda} esta no banco de dados`,
+                "usuario": usuario,
                 "erro": false
             })
         } catch (error) {
@@ -36,13 +38,15 @@ const pedidosController = (app) => {
         }
     })
 
-    app.post('/pedidos', async (req, res) => {
+
+    app.post('/usuario', async (req, res) => {
         const body = req.body
         try {
-            const inserePedido = await Validacoes._validaGet(body, pedidosDAO.inserePedidos)
+            const novoUsuario = criaUsuario(body.nome, body.email, body.senha)
+            await usuarioModel.insereUsuario(novoUsuario)
             res.json({
-                "msg": "Pedido inserido com sucesso",
-                "cliente": inserePedido,
+                "msg": "Usuário inserido com sucesso",
+                "usuario": novoUsuario,
                 "erro": false
             })
 
@@ -54,16 +58,17 @@ const pedidosController = (app) => {
         }
     })
 
-    app.delete('/pedidos/comanda/:comanda', async (req, res) => {
-        const comanda = req.params.comanda
+
+    app.delete('/usuario/id/:id', async (req, res) => {
+        const id = req.params.id
         try {
-            await PedidosModel.deletaPedido(comanda)
+            await usuarioModel.deletaUsuario(id)
 
             res.json({
-                "msg": "Comanda deletada com sucesso",
+                "msg": "Usuário deletado com sucesso",
                 "erro": false
             })
-
+            
         } catch (error) {
             res.json({
                 "msg": error.message,
@@ -71,18 +76,19 @@ const pedidosController = (app) => {
             })
         }
     })
-    app.put('/cliente/comanda/:comanda', async (req, res) => {
+
+
+    app.put('/usuario/id/:id', async (req, res) => {
         const body = req.body
-        const comanda = req.params.comanda
+        const id = req.params.id
         try {
-            const pedidoValidado = criaPedidos(body.prato, body.comanda, body.mesa)
-            await PedidosModel.atualizaPedidos(comanda, pedidoValidado)
+            const usuarioValidado = criaUsuario(body.nome, body.email, body.senha)
+            await usuarioModel.atualizaUsuario(id, usuarioValidado)
             res.json({
-                "msg": "Comanda atualizada com sucesso",
-                "cliente": pedidoValidado,
+                "msg": "Usuário atualizado com sucesso",
+                "usuario": usuarioValidado,
                 "erro": false
             })
-
         } catch (error) {
             res.json({
                 "msg": error.message,
@@ -90,16 +96,17 @@ const pedidosController = (app) => {
             })
         }
     })
-    app.patch('/pedidos/mesa/comanda/:comanda', async (req, res) => {
-        const comanda = req.params.comanda
+
+    app.patch('/usuario/senha/id/:id', async (req, res) => {
+        const id = req.params.id
         const body = req.body
         try {
-            validaPedido(body.comanda)
-            await PedidosModel.atualizaPedidos(comanda, {
-                "comanda": body.comanda
+            validaSenha(body.senha)
+            await usuarioModel.atualizaUsuario(id, {
+                "senha": body.senha
             })
             res.json({
-                "msg": "Comanda atualizada",
+                "msg": "Senha atualizada",
                 "erro": false
             })
 
@@ -110,9 +117,7 @@ const pedidosController = (app) => {
             })
         }
     })
-
-
 }
 
 
-export default pedidosController
+export default usuarioController

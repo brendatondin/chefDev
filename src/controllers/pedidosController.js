@@ -57,13 +57,12 @@ const pedidosController = (app) => {
     app.delete('/pedidos/comanda/:comanda', async (req, res) => {
         const comanda = req.params.comanda
         try {
-            await PedidosModel.deletaPedido(comanda)
-
+            const deletaPedidos = await pedidosDAO.deletaPedidos(comanda)
             res.json({
-                "msg": "Comanda deletada com sucesso",
+                "msg": `Comanda ${comanda} deletada com sucesso`,
                 "erro": false
             })
-
+    
         } catch (error) {
             res.json({
                 "msg": error.message,
@@ -71,7 +70,8 @@ const pedidosController = (app) => {
             })
         }
     })
-    app.put('/cliente/comanda/:comanda', async (req, res) => {
+
+    app.put('/pedidos/comanda/:comanda', async (req, res) => {
         const body = req.body
         const comanda = req.params.comanda
         try {

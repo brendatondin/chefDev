@@ -29,6 +29,7 @@ const pedidosDAO  = {
             })
         })
     },
+
     inserePedidos : (pedidos)=>{
         const INSERE_PEDIDOS = `
         INSERT INTO PEDIDOS (comanda, prato, mesa)
@@ -46,6 +47,23 @@ const pedidosDAO  = {
             )
         })
     },
+    
+    deletaPedidos : (comanda)=>{
+        const DELETA_PEDIDOS = `
+        DELETE FROM PEDIDOS
+        WHERE comanda = ?
+        `
+        return new Promise((resolve, reject)=>{
+            db.get(DELETA_PEDIDOS, comanda, (error, row)=>{
+                if(error)
+                    reject(error)
+                else
+                    resolve(row)
+            })
+        })
+    }
 }
+
+
 
 export default pedidosDAO

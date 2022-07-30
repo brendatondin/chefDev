@@ -157,7 +157,6 @@ function populaTabelaFornecedores() {
     });
 }
 
-/////////////////////RESERVAS VACILAO/////////////////////////////////////
 const RESERVAS_SCHEMA = `
     CREATE TABLE IF NOT EXISTS "RESERVAS" (
         "idReserva" INTEGER PRIMARY KEY AUTOINCREMENT,

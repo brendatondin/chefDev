@@ -1,21 +1,23 @@
 import reservasModel from "../models/reservasModels.js";
+import Validacoes from "../services/Validacoes.js";
+import reservasDAO from "../DAO/reservasDAO.js";
 
 
 const reservasController = (app) => {
 
-    app.get('/reservas', (req, res) => {
+    app.get('/reservas', async (req, res) => {
 
         try {
-            const reservasModel = await reservasModel.verReservas()
+            const reservas = await reservasModel.verReservas()
 
             res.json(
                 {
-                    "reservas": Reserva.verReservas(),
+                    "reservas": reservas,
                     "erro": false
                 }
             )
         } catch (error) {
-            res.jason({
+            res.json({
                 "msg": error.message,
                 "erro": true
             })
@@ -23,11 +25,11 @@ const reservasController = (app) => {
 
     })
 
-    app.get('/reservas/nomeCliente/:nomeCliente', async (req, res) => {
-        const nomeCliente = req.params.nomeCliente
+    app.get('/reservas/idReserva/:idReserva', async (req, res) => {
+        const idReserva = req.params.idReserva
 
         try {
-            const reserva = await reservasModel.verUmaReserva(nomeCliente)
+            const reserva = await reservasModel.verUmaReserva(idReserva)
             res.json(
                 {
                     "reserva": reserva,
@@ -44,19 +46,17 @@ const reservasController = (app) => {
         }
     })
 
-
     app.post('/reservas', async (req, res) => {
         const body = req.body
 
 
         try {
-            const reserva = criaReserva(body.nomeCliente, body.data, body.hora, body.lugares, body.mesa)
-            await reservasModel.agendarReserva(reserva)
+            const agendarReserva = await Validacoes._validaGet(body, reservasDAO.agendarReserva)
 
             res.json(
                 {
                     "msg": "Reserva agendada com sucesso!",
-                    "reserva": reserva,
+                    "reserva": agendarReserva,
                     "erro": false
                 })
         } catch (error) {
@@ -68,13 +68,15 @@ const reservasController = (app) => {
 
     })
 
-    app.delete('/reservas/nomeCliente/:nomeCliente', async (req, res) => {
-        const nomeCliente = req.params.nomeCliente
+
+    app.delete('/reservas/idReserva/:idReserva', async (req, res) => {
+        const idReserva = req.params.idReserva
         try {
-            await reservasModel.deletaReserva(nomeCliente)
+            const deletaReserva = await Validacoes._ValidaDeleta(idReserva, reservasDAO.deletaReserva)
 
             res.json({
                 "msg": "Reserva deletada com sucesso",
+                "deletaReserva": deletaReserva,
                 "erro": false
             })
 
@@ -86,7 +88,5 @@ const reservasController = (app) => {
         }
     })
 }
-
-
 
 export default reservasController

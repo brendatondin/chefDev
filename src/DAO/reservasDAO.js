@@ -32,11 +32,28 @@ const reservasDAO = {
         })
     },
 
-/*
-    agendarReserva : () =>{
-        
+
+    agendarReserva : (reserva) =>{
+        const AGENDA_RESERVA = `
+        INSERT INTO RESERVAS (nomeCliente, data, hora, lugares, mesa)
+        VALUES (?,?,?,?,?)
+        `
+        return new Promise((resolve, reject)=>{
+            db.run(AGENDA_RESERVA,
+                reserva.nomeCliente, reserva.data, reserva.hora, reserva.lugares, reserva.mesa,
+                (error)=>{
+                    if(error)
+                        reject(error)
+                    else
+                        resolve({
+                            sucess:"Reserva agendada."
+                        })
+                }
+            )
+        })
     },
 
+/*
     deletaReserva : () =>{
         
     },

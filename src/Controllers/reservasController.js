@@ -1,4 +1,6 @@
 import reservasModel from "../models/reservasModels.js";
+import Validacoes from "../services/Validacoes.js";
+import reservasDAO from "../DAO/reservasDAO.js";
 
 
 const reservasController = (app) => {
@@ -44,19 +46,17 @@ const reservasController = (app) => {
         }
     })
 
-
-    /*app.post('/reservas', async (req, res) => {
+    app.post('/reservas', async (req, res) => {
         const body = req.body
 
 
         try {
-            const reserva = criaReserva(body.nomeCliente, body.data, body.hora, body.lugares, body.mesa)
-            await reservasModel.agendarReserva(reserva)
+            const agendarReserva = await Validacoes._validaGet(body, reservasDAO.agendarReserva)
 
             res.json(
                 {
                     "msg": "Reserva agendada com sucesso!",
-                    "reserva": reserva,
+                    "reserva": agendarReserva,
                     "erro": false
                 })
         } catch (error) {
@@ -68,6 +68,7 @@ const reservasController = (app) => {
 
     })
 
+/* 
     app.delete('/reservas/nomeCliente/:nomeCliente', async (req, res) => {
         const nomeCliente = req.params.nomeCliente
         try {

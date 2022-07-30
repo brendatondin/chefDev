@@ -9,15 +9,6 @@ const Validacoes = {
         }
     },
 
-    _validaPedidos : async (comanda, callback)=>{
-        const pedidos = await callback(comanda)
-        if(pedidos === undefined){
-            throw new Error (`comanda: ${comanda} não encontrado!`)
-        }else{
-            return pedidos
-        }
-    },
-
     _ValidaDeleta : async (id, callback)=>{
         const cliente = await callback(id)
         if(cliente == undefined){

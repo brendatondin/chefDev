@@ -126,6 +126,68 @@ function populaTabelaFunc() {
     });
 }
 
+const FORNECEDORES_SCHEMA = `
+CREATE TABLE IF NOT EXISTS "FORNECEDORES" (
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "nome" varchar(64),
+    "email" varchar(64),
+    "contato" numeric 
+);`;
+
+const ADD_FORNECEDORES_DATA = `
+INSERT INTO FORNECEDORES ( NOME, EMAIL, CONTATO)
+VALUES 
+    ('Casa das massas', 'casadasmassas@gmail.com', 1535001010),
+    ('Peixaria bons mares', 'pbonsmares@hotmail.com', 1432302020),
+    ('Hortifruti verdurão', 'hverdurao@outlook.com', 1535320000),
+    ('Distribuidora nosso tempero', 'dtnossotempero@outlook.com', 4135350000),
+    ('Carnes rei', 'carnesrei@hotmail.com.br', 1133330000)
+`
+
+function criaTabelaFornecedores() {
+    db.run(FORNECEDORES_SCHEMA, (error) => {
+        if (error) console.log("Erro ao criar tabela de fornecedores");
+    });
+}
+
+
+function populaTabelaFornecedores() {
+    db.run(ADD_FORNECEDORES_DATA, (error) => {
+        if (error) console.log("Erro ao popular tabela de fornecedores");
+    });
+}
+
+const RESERVAS_SCHEMA = `
+    CREATE TABLE IF NOT EXISTS "RESERVAS" (
+        "idReserva" INTEGER PRIMARY KEY AUTOINCREMENT,
+        "nomeCliente" varchar(64),
+        "data" varchar(64),
+        "hora" int,
+        "lugares" int,
+        "mesa" int
+        
+    );`
+
+const ADD_RESERVAS_DATA = `
+    INSERT INTO RESERVAS (NOMECLIENTE, DATA, HORA, LUGARES, MESA)
+    VALUES 
+        ('Sr. João Pedro de Moura', '29/08/2022', 19, 4, 8),
+        ('Maria da Conceição', '29/08/2022', 21, 6, 15),
+        ('Joana Costa', '29/08/2022', 19, 2, 6)`
+
+function criaTabelaReservas() {
+    db.run(RESERVAS_SCHEMA, (error) => {
+        if (error) console.log("Erro ao criar tabela de reservas");
+    });
+}
+
+
+function populaTabelaReservas() {
+    db.run(ADD_RESERVAS_DATA, (error) => {
+        if (error) console.log("Erro ao popular tabela de reservas");
+    });
+}
+
 db.serialize(() => {
     criaTabelaClt();
     populaTabelaClt();
@@ -134,5 +196,9 @@ db.serialize(() => {
     criaTabelaCd();
     populaTabelaCd();
     criaTabelaFunc();
-    populaTabelaFunc()
+    populaTabelaFunc();
+    criaTabelaFornecedores();
+    populaTabelaFornecedores();
+    criaTabelaReservas();
+    populaTabelaReservas()
 });

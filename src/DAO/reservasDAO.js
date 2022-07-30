@@ -15,10 +15,24 @@ const reservasDAO = {
         })
     },
 
-   /*  verUmaReserva : () =>{
-        
+     verUmaReserva : (idReserva) =>{
+        const VER_UMA_RESERVA = `
+        SELECT * FROM RESERVAS
+        WHERE idReserva = ?`
+
+        return new Promise((resolve, reject)=>{
+            db.get(VER_UMA_RESERVA, idReserva, (error, row)=>{
+                if(error){
+                    reject(error)
+                }else{
+                    resolve(row)
+                }
+
+            })
+        })
     },
 
+/*
     agendarReserva : () =>{
         
     },

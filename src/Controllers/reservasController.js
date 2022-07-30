@@ -23,11 +23,11 @@ const reservasController = (app) => {
 
     })
 
-    /*app.get('/reservas/nomeCliente/:nomeCliente', async (req, res) => {
-        const nomeCliente = req.params.nomeCliente
+    app.get('/reservas/idReserva/:idReserva', async (req, res) => {
+        const idReserva = req.params.idReserva
 
         try {
-            const reserva = await reservasModel.verUmaReserva(nomeCliente)
+            const reserva = await reservasModel.verUmaReserva(idReserva)
             res.json(
                 {
                     "reserva": reserva,
@@ -45,7 +45,7 @@ const reservasController = (app) => {
     })
 
 
-    app.post('/reservas', async (req, res) => {
+    /*app.post('/reservas', async (req, res) => {
         const body = req.body
 
 

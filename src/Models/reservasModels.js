@@ -4,11 +4,11 @@ const reservasModel = {
     verReservas : async ()=>{
         return await reservasDAO.verReservas()
     },
-/* 
-    verUmaReserva : async (nomeCliente)=>{
-        return await reservasDAO.verUmaReserva(nomeCliente)
+ 
+    verUmaReserva : async (idReserva)=>{
+        return await reservasDAO.verUmaReserva(idReserva)
     },
-
+/*
     agendarReserva : async (reserva)=>{
         return await reservasDAO.agendarReserva(reserva)
     },

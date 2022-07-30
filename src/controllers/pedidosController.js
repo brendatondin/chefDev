@@ -22,7 +22,7 @@ const pedidosController = (app) => {
     app.get('/pedidos/comanda/:comanda', async (req, res) => {
         const comanda = req.params.comanda
         try {
-            const pedido = await Validacoes._validaPedidos(comanda, pedidosDAO.pegaUmPedidoComanda)
+            const pedido = await Validacoes._validaGet(comanda, pedidosDAO.pegaUmPedidoComanda)
             res.json({
                 "pedido": pedido,
                 "msg": `o pedido ${comanda} esta no banco de dados`,
@@ -35,14 +35,14 @@ const pedidosController = (app) => {
             })
         }
     })
+
     app.post('/pedidos', async (req, res) => {
         const body = req.body
         try {
-            const novoPedido = criaPedidos(body.prato, body.comanda, body.mesa)
-            await PedidosModel.inserePedidos(novoPedido)
+            const inserePedido = await Validacoes._validaGet(body, pedidosDAO.inserePedidos)
             res.json({
                 "msg": "Pedido inserido com sucesso",
-                "cliente": novoPedido,
+                "cliente": inserePedido,
                 "erro": false
             })
 

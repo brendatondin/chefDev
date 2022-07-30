@@ -29,6 +29,23 @@ const pedidosDAO  = {
             })
         })
     },
+    inserePedidos : (pedidos)=>{
+        const INSERE_PEDIDOS = `
+        INSERT INTO PEDIDOS (comanda, prato, mesa)
+        VALUES (?,?,?)
+        `
+        return new Promise((resolve, reject)=>{
+            db.run(INSERE_PEDIDOS,
+                pedidos.comanda, pedidos.prato, pedidos.mesa,
+                (error)=>{
+                    if(error)
+                        reject(error)
+                    else
+                        resolve(pedidos)
+                }
+            )
+        })
+    },
 }
 
 export default pedidosDAO

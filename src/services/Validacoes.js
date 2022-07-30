@@ -11,7 +11,7 @@ const Validacoes = {
 
     _ValidaDeleta : async (id, callback)=>{
         const cliente = await callback(id)
-        if(cliente == undefined){
+        if(cliente === undefined){
             throw new Error(`Aviso: ${id} não deletado!`)
         }else{
             return cliente
@@ -30,6 +30,14 @@ const Validacoes = {
 
     _ValidaReqBody : async (body)=>{
         if(body.nome && body.email && body.contato){
+            return body
+        }else{
+            throw new Error ("Não foi possivel atualizar essa informação!")
+        }
+    },
+
+    _ValidaReqBodyReservas : async (body)=>{
+        if(body.nomeCliente && body.data && body.hora && body.lugares && body.mesa){
             return body
         }else{
             throw new Error ("Não foi possivel atualizar essa informação!")

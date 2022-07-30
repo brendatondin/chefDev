@@ -9,15 +9,6 @@ const Validacoes = {
         }
     },
 
-    _ValidaDeleta : async (id, callback)=>{
-        const cliente = await callback(id)
-        if(cliente == undefined){
-            throw new Error(`Aviso: ${id} não deletado!`)
-        }else{
-            return cliente
-        }
-    },
-
     _ValidaAtualiza : async (id, callback, novoBody)=>{
         const cliente = await callback(id, novoBody)
             if(cliente === undefined){

@@ -61,5 +61,27 @@ const funcionariosDAO = {
                     resolve(row)
             })
         })
+    },
+
+    atualizaFuncionario: (id, novoFuncionario) => {
+        const ATUALIZA_FUNCIONARIO = `
+        UPDATE FUNCIONARIOS
+        SET nome = ?, email = ?, cargo = ?, salario = ?, contato = ?
+        WHERE id = ?
+        `
+        return new Promise((resolve, reject) => {
+            db.run(ATUALIZA_FUNCIONARIO,
+                novoFuncionario.nome, novoFuncionario.email, novoFuncionario.cargo, novoFuncionario.salario, novoFuncionario.contato,
+                id,
+                (error) => {
+                    if (error)
+                        reject(error)
+                    else
+                        resolve(novoFuncionario)
+                }
+            )
+        })
     }
 }
+
+export default funcionariosDAO

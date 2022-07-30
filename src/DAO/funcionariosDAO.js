@@ -28,5 +28,23 @@ const funcionariosDAO = {
                     resolve(row)
             })
         })
+    },
+
+    insereFuncionario: (funcionario) => {
+        const INSERE_FUNCIONARIO = `
+        INSERT INTO FUNCIONARIOS (nome, email, cargo, salario, contato)
+        VALUES (?,?,?,?,?)
+        `
+        return new Promise((resolve, reject) => {
+            db.run(INSERE_FUNCIONARIO,
+                funcionario.nome, funcionario.email, funcionario.cargo, funcionario.salario, funcionario.contato,
+                (error) => {
+                    if (error)
+                        reject(error)
+                    else
+                        resolve(funcionario)
+                }
+            )
+        })
     }
 }

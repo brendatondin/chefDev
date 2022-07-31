@@ -1,6 +1,6 @@
 import PedidosModel from "../models/PedidosModel.js"
 import pedidosDAO from "../DAO/pedidosDAO.js"
-import Validacoes from "../services/Validacoes.js";
+import PedidosValidacoes from "../services/PedidosValidacoes.js";
 
 const pedidosController = (app) => {
 
@@ -22,7 +22,7 @@ const pedidosController = (app) => {
     app.get('/pedidos/comanda/:comanda', async (req, res) => {
         const comanda = req.params.comanda
         try {
-            const pedido = await Validacoes._validaGetPedidos(comanda, pedidosDAO.pegaUmPedidoComanda)
+            const pedido = await PedidosValidacoes._validaGetPedidos(comanda, pedidosDAO.pegaUmPedidoComanda)
             res.json({
                 "pedido": pedido,
                 "msg": `o pedido ${comanda} esta no banco de dados`,
@@ -39,10 +39,10 @@ const pedidosController = (app) => {
     app.post('/pedidos', async (req, res) => {
         const body = req.body
         try {
-            const inserePedido = await Validacoes._validaPostPedidos(body, pedidosDAO.inserePedidos)
+            const inserePedido = await PedidosValidacoes._validaPostPedidos(body, pedidosDAO.inserePedidos)
             res.json({
                 "msg": "Pedido inserido com sucesso",
-                "cliente": inserePedido,
+                "inserePedido": inserePedido,
                 "erro": false
             })
 
@@ -57,9 +57,10 @@ const pedidosController = (app) => {
     app.delete('/pedidos/comanda/:comanda', async (req, res) => {
         const comanda = req.params.comanda
         try {
-            const deletaPedidos = await Validacoes._ValidaDeletaPedido(comanda, pedidosDAO.deletaPedidos)
+            const deletaPedidos = await PedidosValidacoes._ValidaDeletaPedido(comanda, pedidosDAO.deletaPedidos)
             res.json({
                 "msg": `Comanda ${comanda} deletada com sucesso`,
+                "deletaPedidos": deletaPedidos,
                 "erro": false
             })
     
@@ -75,11 +76,11 @@ const pedidosController = (app) => {
         const pedidos = req.params.comanda
         const body = req.body
         try {
-            const novoBody = await Validacoes._ValidaReqBodyPedidos(body)
-            const pedidoValidado = await Validacoes._PedidoAtualiza(pedidos, pedidosDAO.atualizaPedido, novoBody )
+            const novoBody = await PedidosValidacoes._ValidaReqBodyPedidos(body)
+            const pedidoValidado = await PedidosValidacoes._PedidoAtualiza(pedidos, pedidosDAO.atualizaPedido, novoBody )
             res.json({
                 "msg": "Comanda atualizada com sucesso",
-                "cliente": pedidoValidado,
+                "pedidoValidado": pedidoValidado,
                 "erro": false
             })
 

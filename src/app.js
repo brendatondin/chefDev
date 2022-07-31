@@ -15,7 +15,7 @@ pedidosController(app)
 clientesController(app)
 fornecedoresController(app)
 reservasController(app)
-funcionariosController(app)
+// funcionariosController(app)
 
 app.listen(port, () => {
     console.log(`http://localhost:${port}/`)

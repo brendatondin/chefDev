@@ -14,8 +14,23 @@ const cardapioDAO  = {
             })
         })
     },
-
+    pegaUmPrato: (codigo)=>{
+        const PEGA_UM_PRATO = `
+        SELECT * FROM CARDAPIO
+        WHERE codigo = ?
+        `
+        return new Promise((resolve, reject)=>{
+            db.get(PEGA_UM_PRATO, codigo, (error, row)=>{
+                if(error)
+                    reject(error)
+                else
+                    resolve(row)
+            })
+        })
+    },
 
 }
+
+
 
 export default cardapioDAO

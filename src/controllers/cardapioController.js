@@ -58,15 +58,15 @@ const cardapioController = (app) => {
     })
 
     app.delete('/cardapio/codigo/:codigo', async (req, res) => {
-        const id = req.params.id
+        const prato = req.params.codigo
         try {
-            await CardapioModel.deletaPrato(codigo)
+            const deletaPrato = await CardapioValidacoes._ValidaDeletaCardapio(prato, CardapioDAO.deletaPrato)
 
             res.json({
-                "msg": "Prato deletado com sucesso",
+                "msg": "Cliente deletado com sucesso",
+                "cliente" : deletaPrato,
                 "erro": false
             })
-
         } catch (error) {
             res.json({
                 "msg": error.message,

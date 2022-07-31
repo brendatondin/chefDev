@@ -18,6 +18,15 @@ const CardapioValidacoes = {
             return cardapio
         }
     },
+    _ValidaDeletaCardapio : async (codigo, callback)=>{
+        const cardapio = await cardapioDAO.deletaPrato(codigo)
+        if(cardapio == undefined){
+            throw new Error(`Aviso: ${codigo} não existente`)
+        }else{
+            await callback(codigo)
+            return cardapio
+        }
+    }
 }
 
 export default CardapioValidacoes

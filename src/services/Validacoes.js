@@ -37,10 +37,10 @@ const Validacoes = {
     },
 
     _validaGetPedidos : async (comanda, callback)=>{
-        const pedidos = await callback(comanda)
         if(pedidos === undefined){
             throw new Error (`Aviso: ${comanda} não encontrado!`)
         }else{
+            const pedidos = await callback(comanda)
             return pedidos
         }
     },
@@ -54,10 +54,10 @@ const Validacoes = {
     },
 
     _PedidoAtualiza : async (comanda, callback, pedidoValidado)=>{
-        const pedidos = await callback(comanda, pedidoValidado)
-            if(pedidos === undefined){
-                throw new Error("Não conseguimos atualizar essa informação no banco de dados")
-            }else{
+        if(pedidos === undefined){
+            throw new Error("Não conseguimos atualizar essa informação no banco de dados")
+        }else{
+                const pedidos = await callback(comanda, pedidoValidado)
                 return pedidos
             }
         
@@ -74,7 +74,7 @@ const Validacoes = {
     _ValidaDeletaPedido : async (comanda, callback)=>{
         const pedidos = await callback(comanda)
         if(pedidos == undefined){
-            throw new Error(`Aviso: ${comanda} não existente`)
+            throw new Error(`Aviso: ${comanda} não deletado!`)
         }else{
             return pedidos
         }

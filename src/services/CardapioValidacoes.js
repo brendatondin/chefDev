@@ -1,4 +1,4 @@
-import cardapioDAO from "../DAO/cardapioDAO.js" 
+
 
 
 const CardapioValidacoes = {
@@ -7,6 +7,14 @@ const CardapioValidacoes = {
         if(cardapio === undefined){
             throw new Error (`Aviso: ${codigo} não encontrado!`)
         }else{
+            return cardapio
+        }
+    },
+    _validaPostCardapio: async (cardapio, callback)=>{
+        if(!cardapio.prato){
+            throw new Error ("Aviso: mesa não encontrado!")
+        }else{
+            const postCardapio = await callback(cardapio)
             return cardapio
         }
     },

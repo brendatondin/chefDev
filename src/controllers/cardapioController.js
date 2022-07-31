@@ -42,11 +42,10 @@ const cardapioController = (app) => {
     app.post('/cardapio', async (req, res) => {
         const body = req.body
         try {
-            const novoPrato = criaPrato(body.prato, body.codigo)
-            await CardapioModel.inserePrato(novoPrato)
+            const inserePrato = await CardapioValidacoes._validaPostCardapio(body, CardapioDAO.inserePrato)
             res.json({
-                "msg": "Prato inserido com sucesso",
-                "Prato": novoPrato,
+                "msg": "Pedido inserido com sucesso",
+                "inserePedido": inserePrato,
                 "erro": false
             })
 

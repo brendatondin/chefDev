@@ -8,6 +8,9 @@ const CardapioModel = {
     },
     pegaUmCodigo : async (codigo)=>{
         return await CardapioDao.pegaUmCodigo(codigo)
+    },
+    inserePrato :  async(pedidos)=>{
+        return await CardapioDao.pegaUmPrato(pedidos)
     }
 }
 export default CardapioModel

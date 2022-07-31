@@ -28,6 +28,24 @@ const cardapioDAO  = {
             })
         })
     },
+    inserePrato : (cardapio)=>{
+        const INSERE_PRATO = `
+        INSERT INTO CARDAPIO (codigo, prato)
+        VALUES (?,?)
+        `
+        return new Promise((resolve, reject)=>{
+            db.run(INSERE_PRATO,
+                cardapio.codigo, cardapio.prato,
+                (error)=>{
+                    if(error)
+                        reject(error)
+                    else
+                        resolve(pedidos)
+                }
+            )
+        })
+    },
+    
 
 }
 

@@ -54,10 +54,10 @@ const Validacoes = {
     },
 
     _PedidoAtualiza : async (comanda, callback, pedidoValidado)=>{
-        if(pedidos === undefined){
-            throw new Error("Não conseguimos atualizar essa informação no banco de dados")
-        }else{
-                const pedidos = await callback(comanda, pedidoValidado)
+        const pedidos = await callback(comanda, pedidoValidado)
+            if(pedidos === undefined){
+                throw new Error("Não conseguimos atualizar essa informação no banco de dados")
+            }else{
                 return pedidos
             }
         
@@ -74,7 +74,7 @@ const Validacoes = {
     _ValidaDeletaPedido : async (comanda, callback)=>{
         const pedidos = await callback(comanda)
         if(pedidos == undefined){
-            throw new Error(`Aviso: ${comanda} não deletado!`)
+            throw new Error(`Aviso: ${comanda} não existente`)
         }else{
             return pedidos
         }

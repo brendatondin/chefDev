@@ -1,4 +1,6 @@
 import CardapioModel from "../models/cardapioModel.js"
+import CardapioValidacoes from "../services/CardapioValidacoes.js"
+import CardapioDAO from "../DAO/cardapioDAO.js"
 const cardapioController = (app) => {
 
     app.get('/cardapio', async (req, res) => {
@@ -24,9 +26,9 @@ const cardapioController = (app) => {
     app.get('/cardapio/codigo/:codigo', async (req, res) => {
         const codigo = req.params.codigo
         try {
-            const codigo = await CodigoModel.pegaUmCardapioCodigo(codigo)
+            const todosCodigos = await CardapioValidacoes. _validaGetCardapio(codigo, CardapioDAO.pegaUmPrato)
             res.json({
-                "cardapio": codigo,
+                "cardapio": todosCodigos,
                 "erro": false
             })
         } catch (error) {
@@ -94,27 +96,7 @@ const cardapioController = (app) => {
         }
     })
 
-    app.patch('/cardapio/prato/codigo/:codigo', async (req, res) => {
-        const codigo = req.params.codigo
-        const body = req.body
-        try {
-            validaPrato(body.prato)
-            await CardapioModel.atualizaCardapio(codigo, {
-                "prato": body.prato
-            })
-            res.json({
-                "msg": "Prato atualizado",
-                "erro": false
-            })
-
-        } catch (error) {
-            res.json({
-                "msg": error.message,
-                "erro": true
-            })
-        }
-    })
-
+  
 }
 
 

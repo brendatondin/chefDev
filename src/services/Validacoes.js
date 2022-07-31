@@ -9,6 +9,15 @@ const Validacoes = {
         }
     },
 
+    _ValidaDeleta : async (id, callback)=>{
+        const cliente = await callback(id)
+        if(cliente == undefined){
+            throw new Error(`Aviso: ${id} não deletado!`)
+        }else{
+            return cliente
+        }
+    },
+
     _ValidaAtualiza : async (id, callback, novoBody)=>{
         const cliente = await callback(id, novoBody)
             if(cliente === undefined){
@@ -25,8 +34,16 @@ const Validacoes = {
         }else{
             throw new Error ("Não foi possivel atualizar essa informação!")
         }
-    }
+    },
 
+    _validaGetPedidos : async (comanda, callback)=>{
+        const pedidos = await callback(comanda)
+        if(pedidos === undefined){
+            throw new Error (`Aviso: ${comanda} não encontrado!`)
+        }else{
+            return pedidos
+        }
+    },
 }
 
 export default Validacoes

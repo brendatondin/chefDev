@@ -61,6 +61,26 @@ const pedidosDAO  = {
                     resolve(row)
             })
         })
+    },
+
+    atualizaPedido : (comanda, novoPedidos)=>{
+        const ATUALIZA_PEDIDOS = `
+        UPDATE PEDIDOS
+        SET prato = ?, mesa = ?
+        WHERE comanda = ?
+        `
+        return new Promise((resolve, reject)=>{
+            db.run(ATUALIZA_PEDIDOS,
+                novoPedidos.prato, novoPedidos.mesa,
+                comanda,
+                (error)=>{
+                    if(error)
+                        reject(error)
+                    else
+                        resolve(novoPedidos)
+                }
+            )
+        })  
     }
 }
 

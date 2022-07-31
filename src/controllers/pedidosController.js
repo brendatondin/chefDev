@@ -22,7 +22,7 @@ const pedidosController = (app) => {
     app.get('/pedidos/comanda/:comanda', async (req, res) => {
         const comanda = req.params.comanda
         try {
-            const pedido = await Validacoes._validaGet(comanda, pedidosDAO.pegaUmPedidoComanda)
+            const pedido = await Validacoes._validaGetPedidos(comanda, pedidosDAO.pegaUmPedidoComanda)
             res.json({
                 "pedido": pedido,
                 "msg": `o pedido ${comanda} esta no banco de dados`,
@@ -39,7 +39,7 @@ const pedidosController = (app) => {
     app.post('/pedidos', async (req, res) => {
         const body = req.body
         try {
-            const inserePedido = await Validacoes._validaGet(body, pedidosDAO.inserePedidos)
+            const inserePedido = await Validacoes._validaPostPedidos(body, pedidosDAO.inserePedidos)
             res.json({
                 "msg": "Pedido inserido com sucesso",
                 "cliente": inserePedido,
@@ -57,7 +57,7 @@ const pedidosController = (app) => {
     app.delete('/pedidos/comanda/:comanda', async (req, res) => {
         const comanda = req.params.comanda
         try {
-            const deletaPedidos = await pedidosDAO.deletaPedidos(comanda)
+            const deletaPedidos = await Validacoes._ValidaDeletaPedido(comanda, pedidosDAO.deletaPedidos)
             res.json({
                 "msg": `Comanda ${comanda} deletada com sucesso`,
                 "erro": false
@@ -72,11 +72,11 @@ const pedidosController = (app) => {
     })
 
     app.put('/pedidos/comanda/:comanda', async (req, res) => {
+        const pedidos = req.params.comanda
         const body = req.body
-        const comanda = req.params.comanda
         try {
-            const pedidoValidado = criaPedidos(body.prato, body.comanda, body.mesa)
-            await PedidosModel.atualizaPedidos(comanda, pedidoValidado)
+            const novoBody = await Validacoes._ValidaReqBodyPedidos(body)
+            const pedidoValidado = await Validacoes._PedidoAtualiza(pedidos, pedidosDAO.atualizaPedido, novoBody )
             res.json({
                 "msg": "Comanda atualizada com sucesso",
                 "cliente": pedidoValidado,
@@ -94,8 +94,8 @@ const pedidosController = (app) => {
         const comanda = req.params.comanda
         const body = req.body
         try {
-            validaPedido(body.comanda)
-            await PedidosModel.atualizaPedidos(comanda, {
+            _PedidoAtualiza(body.comanda)
+            await PedidosModel._ValidaReqBodyPedidos(comanda, {
                 "comanda": body.comanda
             })
             res.json({

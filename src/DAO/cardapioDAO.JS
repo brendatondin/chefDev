@@ -45,6 +45,20 @@ const cardapioDAO  = {
             )
         })
     },
+    deletaPrato : (codigo)=>{
+        const DELETA_PRATOS = `
+        DELETE FROM PRATOS
+        WHERE codigo = ?
+        `
+        return new Promise((resolve, reject)=>{
+            db.get(DELETA_PRATOS, codigo, (error, row)=>{
+                if(error)
+                    reject(error)
+                else
+                    resolve(row)
+            })
+        })
+    }
     
 
 }

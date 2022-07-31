@@ -10,6 +10,12 @@ const PedidosModel = {
     inserePedidos :  async(pedidos)=>{
         return await pedidosDAO.inserePedidos(pedidos)
     },
+    deletaPedidos : async(comanda)=>{
+        return await pedidosDAO.deletaPedidos(comanda)
+    },
+    atualizaPedido : async (comanda)=>{
+        return await pedidosDAO.atualizaPedido(comanda)
+    }
 }
 
 export default PedidosModel

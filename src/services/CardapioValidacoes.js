@@ -1,4 +1,4 @@
-import pedidosDAO from "../DAO/pedidosDAO.js" 
+import cardapioDAO from "../DAO/cardapioDAO.js" 
 
 
 const CardapioValidacoes = {

@@ -42,7 +42,7 @@ const pedidosController = (app) => {
             const inserePedido = await Validacoes._validaPostPedidos(body, pedidosDAO.inserePedidos)
             res.json({
                 "msg": "Pedido inserido com sucesso",
-                "cliente": inserePedido,
+                "inserePedido": inserePedido,
                 "erro": false
             })
 
@@ -79,7 +79,7 @@ const pedidosController = (app) => {
             const pedidoValidado = await Validacoes._PedidoAtualiza(pedidos, pedidosDAO.atualizaPedido, novoBody )
             res.json({
                 "msg": "Comanda atualizada com sucesso",
-                "cliente": pedidoValidado,
+                "pedidoValidado": pedidoValidado,
                 "erro": false
             })
 

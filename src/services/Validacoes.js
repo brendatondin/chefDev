@@ -37,10 +37,10 @@ const Validacoes = {
     },
 
     _validaGetPedidos : async (comanda, callback)=>{
-        const pedidos = await callback(comanda)
         if(pedidos === undefined){
             throw new Error (`Aviso: ${comanda} não encontrado!`)
         }else{
+            const pedidos = await callback(comanda)
             return pedidos
         }
     },

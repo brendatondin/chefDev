@@ -13,6 +13,9 @@ const PedidosModel = {
     deletaPedidos : async(comanda)=>{
         return await pedidosDAO.deletaPedidos(comanda)
     },
+    atualizaPedido : async (comanda)=>{
+        return await pedidosDAO.atualizaPedido(comanda)
+    }
 }
 
 export default PedidosModel

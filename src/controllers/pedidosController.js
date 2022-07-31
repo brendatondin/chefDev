@@ -91,28 +91,7 @@ const pedidosController = (app) => {
             })
         }
     })
-    app.patch('/pedidos/mesa/comanda/:comanda', async (req, res) => {
-        const comanda = req.params.comanda
-        const body = req.body
-        try {
-            _PedidoAtualiza(body.comanda)
-            await PedidosModel._ValidaReqBodyPedidos(comanda, {
-                "comanda": body.comanda
-            })
-            res.json({
-                "msg": "Comanda atualizada",
-                "erro": false
-            })
-
-        } catch (error) {
-            res.json({
-                "msg": error.message,
-                "erro": true
-            })
-        }
-    })
-
-
+    
 }
 
 

@@ -30,31 +30,31 @@ const funcionariosDAO = {
         })
     },
 
-    insereFuncionario: (funcionario) => {
-        const INSERE_FUNCIONARIO = `
+    insereFuncionario: (funcionarios) => {
+        const INSERE_FUNCIONARIOS = `
         INSERT INTO FUNCIONARIOS (nome, email, cargo, salario, contato)
         VALUES (?,?,?,?,?)
         `
         return new Promise((resolve, reject) => {
-            db.run(INSERE_FUNCIONARIO,
-                funcionario.nome, funcionario.email, funcionario.cargo, funcionario.salario, funcionario.contato,
+            db.run(INSERE_FUNCIONARIOS,
+                funcionarios.nome, funcionarios.email, funcionarios.cargo, funcionarios.salario, funcionarios.contato,
                 (error) => {
                     if (error)
                         reject(error)
                     else
-                        resolve(funcionario)
+                        resolve(funcionarios)
                 }
             )
         })
     },
 
-    deletaFuncionario: (id) => {
-        const DELETA_FUNCIONARIO = `
+    deletaFuncionario: (contato) => {
+        const DELETA_FUNCIONARIOS = `
         DELETE FROM FUNCIONARIOS
-        WHERE id = ?
+        WHERE contato = ?
         `
         return new Promise((resolve, reject) => {
-            db.get(DELETA_FUNCIONARIO, id, (error, row) => {
+            db.get(DELETA_FUNCIONARIOS, contato, (error, row) => {
                 if (error)
                     reject(error)
                 else
@@ -64,13 +64,13 @@ const funcionariosDAO = {
     },
 
     atualizaFuncionario: (id, novoFuncionario) => {
-        const ATUALIZA_FUNCIONARIO = `
+        const ATUALIZA_FUNCIONARIOS = `
         UPDATE FUNCIONARIOS
         SET nome = ?, email = ?, cargo = ?, salario = ?, contato = ?
         WHERE id = ?
         `
         return new Promise((resolve, reject) => {
-            db.run(ATUALIZA_FUNCIONARIO,
+            db.run(ATUALIZA_FUNCIONARIOS,
                 novoFuncionario.nome, novoFuncionario.email, novoFuncionario.cargo, novoFuncionario.salario, novoFuncionario.contato,
                 id,
                 (error) => {

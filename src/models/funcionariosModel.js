@@ -7,14 +7,14 @@ const funcionariosModel = {
     pegaUmFuncionarioContato : async (contato)=>{
         return await funcionariosDAO.pegaUmFuncionarioContato(contato)
     },
-    insereFuncionario :  async(funcionario)=>{
-        return await funcionariosDAO.insereFuncionario(funcionario)
+    insereFuncionario :  async(funcionarios)=>{
+        return await funcionariosDAO.insereFuncionario(funcionarios)
     },
-    deletaFuncionario : async(id)=>{
-        return await funcionariosDAO.deletaFuncionario(id)
+    deletaFuncionario : async(contato)=>{
+        return await funcionariosDAO.deletaFuncionario(contato)
     },
-    atualizaFuncionario : async (id)=>{
-        return await funcionariosDAO.atualizaFuncionario(id)
+    atualizaFuncionario : async (id, novoFuncionario)=>{
+        return await funcionariosDAO.atualizaFuncionario(id, novoFuncionario)
     }
 }
 

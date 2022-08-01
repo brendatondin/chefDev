@@ -11,24 +11,24 @@ const FornecedoresValidacoes = {
         }
     },
     _validaPostForcedores: async (fornecedores, callback)=>{
-        if(!fornecedores.id){
+        if(!fornecedores.nome){
             throw new Error ("Aviso: fornecedor não encontrado!")
         }else{
             const postFornecedor = await callback(fornecedores)
             return fornecedores
         }
     },
-    _ValidaDeletaFornecedor : async (id, callback)=>{
-        const fornecedores = await fornecedoresDAO.deletaFornecedor(id)
+    _ValidaDeletaFornecedor : async (contato, callback)=>{
+        const fornecedores = await fornecedoresDAO.pegaUmFornecedorContato(contato)
         if(fornecedores == undefined){
-            throw new Error(`Aviso: ${id} não existente`)
+            throw new Error(`Aviso: ${contato} não existente`)
         }else{
-            await callback(id)
+            await callback(contato)
             return fornecedores
         }
     },
     _FornecedorAtualiza : async (id, callback, fornecedorValidado)=>{
-        const fornecedores = await callback(fornecedores, fornecedorValidado)
+        const fornecedores = await callback(id, fornecedorValidado)
             if(fornecedores === undefined){
                 throw new Error("Não conseguimos atualizar essa informação no banco de dados")
             }else{

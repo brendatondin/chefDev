@@ -53,13 +53,13 @@ const fornecedoresController = (app) => {
         }
     })
 
-    app.delete('/fornecedores/id/:id', async (req, res) => {
-        const id = req.params.id
+    app.delete('/fornecedores/contato/:contato', async (req, res) => {
+        const contato = req.params.contato
         try {
-            await FornecedoresModel.deletaFornecedor(id)
-
+            const deletaFornecedor = await FornecedoresValidacoes._ValidaDeletaFornecedor(contato, fornecedoresDAO.deletaFornecedor)
             res.json({
-                "msg": "Fornecedor deletado com sucesso",
+                "msg": `Fornecedor ${contato} deletado com sucesso`,
+                "deletaFornecedor": deletaFornecedor,
                 "erro": false
             })
 
@@ -75,11 +75,11 @@ const fornecedoresController = (app) => {
         const body = req.body
         const id = req.params.id
         try {
-            const fornecedorValidado = criaFornecedor(body.nome, body.email, body.contato)
-            await FornecedoresModel.atualizaFornecedor(id, fornecedorValidado)
+            const novoBody = await FornecedoresValidacoes._ValidaReqBodyFornecedor(body)
+            const fornecedorValidado = await FornecedoresValidacoes._FornecedorAtualiza(id, fornecedoresDAO.atualizaFornecedor, novoBody)
             res.json({
                 "msg": "Fornecedor atualizado com sucesso",
-                "fornecedor": fornecedorValidado,
+                "fornecedorValidado": fornecedorValidado,
                 "erro": false
             })
 

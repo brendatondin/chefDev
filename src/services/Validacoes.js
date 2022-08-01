@@ -1,4 +1,4 @@
-import pedidosDAO from "../DAO/pedidosDAO.js" 
+import clientesDAO from "../DAO/clientesDAO.js" 
 const Validacoes = {
 
     _validaGet : async (contato, callback)=>{
@@ -10,11 +10,12 @@ const Validacoes = {
         }
     },
 
-    _ValidaDeleta : async (id, callback)=>{
-        const cliente = await callback(id)
+    _ValidaDeleta : async (contato, callback)=>{
+        const cliente = await clientesDAO.pegaUmClienteContato(contato)
         if(cliente == undefined){
-            throw new Error(`Aviso: ${id} não deletado!`)
+            throw new Error(`Aviso: ${contato} não deletado!`)
         }else{
+            await callback(contato)
             return cliente
         }
     },

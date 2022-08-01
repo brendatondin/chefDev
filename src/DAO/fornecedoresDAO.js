@@ -32,12 +32,12 @@ const fornecedoresDAO  = {
 
     insereFornecedor : (fornecedor)=>{
         const INSERE_FORNECEDORES = `
-        INSERT INTO FORNECEDORES (nome, email, contato)
-        VALUES (?,?,?)
+        INSERT INTO FORNECEDORES (id, nome, email, contato)
+        VALUES (?,?,?,?)
         `
         return new Promise((resolve, reject)=>{
             db.run(INSERE_FORNECEDORES,
-                fornecedor.nome, fornecedor.email, fornecedor.contato,
+                fornecedor.id, fornecedor.nome, fornecedor.email, fornecedor.contato,
                 (error)=>{
                     if(error)
                         reject(error)
@@ -48,13 +48,13 @@ const fornecedoresDAO  = {
         })
     },
 
-    deletaFornecedor : (id)=>{
+    deletaFornecedor : (contato)=>{
         const DELETA_FORNECEDOR = `
         DELETE FROM FORNECEDORES
-        WHERE id = ?
+        WHERE contato = ?
         `
         return new Promise((resolve, reject)=>{
-            db.get(DELETA_FORNECEDOR, id, (error, row)=>{
+            db.get(DELETA_FORNECEDOR, contato, (error, row)=>{
                 if(error)
                     reject(error)
                 else

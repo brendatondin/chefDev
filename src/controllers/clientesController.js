@@ -54,8 +54,8 @@ const clientesController = (app) => {
         }
     })
 
-    app.delete('/clientes/id/:id', async (req, res) => {
-        const cliente = req.params.id
+    app.delete('/clientes/contato/:contato', async (req, res) => {
+        const cliente = req.params.contato
         try {
             const deletaCliente = await Validacoes._ValidaDeleta(cliente, clientesDAO.deletaCliente)
 
@@ -81,27 +81,6 @@ const clientesController = (app) => {
             res.status(200).json({
                 "msg": "Cliente atualizado com sucesso",
                 "nome": atualizaCliente,
-                "erro": false
-            })
-
-        } catch (error) {
-            res.status(404).json({
-                "msg": error.message,
-                "erro": true
-            })
-        }
-    })
-
-    app.patch('/clientes/contato/id/:id', async (req, res) => {
-        const id = req.params.id
-        const body = req.body
-        try {
-            validaContato(body.contato)
-            await ClienteModel.atualizaCliente(id, {
-                "contato": body.contato
-            })
-            res.status(200).json({
-                "msg": "Contato atualizada",
                 "erro": false
             })
 

@@ -48,13 +48,13 @@ const clientesDAO  = {
         })
     },
 
-    deletaCliente : (id)=>{
+    deletaCliente : (contato)=>{
         const DELETA_CLIENTE = `
         DELETE FROM CLIENTES
-        WHERE id = ?
+        WHERE contato = ?
         `
         return new Promise((resolve, reject)=>{
-            db.get(DELETA_CLIENTE, id, (error, row)=>{
+            db.get(DELETA_CLIENTE, contato, (error, row)=>{
                 if(error)
                     reject(error)
                 else

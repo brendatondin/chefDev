@@ -63,6 +63,25 @@ const fornecedoresDAO  = {
         })
     },
 
+    atualizaFornecedor : (id, novoFornecedor)=>{
+        const ATUALIZA_FORNECEDOR = `
+        UPDATE FORNECEDORES
+        SET nome = ?, email = ?, contato = ?
+        WHERE id = ?
+        `
+        return new Promise((resolve, reject)=>{
+            db.run(ATUALIZA_FORNECEDOR,
+                novoFornecedor.nome, novoFornecedor.email, novoFornecedor.contato,
+                id,
+                (error)=>{
+                    if(error)
+                        reject(error)
+                    else
+                        resolve(novoFornecedor)
+                }
+            )
+        })
+    }
 }
 
 export default fornecedoresDAO

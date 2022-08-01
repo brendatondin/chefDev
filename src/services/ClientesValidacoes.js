@@ -1,4 +1,5 @@
 import clientesDAO from "../DAO/clientesDAO.js" 
+
 const Validacoes = {
 
     _validaGet : async (contato, callback)=>{
@@ -9,11 +10,19 @@ const Validacoes = {
             return cliente
         }
     },
+    _validaPostClientes : async (cliente, callback)=>{
+        if(cliente.nome.length < 1 || cliente.email.length < 0 || cliente.contato.length < 0 ){
+            throw new Error ("Aviso: preencha todos os campos")
+        }else{
+            const postPedidos = await callback(cliente)
+            return cliente
+        }
+    },
 
     _ValidaDeleta : async (contato, callback)=>{
         const cliente = await clientesDAO.pegaUmClienteContato(contato)
         if(cliente == undefined){
-            throw new Error(`Aviso: ${contato} não deletado!`)
+            throw new Error(`Aviso: ${contato} não encontrado!`)
         }else{
             await callback(contato)
             return cliente

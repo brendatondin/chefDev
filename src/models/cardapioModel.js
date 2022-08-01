@@ -15,5 +15,8 @@ const CardapioModel = {
     DeletaPrato :  async(codigo)=>{
         return await CardapioDao.deletaPrato(codigo)
     },
+    AtualizaPrato :  async(codigo)=>{
+        return await CardapioDao.AtualizaPrato(codigo)
+    }
 }
 export default CardapioModel

@@ -1,3 +1,6 @@
+import fornecedoresModel from "../models/fornecedoresModel.js"
+import fornecedoresDAO from "../DAO/fornecedoresDAO.js"
+import FornecedoresValidacoes from "../services/FornecedoresValidacoes.js";
 
 const fornecedoresController = (app) => {
 

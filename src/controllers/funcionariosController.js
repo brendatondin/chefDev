@@ -4,11 +4,11 @@ import FuncionariosValidacoes from "../services/FuncionariosValidacoes.js";
 
 const funcionariosController = (app) => {
 
-    app.get('/funcionario', async (req, res) => {
+    app.get('/funcionarios', async (req, res) => {
         try {
-            const todosFuncionarios = await funcionariosModel.pegaFuncionario()
+            const todosFuncionarios = await funcionariosModel.pegaFuncionarios()
             res.json({
-                "funcionario": todosFuncionarios,
+                "funcionarios": todosFuncionarios,
                 "erro": false
             })
         } catch (error) {
@@ -22,9 +22,9 @@ const funcionariosController = (app) => {
     app.get('/funcionarios/contato/:contato', async (req, res) => {
         const contato = req.params.contato
         try {
-            const funcionario = await FuncionariosValidacoes._validaGetFuncionarios(contato, funcionariosDAO.pegaUmFuncionarioContato)
+            const funcionarios = await FuncionariosValidacoes._validaGetFuncionarios(contato, funcionariosDAO.pegaUmFuncionarioContato)
             res.json({
-                "funcionario": funcionario,
+                "funcionarios": funcionarios,
                 "msg": `o funcionário ${contato} esta no banco de dados`,
                 "erro": false
             })
@@ -42,7 +42,7 @@ const funcionariosController = (app) => {
             const insereFuncionario = await FuncionariosValidacoes._validaPostFuncionarios(body, funcionariosDAO.insereFuncionario)
             res.json({
                 "msg": "Funcionário inserido com sucesso",
-                "inserefuncionario": insereFuncionario,
+                "inserefuncionarios": insereFuncionario,
                 "erro": false
             })
 
@@ -54,14 +54,14 @@ const funcionariosController = (app) => {
         }
     })
 
-    app.delete('/funcionario/id/:id', async (req, res) => {
+    app.delete('/funcionarios/id/:id', async (req, res) => {
         const id = req.params.id
         try {
-            const deletaFuncionario = await FuncionariosValidacoes._ValidaDeletaFuncionarios(id, funcionariosDAO.deletaFuncionario)
+            const deletaFuncionarios = await FuncionariosValidacoes._ValidaDeletaFuncionarios(id, funcionariosDAO.deletaFuncionario)
 
             res.json({
                 "msg": "Funcionário deletado com sucesso",
-                "deletaFuncionario": deletaFuncionario,
+                "deletaFuncionarios": deletaFuncionarios,
                 "erro": false
             })
 
@@ -73,15 +73,15 @@ const funcionariosController = (app) => {
         }
     })
 
-    app.put('/funcionario/id/:id', async (req, res) => {
+    app.put('/funcionarios/id/:id', async (req, res) => {
         const body = req.body
         const id = req.params.id
         try {
             const novoBody = await FuncionariosValidacoes._ValidaReqBodyFuncionarios(body)
-            const funcionarioValidado = await FuncionariosValidacoes._AtualizaFuncionarios(id, funcionariosDAO.atualizaFuncionario, novoBody)
+            const funcionariosValidados = await FuncionariosValidacoes._AtualizaFuncionarios(id, funcionariosDAO.atualizaFuncionario, novoBody)
             res.json({
                 "msg": "Funcionários atualizado com sucesso",
-                "funcionarioValidado": funcionarioValidado,
+                "funcionariosValidados": funcionariosValidados,
                 "erro": false
             })
 

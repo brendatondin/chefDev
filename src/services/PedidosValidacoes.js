@@ -11,8 +11,10 @@ const PedidosValidacoes = {
         }
     },
     _validaPostPedidos : async (pedidos, callback)=>{
-        if(!pedidos.mesa){
-            throw new Error ("Aviso: mesa não encontrado!")
+        // if(pedidos.mesa.lenght < 1 || pedidos.mesa){
+        //     throw new Error ("Aviso: mesa não encontrado!")
+        if(pedidos.prato.length < 1 || pedidos.mesa.length < 0){
+            throw new Error ("Aviso: preencha todos os campos")
         }else{
             const postPedidos = await callback(pedidos)
             return pedidos

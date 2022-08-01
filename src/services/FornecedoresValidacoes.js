@@ -1,4 +1,3 @@
-
 import fornecedoresDAO from "../DAO/fornecedoresDAO.js"
 
 const FornecedoresValidacoes = {

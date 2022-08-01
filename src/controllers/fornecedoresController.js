@@ -1,5 +1,4 @@
 import FornecedoresModel from "../models/fornecedoresModel.js"
-import fornecedoresDAO from "../DAO/fornecedoresDAO.js"
 import FornecedoresValidacoes from "../services/FornecedoresValidacoes.js";
 
 const fornecedoresController = (app) => {
@@ -22,7 +21,7 @@ const fornecedoresController = (app) => {
     app.get('/fornecedores/contato/:contato', async (req, res) => {
         const contato = req.params.contato
         try {
-            const fornecedor = await FornecedoresModel.pegaUmFornecedorContato(contato)
+            const fornecedor = await FornecedoresModel.pegaUmFornecedorContato(contato, FornecedoresModel.pegaUmFornecedorContato)
             res.json({
                 "Fornecedor": fornecedor,
                 "erro": false
@@ -38,7 +37,7 @@ const fornecedoresController = (app) => {
     app.post('/fornecedores', async (req, res) => {
         const body = req.body
         try {
-            const novoFornecedor = await FornecedoresValidacoes._validaPostForcedores(body, fornecedoresDAO.insereFornecedor)
+            const novoFornecedor = await FornecedoresValidacoes._validaPostForcedores(body, FornecedoresModel.insereFornecedor)
             res.json({
                 "msg": "Fornecedor inserido com sucesso",
                 "fornecedor": novoFornecedor,
@@ -56,9 +55,9 @@ const fornecedoresController = (app) => {
     app.delete('/fornecedores/contato/:contato', async (req, res) => {
         const contato = req.params.contato
         try {
-            const deletaFornecedor = await FornecedoresValidacoes._ValidaDeletaFornecedor(contato, fornecedoresDAO.deletaFornecedor)
+            const deletaFornecedor = await FornecedoresValidacoes._ValidaDeletaFornecedor(contato, FornecedoresModel.deletaFornecedor)
             res.json({
-                "msg": `Fornecedor ${contato} deletado com sucesso`,
+                "msg": `Fornecedor com o contato ${contato} deletado com sucesso`,
                 "deletaFornecedor": deletaFornecedor,
                 "erro": false
             })
@@ -76,7 +75,7 @@ const fornecedoresController = (app) => {
         const id = req.params.id
         try {
             const novoBody = await FornecedoresValidacoes._ValidaReqBodyFornecedor(body)
-            const fornecedorValidado = await FornecedoresValidacoes._FornecedorAtualiza(id, fornecedoresDAO.atualizaFornecedor, novoBody)
+            const fornecedorValidado = await FornecedoresValidacoes._FornecedorAtualiza(id, FornecedoresModel.atualizaFornecedor, novoBody)
             res.json({
                 "msg": "Fornecedor atualizado com sucesso",
                 "fornecedorValidado": fornecedorValidado,

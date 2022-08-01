@@ -14,8 +14,8 @@ const FornecedoresModel = {
     deletaFornecedor : async(contato)=>{
         return await fornecedoresDAO.deletaFornecedor(contato)
     },
-    atualizaFornecedor : async (id)=>{
-        return await fornecedoresDAO.atualizaFornecedor(id)
+    atualizaFornecedor : async (id, novoFornecedor)=>{
+        return await fornecedoresDAO.atualizaFornecedor(id, novoFornecedor)
     }
 }
 

@@ -30,6 +30,24 @@ const fornecedoresDAO  = {
         })
     },
 
+    insereFornecedor : (fornecedor)=>{
+        const INSERE_FORNECEDORES = `
+        INSERT INTO FORNECEDORES (nome, email, contato)
+        VALUES (?,?,?)
+        `
+        return new Promise((resolve, reject)=>{
+            db.run(INSERE_FORNECEDORES,
+                fornecedor.nome, fornecedor.email, fornecedor.contato,
+                (error)=>{
+                    if(error)
+                        reject(error)
+                    else
+                        resolve(fornecedor)
+                }
+            )
+        })
+    },
+
 }
 
 export default fornecedoresDAO

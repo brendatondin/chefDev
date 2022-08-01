@@ -48,6 +48,21 @@ const fornecedoresDAO  = {
         })
     },
 
+    deletaFornecedor : (id)=>{
+        const DELETA_FORNECEDOR = `
+        DELETE FROM FORNECEDORES
+        WHERE id = ?
+        `
+        return new Promise((resolve, reject)=>{
+            db.get(DELETA_FORNECEDOR, id, (error, row)=>{
+                if(error)
+                    reject(error)
+                else
+                    resolve(row)
+            })
+        })
+    },
+
 }
 
 export default fornecedoresDAO

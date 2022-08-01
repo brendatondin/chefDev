@@ -14,8 +14,8 @@ const reservasModel = {
     deletaReserva : async (nomeCliente)=>{
         return await reservasDAO.deletaReserva(nomeCliente)
     },
-    atualiazaReserva : async (idReserva)=>{
-        return await reservasDAO.atualizaReserva(idReserva)
+    atualizaReserva : async (idReserva, reservaAtualizada)=>{
+        return await reservasDAO.atualizaReserva(idReserva, reservaAtualizada)
     }
 }
 

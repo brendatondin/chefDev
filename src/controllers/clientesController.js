@@ -1,6 +1,6 @@
 import clientesDAO from "../DAO/clientesDAO.js";
 import ClientesModel from "../models/ClientesModel.js";
-import Validacoes from "../services/Validacoes.js";
+import Validacoes from "../services/ClientesValidacoes.js";
 
 const clientesController = (app) => {
 
@@ -39,7 +39,7 @@ const clientesController = (app) => {
     app.post('/clientes', async (req, res) => {
         const cliente = req.body
         try {
-            const insereCliente = await Validacoes._validaGet(cliente, clientesDAO.insereCliente)
+            const insereCliente = await Validacoes._validaPostClientes(cliente, clientesDAO.insereCliente)
             res.status(201).json({
                 "msg": "Cliente inserido com sucesso",
                 "nome": insereCliente,

@@ -19,7 +19,7 @@ const CardapioValidacoes = {
         }
     },
     _ValidaDeletaCardapio : async (codigo, callback)=>{
-        const cardapio = await CardapioDAO.deletaPrato(codigo)
+        const cardapio = await CardapioDAO.pegaUmPrato(codigo)
         if(cardapio == undefined){
             throw new Error(`Aviso: ${codigo} não existente`)
         }else{
@@ -27,16 +27,16 @@ const CardapioValidacoes = {
             return cardapio
         }
     },
-    _PedidoAtualiza : async (codigo, callback, cardapioValidado)=>{
-        const cardapio = await callback(cardapio, cardapioValidado)
-            if(cardapio === undefined){
-                throw new Error("Não conseguimos atualizar essa informação no banco de dados")
-            }else{
+    _CardapioAtualiza : async (codigo, callback, novoCardapio)=>{
+        const cardapio = await callback(codigo, novoCardapio)
+        if(cardapio === undefined){
+            throw new Error("Não conseguimos atualizar essa informação no banco de dados")
+        }else{
                 return cardapio
             }
     },
     _ValidaReqBodyCardapio : async (body)=>{
-        if(body.codigo && body.prato){
+        if(body.prato){
             return body
         }else{
             throw new Error ("Não foi possivel atualizar essa informação!")

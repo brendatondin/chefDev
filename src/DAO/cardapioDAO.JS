@@ -40,14 +40,14 @@ const cardapioDAO  = {
                     if(error)
                         reject(error)
                     else
-                        resolve(pedidos)
+                        resolve(cardapio)
                 }
             )
         })
     },
     deletaPrato : (codigo)=>{
         const DELETA_PRATOS = `
-        DELETE FROM PRATOS
+        DELETE FROM CARDAPIO
         WHERE codigo = ?
         `
         return new Promise((resolve, reject)=>{

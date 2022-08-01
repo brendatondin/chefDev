@@ -63,8 +63,8 @@ const cardapioController = (app) => {
             const deletaPrato = await CardapioValidacoes._ValidaDeletaCardapio(prato, CardapioDAO.deletaPrato)
 
             res.json({
-                "msg": "Cliente deletado com sucesso",
-                "cliente" : deletaPrato,
+                "msg": "Prato deletado com sucesso",
+                "Prato" : deletaPrato,
                 "erro": false
             })
         } catch (error) {
@@ -82,8 +82,8 @@ const cardapioController = (app) => {
             const novoBody = await PedidosValidacoes._ValidaReqBodyCardapio(body)
             const CardapioValidado = await PedidosValidacoes._PedidoAtualiza(cardapio, CardapioDAO.atualizaCardapio, novoBody )
             res.json({
-                "msg": "Comanda atualizada com sucesso",
-                "pedidoValidado": CardapioValidado,
+                "msg": "Prato atualizada com sucesso",
+                "Prato Validado": CardapioValidado,
                 "erro": false
             })
 

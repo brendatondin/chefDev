@@ -76,14 +76,14 @@ const cardapioController = (app) => {
     })
 
     app.put('/cardapio/codigo/:codigo', async (req, res) => {
+        const cardapio = req.params.codigo
         const body = req.body
-        const codigo = req.params.codigo
         try {
-            const pratoValidado = criaPrato(body.prato, body.codigo)
-            await CardapioModel.atualizaCardapio(codigo, pratoValidado)
+            const novoBody = await PedidosValidacoes._ValidaReqBodyCardapio(body)
+            const CardapioValidado = await PedidosValidacoes._PedidoAtualiza(cardapio, CardapioDAO.atualizaCardapio, novoBody )
             res.json({
-                "msg": "Prato atualizado com sucesso",
-                "prato": pratoValidado,
+                "msg": "Comanda atualizada com sucesso",
+                "pedidoValidado": CardapioValidado,
                 "erro": false
             })
 

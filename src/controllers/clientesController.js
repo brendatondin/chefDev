@@ -54,8 +54,8 @@ const clientesController = (app) => {
         }
     })
 
-    app.delete('/clientes/id/:id', async (req, res) => {
-        const cliente = req.params.id
+    app.delete('/clientes/contato/:contato', async (req, res) => {
+        const cliente = req.params.contato
         try {
             const deletaCliente = await Validacoes._ValidaDeleta(cliente, clientesDAO.deletaCliente)
 

@@ -1,3 +1,6 @@
+import fornecedoresModel from "../models/fornecedoresModel.js"
+import fornecedoresDAO from "../DAO/fornecedoresDAO.js"
+import FornecedoresValidacoes from "../services/FornecedoresValidacoes.js";
 
 const fornecedoresController = (app) => {
 
@@ -78,27 +81,6 @@ const fornecedoresController = (app) => {
             res.json({
                 "msg": "Fornecedor atualizado com sucesso",
                 "fornecedor": fornecedorValidado,
-                "erro": false
-            })
-
-        } catch (error) {
-            res.json({
-                "msg": error.message,
-                "erro": true
-            })
-        }
-    })
-
-    app.patch('/fornecedores/contato/id/:id', async (req, res) => {
-        const id = req.params.id
-        const body = req.body
-        try {
-            validaContato(body.contato)
-            await FornecedoresModel.atualizaFornecedor(id, {
-                "contato": body.contato
-            })
-            res.json({
-                "msg": "Contato atualizada",
                 "erro": false
             })
 

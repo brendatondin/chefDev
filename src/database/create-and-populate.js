@@ -200,5 +200,5 @@ db.serialize(() => {
     criaTabelaFornecedores();
     populaTabelaFornecedores();
     criaTabelaReservas();
-    populaTabelaReservas()
+    populaTabelaReservas();
 });

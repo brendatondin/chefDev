@@ -68,7 +68,28 @@ const reservasDAO = {
             })
         })
     },
+
+    atualizaReserva : (idReserva, reservaAtualizada)=>{
+        const ATUALIZA_RESERVA = `
+        UPDATE RESERVAS
+        SET nomeCliente = ?, data = ?, hora = ?, lugares = ?, mesa = ?
+        WHERE idReserva = ?
+        `
+        return new Promise((resolve, reject)=>{
+            db.run(ATUALIZA_RESERVA,
+                reservaAtualizada.nomeCliente, reservaAtualizada.email, reservaAtualizada.hora, reservaAtualizada.lugares,reservaAtualizada.mesa,
+                idReserva,
+                (error)=>{
+                    if(error)
+                        reject(error)
+                    else
+                        resolve(reservaAtualizada)
+                }
+            )
+        })  
     }
+
+}
 
 
 

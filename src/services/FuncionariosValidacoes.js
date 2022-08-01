@@ -10,21 +10,21 @@ const FuncionariosValidacoes = {
         }
     },
 
-    _validaPostFuncionarios: async (funcionario, callback) => {
-        if (!funcionario.contato) {
-            throw new Error("Aviso: funcionário não encontrado!")
-        } else {
-            const insereFuncionarios = await callback(funcionario)
-            return funcionario
+    _validaPostFuncionarios : async (funcionarios, callback)=>{
+        if(funcionarios.nome.length < 1 || funcionarios.email.length < 1 || funcionarios.cargo.length < 1 || funcionarios.salario.length < 1 || funcionarios.contato.length < 1 ){
+            throw new Error ("Aviso: preencha todos os campos")
+        }else{
+            const postFuncionarios = await callback(funcionarios)
+            return postFuncionarios
         }
     },
 
-    _AtualizaFuncionarios: async (comanda, callback, pedidoValidado) => {
-        const funcionario = await callback(comanda, pedidoValidado)
-        if (funcionario === undefined) {
+    _AtualizaFuncionarios: async (id, callback, funcionarioValidado) => {
+        const funcionarios = await callback(id, funcionarioValidado)
+        if (funcionarios === undefined) {
             throw new Error("Não conseguimos atualizar essa informação no banco de dados")
         } else {
-            return funcionario
+            return funcionarios
         }
 
     },
@@ -38,12 +38,12 @@ const FuncionariosValidacoes = {
     },
 
     _ValidaDeletaFuncionarios: async (contato, callback) => {
-        const funcionario = await funcionariosDAO.pegaUmFuncionarioContato(comanda)
-        if (funcionario == undefined) {
+        const funcionarios = await funcionariosDAO.pegaUmFuncionarioContato(contato)
+        if (funcionarios == undefined) {
             throw new Error(`Aviso: ${contato} não existente`)
         } else {
             await callback(contato)
-            return funcionario
+            return funcionarios
         }
     }
 }

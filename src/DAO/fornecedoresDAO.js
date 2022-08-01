@@ -15,6 +15,21 @@ const fornecedoresDAO  = {
         })
     },
 
+    pegaUmFornecedorContato: (contato)=>{
+        const PEGA_UM_FORNECEDOR = `
+        SELECT * FROM FORNECEDORES
+        WHERE contato = ?
+        `
+        return new Promise((resolve, reject)=>{
+            db.get(PEGA_UM_FORNECEDOR, contato, (error, row)=>{
+                if(error)
+                    reject(error)
+                else
+                    resolve(row)
+            })
+        })
+    },
+
 }
 
 export default fornecedoresDAO

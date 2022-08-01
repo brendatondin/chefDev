@@ -1,5 +1,5 @@
 import reservasModel from "../models/reservasModels.js";
-import Validacoes from "../services/Validacoes.js";
+import Validacoes from "../services/ClientesValidacoes.js";
 import reservasDAO from "../DAO/reservasDAO.js";
 
 

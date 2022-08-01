@@ -1,6 +1,6 @@
 import funcionariosDAO from "../DAO/funcionariosDAO.js";
 import funcionariosModel from "../models/funcionariosModel.js";
-import Validacoes from "../services/Validacoes.js";
+import FuncionariosValidacoes from "../services/FuncionariosValidacoes.js";
 
 const funcionariosController = (app) => {
 

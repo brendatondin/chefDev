@@ -6,7 +6,7 @@ const funcionariosController = (app) => {
 
     app.get('/funcionario', async (req, res) => {
         try {
-            const todosPedidos = await PedidosModel.pegaFuncionario()
+            const todosFuncionarios = await funcionariosModel.pegaFuncionario()
             res.json({
                 "funcionario": todosFuncionarios,
                 "erro": false

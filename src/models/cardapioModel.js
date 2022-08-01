@@ -10,7 +10,7 @@ const CardapioModel = {
         return await CardapioDao.pegaUmCodigo(codigo)
     },
     inserePrato :  async(cardapio)=>{
-        return await CardapioDao.pegaUmPrato(cardapio)
+        return await CardapioDao.inserePrato(cardapio)
     },
     DeletaPrato :  async(codigo)=>{
         return await CardapioDao.deletaPrato(codigo)

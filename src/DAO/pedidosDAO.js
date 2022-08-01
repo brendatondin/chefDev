@@ -29,6 +29,61 @@ const pedidosDAO  = {
             })
         })
     },
+
+    inserePedidos : (pedidos)=>{
+        const INSERE_PEDIDOS = `
+        INSERT INTO PEDIDOS (comanda, prato, mesa)
+        VALUES (?,?,?)
+        `
+        return new Promise((resolve, reject)=>{
+            db.run(INSERE_PEDIDOS,
+                pedidos.comanda, pedidos.prato, pedidos.mesa,
+                (error)=>{
+                    if(error)
+                        reject(error)
+                    else
+                        resolve(pedidos)
+                }
+            )
+        })
+    },
+    
+    deletaPedidos : (comanda)=>{
+        const DELETA_PEDIDOS = `
+        DELETE FROM PEDIDOS
+        WHERE comanda = ?
+        `
+        return new Promise((resolve, reject)=>{
+            db.get(DELETA_PEDIDOS, comanda, (error, row)=>{
+                if(error)
+                    reject(error)
+                else
+                    resolve(row)
+            })
+        })
+    },
+
+    atualizaPedido : (comanda, novoPedidos)=>{
+        const ATUALIZA_PEDIDOS = `
+        UPDATE PEDIDOS
+        SET prato = ?, mesa = ?
+        WHERE comanda = ?
+        `
+        return new Promise((resolve, reject)=>{
+            db.run(ATUALIZA_PEDIDOS,
+                novoPedidos.prato, novoPedidos.mesa,
+                comanda,
+                (error)=>{
+                    if(error)
+                        reject(error)
+                    else
+                        resolve(novoPedidos)
+                }
+            )
+        })  
+    }
 }
+
+
 
 export default pedidosDAO

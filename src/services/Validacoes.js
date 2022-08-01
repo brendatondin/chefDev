@@ -1,3 +1,4 @@
+import pedidosDAO from "../DAO/pedidosDAO.js" 
 const Validacoes = {
 
     _validaGet : async (contato, callback)=>{
@@ -9,19 +10,10 @@ const Validacoes = {
         }
     },
 
-    _validaPedidos : async (comanda, callback)=>{
-        const pedidos = await callback(comanda)
-        if(pedidos === undefined){
-            throw new Error (`comanda: ${comanda} não encontrado!`)
-        }else{
-            return pedidos
-        }
-    },
-
     _ValidaDeleta : async (id, callback)=>{
         const cliente = await callback(id)
         if(cliente == undefined){
-            throw new Error(`Aviso: ${id} foi deletado!`)
+            throw new Error(`Aviso: ${id} não deletado!`)
         }else{
             return cliente
         }
@@ -43,7 +35,7 @@ const Validacoes = {
         }else{
             throw new Error ("Não foi possivel atualizar essa informação!")
         }
-    }
+    },
 
 }
 

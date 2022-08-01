@@ -157,6 +157,37 @@ function populaTabelaFornecedores() {
     });
 }
 
+const RESERVAS_SCHEMA = `
+    CREATE TABLE IF NOT EXISTS "RESERVAS" (
+        "idReserva" INTEGER PRIMARY KEY AUTOINCREMENT,
+        "nomeCliente" varchar(64),
+        "data" varchar(64),
+        "hora" int,
+        "lugares" int,
+        "mesa" int
+        
+    );`
+
+const ADD_RESERVAS_DATA = `
+    INSERT INTO RESERVAS (NOMECLIENTE, DATA, HORA, LUGARES, MESA)
+    VALUES 
+        ('Sr. João Pedro de Moura', '29/08/2022', 19, 4, 8),
+        ('Maria da Conceição', '29/08/2022', 21, 6, 15),
+        ('Joana Costa', '29/08/2022', 19, 2, 6)`
+
+function criaTabelaReservas() {
+    db.run(RESERVAS_SCHEMA, (error) => {
+        if (error) console.log("Erro ao criar tabela de reservas");
+    });
+}
+
+
+function populaTabelaReservas() {
+    db.run(ADD_RESERVAS_DATA, (error) => {
+        if (error) console.log("Erro ao popular tabela de reservas");
+    });
+}
+
 db.serialize(() => {
     criaTabelaClt();
     populaTabelaClt();
@@ -167,5 +198,7 @@ db.serialize(() => {
     criaTabelaFunc();
     populaTabelaFunc();
     criaTabelaFornecedores();
-    populaTabelaFornecedores()
+    populaTabelaFornecedores();
+    criaTabelaReservas();
+    populaTabelaReservas()
 });

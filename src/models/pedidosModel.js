@@ -13,8 +13,8 @@ const PedidosModel = {
     deletaPedidos : async(comanda)=>{
         return await pedidosDAO.deletaPedidos(comanda)
     },
-    atualizaPedido : async (comanda)=>{
-        return await pedidosDAO.atualizaPedido(comanda)
+    atualizaPedido : async (comanda, novoPedidos)=>{
+        return await pedidosDAO.atualizaPedido(comanda, novoPedidos)
     }
 }
 

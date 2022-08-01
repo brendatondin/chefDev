@@ -1,4 +1,6 @@
 import CardapioModel from "../models/cardapioModel.js"
+import CardapioValidacoes from "../services/CardapioValidacoes.js"
+import CardapioDAO from "../DAO/cardapioDAO.js"
 const cardapioController = (app) => {
 
     app.get('/cardapio', async (req, res) => {
@@ -24,9 +26,9 @@ const cardapioController = (app) => {
     app.get('/cardapio/codigo/:codigo', async (req, res) => {
         const codigo = req.params.codigo
         try {
-            const codigo = await CodigoModel.pegaUmCardapioCodigo(codigo)
+            const todosCodigos = await CardapioValidacoes. _validaGetCardapio(codigo, CardapioDAO.pegaUmPrato)
             res.json({
-                "cardapio": codigo,
+                "cardapio": todosCodigos,
                 "erro": false
             })
         } catch (error) {
@@ -40,11 +42,10 @@ const cardapioController = (app) => {
     app.post('/cardapio', async (req, res) => {
         const body = req.body
         try {
-            const novoPrato = criaPrato(body.prato, body.codigo)
-            await CardapioModel.inserePrato(novoPrato)
+            const inserePrato = await CardapioValidacoes._validaPostCardapio(body, CardapioDAO.inserePrato)
             res.json({
-                "msg": "Prato inserido com sucesso",
-                "Prato": novoPrato,
+                "msg": "Pedido inserido com sucesso",
+                "inserePedido": inserePrato,
                 "erro": false
             })
 
@@ -57,15 +58,15 @@ const cardapioController = (app) => {
     })
 
     app.delete('/cardapio/codigo/:codigo', async (req, res) => {
-        const id = req.params.id
+        const prato = req.params.codigo
         try {
-            await CardapioModel.deletaPrato(codigo)
+            const deletaPrato = await CardapioValidacoes._ValidaDeletaCardapio(prato, CardapioDAO.deletaPrato)
 
             res.json({
                 "msg": "Prato deletado com sucesso",
+                "Prato" : deletaPrato,
                 "erro": false
             })
-
         } catch (error) {
             res.json({
                 "msg": error.message,
@@ -75,14 +76,14 @@ const cardapioController = (app) => {
     })
 
     app.put('/cardapio/codigo/:codigo', async (req, res) => {
+        const cardapio = req.params.codigo
         const body = req.body
-        const codigo = req.params.codigo
         try {
-            const pratoValidado = criaPrato(body.prato, body.codigo)
-            await CardapioModel.atualizaCardapio(codigo, pratoValidado)
+            const novoBody = await PedidosValidacoes._ValidaReqBodyCardapio(body)
+            const CardapioValidado = await PedidosValidacoes._PedidoAtualiza(cardapio, CardapioDAO.atualizaCardapio, novoBody )
             res.json({
-                "msg": "Prato atualizado com sucesso",
-                "prato": pratoValidado,
+                "msg": "Prato atualizada com sucesso",
+                "Prato Validado": CardapioValidado,
                 "erro": false
             })
 
@@ -94,27 +95,7 @@ const cardapioController = (app) => {
         }
     })
 
-    app.patch('/cardapio/prato/codigo/:codigo', async (req, res) => {
-        const codigo = req.params.codigo
-        const body = req.body
-        try {
-            validaPrato(body.prato)
-            await CardapioModel.atualizaCardapio(codigo, {
-                "prato": body.prato
-            })
-            res.json({
-                "msg": "Prato atualizado",
-                "erro": false
-            })
-
-        } catch (error) {
-            res.json({
-                "msg": error.message,
-                "erro": true
-            })
-        }
-    })
-
+  
 }
 
 

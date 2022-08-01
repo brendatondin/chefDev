@@ -1,3 +1,4 @@
+import clientesDAO from "../DAO/clientesDAO.js" 
 const Validacoes = {
 
     _validaGet : async (contato, callback)=>{
@@ -9,11 +10,12 @@ const Validacoes = {
         }
     },
 
-    _ValidaDeleta : async (id, callback)=>{
-        const cliente = await callback(id)
+    _ValidaDeleta : async (contato, callback)=>{
+        const cliente = await clientesDAO.pegaUmClienteContato(contato)
         if(cliente == undefined){
-            throw new Error(`Aviso: ${id} não deletado!`)
+            throw new Error(`Aviso: ${contato} não deletado!`)
         }else{
+            await callback(contato)
             return cliente
         }
     },
@@ -36,49 +38,6 @@ const Validacoes = {
         }
     },
 
-    _validaGetPedidos : async (comanda, callback)=>{
-        if(pedidos === undefined){
-            throw new Error (`Aviso: ${comanda} não encontrado!`)
-        }else{
-            const pedidos = await callback(comanda)
-            return pedidos
-        }
-    },
-    _validaPostPedidos : async (pedidos, callback)=>{
-        if(!pedidos.mesa){
-            throw new Error ("Aviso: mesa não encontrado!")
-        }else{
-            const postPedidos = await callback(pedidos)
-            return pedidos
-        }
-    },
-
-    _PedidoAtualiza : async (comanda, callback, pedidoValidado)=>{
-        const pedidos = await callback(comanda, pedidoValidado)
-            if(pedidos === undefined){
-                throw new Error("Não conseguimos atualizar essa informação no banco de dados")
-            }else{
-                return pedidos
-            }
-        
-    },
-
-    _ValidaReqBodyPedidos : async (body)=>{
-        if(body.comanda && body.prato && body.mesa){
-            return body
-        }else{
-            throw new Error ("Não foi possivel atualizar essa informação!")
-        }
-    },
-
-    _ValidaDeletaPedido : async (comanda, callback)=>{
-        const pedidos = await callback(comanda)
-        if(pedidos == undefined){
-            throw new Error(`Aviso: ${comanda} não existente`)
-        }else{
-            return pedidos
-        }
-    }
 }
 
 export default Validacoes

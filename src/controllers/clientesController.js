@@ -7,12 +7,12 @@ const clientesController = (app) => {
     app.get('/clientes', async (req, res) => {
         try {
             const todosClientes = await ClientesModel.pegaCliente()
-            res.json({
+            res.status(201).json({
                 "clientes": todosClientes,
                 "erro": false
             })
         } catch (error) {
-            res.json({
+            res.status(404).json({
                 "msg": error.message,
                 "erro": true
             })
@@ -23,13 +23,13 @@ const clientesController = (app) => {
         const contato = req.params.contato
         try {
             const cliente = await Validacoes._validaGet(contato, clientesDAO.pegaUmClienteContato)
-            res.json({
+            res.status(201).json({
                 "cliente": cliente,
                 "msg": `o contato ${contato} esta no banco de dados`,
                 "erro": false
             })
         } catch (error) {
-            res.json({
+            res.status(404).json({
                 "msg": error.message,
                 "error": true
             })
@@ -40,32 +40,32 @@ const clientesController = (app) => {
         const cliente = req.body
         try {
             const insereCliente = await Validacoes._validaGet(cliente, clientesDAO.insereCliente)
-            res.json({
+            res.status(201).json({
                 "msg": "Cliente inserido com sucesso",
                 "nome": insereCliente,
                 "erro": false
             })
 
         } catch (error) {
-            res.json({
+            res.status(400).json({
                 "msg": error.message,
                 "erro": true
             })
         }
     })
 
-    app.delete('/clientes/id/:id', async (req, res) => {
-        const cliente = req.params.id
+    app.delete('/clientes/contato/:contato', async (req, res) => {
+        const cliente = req.params.contato
         try {
             const deletaCliente = await Validacoes._ValidaDeleta(cliente, clientesDAO.deletaCliente)
 
-            res.json({
+            res.status(200).json({
                 "msg": "Cliente deletado com sucesso",
                 "cliente" : deletaCliente,
                 "erro": false
             })
         } catch (error) {
-            res.json({
+            res.status(400).json({
                 "msg": error.message,
                 "erro": true
             })
@@ -78,35 +78,14 @@ const clientesController = (app) => {
         try {
             const novoBody = await Validacoes._ValidaReqBody(body)
             const atualizaCliente = await Validacoes._ValidaAtualiza(cliente, clientesDAO.atualizaCliente, novoBody )
-            res.json({
+            res.status(200).json({
                 "msg": "Cliente atualizado com sucesso",
                 "nome": atualizaCliente,
                 "erro": false
             })
 
         } catch (error) {
-            res.json({
-                "msg": error.message,
-                "erro": true
-            })
-        }
-    })
-
-    app.patch('/clientes/contato/id/:id', async (req, res) => {
-        const id = req.params.id
-        const body = req.body
-        try {
-            validaContato(body.contato)
-            await ClienteModel.atualizaCliente(id, {
-                "contato": body.contato
-            })
-            res.json({
-                "msg": "Contato atualizada",
-                "erro": false
-            })
-
-        } catch (error) {
-            res.json({
+            res.status(404).json({
                 "msg": error.message,
                 "erro": true
             })

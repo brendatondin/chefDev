@@ -4,6 +4,7 @@ import clientesController from "./controllers/clientesController.js"
 import pedidosController from "./controllers/pedidosController.js"
 import fornecedoresController from "./controllers/fornecedoresController.js"
 import reservasController from "./controllers/reservasController.js"
+import funcionariosController from "./controllers/funcionariosController.js"
 const app = express();
 const port = 3000;
 
@@ -14,6 +15,7 @@ pedidosController(app)
 clientesController(app)
 fornecedoresController(app)
 reservasController(app)
+funcionariosController(app)
 
 app.listen(port, () => {
     console.log(`http://localhost:${port}/`)

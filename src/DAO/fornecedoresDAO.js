@@ -1,12 +1,12 @@
 import db from "../database/db-sqlite.js"
 
-const clientesDAO  = {
-    pegaCliente : ()=>{
-        const PEGA_CLIENTE = `
-        SELECT * FROM CLIENTES
+const fornecedoresDAO  = {
+    pegaFornecedores : ()=>{
+        const PEGA_FORNECEDORES = `
+        SELECT * FROM FORNECEDORES
         `
         return new Promise((resolve, reject)=>{
-            db.all(PEGA_CLIENTE, (error,row)=>{
+            db.all(PEGA_FORNECEDORES, (error,row)=>{
                 if(error)
                     reject(error)
                 else
@@ -15,13 +15,13 @@ const clientesDAO  = {
         })
     },
 
-    pegaUmClienteContato: (contato)=>{
-        const PEGA_UM_CLIENTE = `
-        SELECT * FROM CLIENTES
+    pegaUmFornecedorContato: (contato)=>{
+        const PEGA_UM_FORNECEDOR = `
+        SELECT * FROM FORNECEDORES
         WHERE contato = ?
         `
         return new Promise((resolve, reject)=>{
-            db.get(PEGA_UM_CLIENTE, contato, (error, row)=>{
+            db.get(PEGA_UM_FORNECEDOR, contato, (error, row)=>{
                 if(error)
                     reject(error)
                 else
@@ -30,31 +30,31 @@ const clientesDAO  = {
         })
     },
 
-    insereCliente : (cliente)=>{
-        const INSERE_CLIENTES = `
-        INSERT INTO CLIENTES (nome, email, contato)
-        VALUES (?,?,?)
+    insereFornecedor : (fornecedor)=>{
+        const INSERE_FORNECEDORES = `
+        INSERT INTO FORNECEDORES (id, nome, email, contato)
+        VALUES (?,?,?,?)
         `
         return new Promise((resolve, reject)=>{
-            db.run(INSERE_CLIENTES,
-                cliente.nome, cliente.email, cliente.contato,
+            db.run(INSERE_FORNECEDORES,
+                fornecedor.id, fornecedor.nome, fornecedor.email, fornecedor.contato,
                 (error)=>{
                     if(error)
                         reject(error)
                     else
-                        resolve(cliente)
+                        resolve(fornecedor)
                 }
             )
         })
     },
 
-    deletaCliente : (contato)=>{
-        const DELETA_CLIENTE = `
-        DELETE FROM CLIENTES
+    deletaFornecedor : (contato)=>{
+        const DELETA_FORNECEDOR = `
+        DELETE FROM FORNECEDORES
         WHERE contato = ?
         `
         return new Promise((resolve, reject)=>{
-            db.get(DELETA_CLIENTE, contato, (error, row)=>{
+            db.get(DELETA_FORNECEDOR, contato, (error, row)=>{
                 if(error)
                     reject(error)
                 else
@@ -62,25 +62,26 @@ const clientesDAO  = {
             })
         })
     },
-    atualizaCliente : (id, novoCliente)=>{
-        const ATUALIZA_CLIENTE = `
-        UPDATE CLIENTES
+
+    atualizaFornecedor : (id, novoFornecedor)=>{
+        const ATUALIZA_FORNECEDOR = `
+        UPDATE FORNECEDORES
         SET nome = ?, email = ?, contato = ?
         WHERE id = ?
         `
         return new Promise((resolve, reject)=>{
-            db.run(ATUALIZA_CLIENTE,
-                novoCliente.nome, novoCliente.email, novoCliente.contato,
+            db.run(ATUALIZA_FORNECEDOR,
+                novoFornecedor.nome, novoFornecedor.email, novoFornecedor.contato,
                 id,
                 (error)=>{
                     if(error)
                         reject(error)
                     else
-                        resolve(novoCliente)
+                        resolve(novoFornecedor)
                 }
             )
-        })  
+        })
     }
 }
 
-export default clientesDAO
+export default fornecedoresDAO

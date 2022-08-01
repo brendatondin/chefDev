@@ -1,3 +1,5 @@
+import FornecedoresModel from "../models/fornecedoresModel.js"
+import FornecedoresValidacoes from "../services/FornecedoresValidacoes.js";
 
 const fornecedoresController = (app) => {
 
@@ -19,7 +21,7 @@ const fornecedoresController = (app) => {
     app.get('/fornecedores/contato/:contato', async (req, res) => {
         const contato = req.params.contato
         try {
-            const fornecedor = await FornecedoresModel.pegaUmFornecedorContato(contato)
+            const fornecedor = await FornecedoresModel.pegaUmFornecedorContato(contato, FornecedoresModel.pegaUmFornecedorContato)
             res.json({
                 "Fornecedor": fornecedor,
                 "erro": false
@@ -35,8 +37,7 @@ const fornecedoresController = (app) => {
     app.post('/fornecedores', async (req, res) => {
         const body = req.body
         try {
-            const novoFornecedor = criaFornecedor(body.nome, body.email, body.contato)
-            await FornecedoresModel.insereFornecedor(novoFornecedor)
+            const novoFornecedor = await FornecedoresValidacoes._validaPostForcedores(body, FornecedoresModel.insereFornecedor)
             res.json({
                 "msg": "Fornecedor inserido com sucesso",
                 "fornecedor": novoFornecedor,
@@ -51,13 +52,13 @@ const fornecedoresController = (app) => {
         }
     })
 
-    app.delete('/fornecedores/id/:id', async (req, res) => {
-        const id = req.params.id
+    app.delete('/fornecedores/contato/:contato', async (req, res) => {
+        const contato = req.params.contato
         try {
-            await FornecedoresModel.deletaFornecedor(id)
-
+            const deletaFornecedor = await FornecedoresValidacoes._ValidaDeletaFornecedor(contato, FornecedoresModel.deletaFornecedor)
             res.json({
-                "msg": "Fornecedor deletado com sucesso",
+                "msg": `Fornecedor com o contato ${contato} deletado com sucesso`,
+                "deletaFornecedor": deletaFornecedor,
                 "erro": false
             })
 
@@ -73,32 +74,11 @@ const fornecedoresController = (app) => {
         const body = req.body
         const id = req.params.id
         try {
-            const fornecedorValidado = criaFornecedor(body.nome, body.email, body.contato)
-            await FornecedoresModel.atualizaFornecedor(id, fornecedorValidado)
+            const novoBody = await FornecedoresValidacoes._ValidaReqBodyFornecedor(body)
+            const fornecedorValidado = await FornecedoresValidacoes._FornecedorAtualiza(id, FornecedoresModel.atualizaFornecedor, novoBody)
             res.json({
                 "msg": "Fornecedor atualizado com sucesso",
-                "fornecedor": fornecedorValidado,
-                "erro": false
-            })
-
-        } catch (error) {
-            res.json({
-                "msg": error.message,
-                "erro": true
-            })
-        }
-    })
-
-    app.patch('/fornecedores/contato/id/:id', async (req, res) => {
-        const id = req.params.id
-        const body = req.body
-        try {
-            validaContato(body.contato)
-            await FornecedoresModel.atualizaFornecedor(id, {
-                "contato": body.contato
-            })
-            res.json({
-                "msg": "Contato atualizada",
+                "fornecedorValidado": fornecedorValidado,
                 "erro": false
             })
 

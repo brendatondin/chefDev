@@ -4,6 +4,7 @@ const reservasModel = {
     verReservas : async ()=>{
         return await reservasDAO.verReservas()
     },
+ 
     verUmaReserva : async (idReserva)=>{
         return await reservasDAO.verUmaReserva(idReserva)
     },

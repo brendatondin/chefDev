@@ -10,11 +10,11 @@ const ClientesModel = {
     insereCliente :  async(cliente)=>{
         return await clientesDAO.insereCliente(cliente)
     },
-    deletaCliente : async(id)=>{
-        return await clientesDAO.deletaCliente(id)
+    deletaCliente : async(contato)=>{
+        return await clientesDAO.deletaCliente(contato)
     },
-    atualizaCliente : async (id)=>{
-        return await clientesDAO.atualizaCliente(id)
+    atualizaCliente : async (id, novoCliente)=>{
+        return await clientesDAO.atualizaCliente(id, novoCliente)
     }
 }
 

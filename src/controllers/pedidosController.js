@@ -1,6 +1,5 @@
 import PedidosModel from "../models/PedidosModel.js"
-import pedidosDAO from "../DAO/pedidosDAO.js"
-import Validacoes from "../services/Validacoes.js";
+import PedidosValidacoes from "../services/PedidosValidacoes.js";
 
 const pedidosController = (app) => {
 
@@ -22,7 +21,7 @@ const pedidosController = (app) => {
     app.get('/pedidos/comanda/:comanda', async (req, res) => {
         const comanda = req.params.comanda
         try {
-            const pedido = await Validacoes._validaGet(comanda, pedidosDAO.pegaUmPedidoComanda)
+            const pedido = await PedidosValidacoes._validaGetPedidos(comanda, PedidosModel.pegaUmPedidoComanda)
             res.json({
                 "pedido": pedido,
                 "msg": `o pedido ${comanda} esta no banco de dados`,
@@ -39,10 +38,10 @@ const pedidosController = (app) => {
     app.post('/pedidos', async (req, res) => {
         const body = req.body
         try {
-            const inserePedido = await Validacoes._validaGet(body, pedidosDAO.inserePedidos)
+            const inserePedido = await PedidosValidacoes._validaPostPedidos(body, PedidosModel.inserePedidos)
             res.json({
                 "msg": "Pedido inserido com sucesso",
-                "cliente": inserePedido,
+                "inserePedido": inserePedido,
                 "erro": false
             })
 
@@ -57,13 +56,13 @@ const pedidosController = (app) => {
     app.delete('/pedidos/comanda/:comanda', async (req, res) => {
         const comanda = req.params.comanda
         try {
-            await PedidosModel.deletaPedido(comanda)
-
+            const deletaPedidos = await PedidosValidacoes._ValidaDeletaPedido(comanda, PedidosModel.deletaPedidos)
             res.json({
-                "msg": "Comanda deletada com sucesso",
+                "msg": `Comanda ${comanda} deletada com sucesso`,
+                "deletaPedidos": deletaPedidos,
                 "erro": false
             })
-
+    
         } catch (error) {
             res.json({
                 "msg": error.message,
@@ -71,15 +70,16 @@ const pedidosController = (app) => {
             })
         }
     })
-    app.put('/cliente/comanda/:comanda', async (req, res) => {
+
+    app.put('/pedidos/comanda/:comanda', async (req, res) => {
+        const pedidos = req.params.comanda
         const body = req.body
-        const comanda = req.params.comanda
         try {
-            const pedidoValidado = criaPedidos(body.prato, body.comanda, body.mesa)
-            await PedidosModel.atualizaPedidos(comanda, pedidoValidado)
+            const novoBody = await PedidosValidacoes._ValidaReqBodyPedidos(body)
+            const pedidoValidado = await PedidosValidacoes._PedidoAtualiza(pedidos, PedidosModel.atualizaPedido, novoBody )
             res.json({
                 "msg": "Comanda atualizada com sucesso",
-                "cliente": pedidoValidado,
+                "pedidoValidado": pedidoValidado,
                 "erro": false
             })
 
@@ -90,28 +90,7 @@ const pedidosController = (app) => {
             })
         }
     })
-    app.patch('/pedidos/mesa/comanda/:comanda', async (req, res) => {
-        const comanda = req.params.comanda
-        const body = req.body
-        try {
-            validaPedido(body.comanda)
-            await PedidosModel.atualizaPedidos(comanda, {
-                "comanda": body.comanda
-            })
-            res.json({
-                "msg": "Comanda atualizada",
-                "erro": false
-            })
-
-        } catch (error) {
-            res.json({
-                "msg": error.message,
-                "erro": true
-            })
-        }
-    })
-
-
+    
 }
 
 

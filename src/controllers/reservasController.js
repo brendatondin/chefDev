@@ -1,5 +1,5 @@
 import reservasModel from "../models/reservasModels.js";
-import Validacoes from "../services/Validacoes.js";
+import Validacoes from "../services/ClientesValidacoes.js";
 import reservasDAO from "../DAO/reservasDAO.js";
 
 
@@ -72,11 +72,11 @@ const reservasController = (app) => {
     app.delete('/reservas/idReserva/:idReserva', async (req, res) => {
         const idReserva = req.params.idReserva
         try {
-             const cliente = await Validacoes._ValidaDeleta(idReserva, reservasDAO.deletaReserva)
+            const deletaReserva = await Validacoes._ValidaDeleta(idReserva, reservasDAO.deletaReserva)
 
             res.json({
                 "msg": "Reserva deletada com sucesso",
-                "cliente": cliente,
+                "deletaReserva": deletaReserva,
                 "erro": false
             })
 
@@ -107,8 +107,5 @@ const reservasController = (app) => {
         }
     })
 }
-
-
-
 
 export default reservasController

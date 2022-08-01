@@ -69,8 +69,8 @@ function populaTabelaPd() {
 
 const CARDAPIO_SCHEMA = `
 CREATE TABLE IF NOT EXISTS CARDAPIO (
-    CODIGO INTEGER PRIMARY KEY AUTOINCREMENT,
-    PRATO varchar(64)
+    "codigo" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "prato" varchar(64)
     
 );`;
 

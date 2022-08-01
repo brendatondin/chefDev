@@ -37,7 +37,7 @@ const fornecedoresDAO  = {
         `
         return new Promise((resolve, reject)=>{
             db.run(INSERE_FORNECEDORES,
-                fornecedor.nome, fornecedor.email, fornecedor.contato,
+                fornecedor.id, fornecedor.nome, fornecedor.email, fornecedor.contato,
                 (error)=>{
                     if(error)
                         reject(error)

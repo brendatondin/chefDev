@@ -1,4 +1,4 @@
-import fornecedoresModel from "../models/fornecedoresModel.js"
+import FornecedoresModel from "../models/fornecedoresModel.js"
 import fornecedoresDAO from "../DAO/fornecedoresDAO.js"
 import FornecedoresValidacoes from "../services/FornecedoresValidacoes.js";
 
@@ -38,8 +38,7 @@ const fornecedoresController = (app) => {
     app.post('/fornecedores', async (req, res) => {
         const body = req.body
         try {
-            const novoFornecedor = criaFornecedor(body.nome, body.email, body.contato)
-            await FornecedoresModel.insereFornecedor(novoFornecedor)
+            const novoFornecedor = await FornecedoresValidacoes._validaPostForcedores(body, fornecedoresDAO.insereFornecedor)
             res.json({
                 "msg": "Fornecedor inserido com sucesso",
                 "fornecedor": novoFornecedor,

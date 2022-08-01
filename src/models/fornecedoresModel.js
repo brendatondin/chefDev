@@ -8,8 +8,8 @@ const FornecedoresModel = {
     pegaUmFornecedorContato : async (contato)=>{
         return await fornecedoresDAO.pegaUmFornecedorContato(contato)
     },
-    insereFornecedor :  async(fornecedor)=>{
-        return await fornecedoresDAO.insereFornecedor(fornecedor)
+    insereFornecedor :  async(id)=>{
+        return await fornecedoresDAO.insereFornecedor(id)
     },
     deletaFornecedor : async(id)=>{
         return await fornecedoresDAO.deletaFornecedor(id)

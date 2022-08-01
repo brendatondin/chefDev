@@ -58,9 +58,9 @@ const cardapioController = (app) => {
     })
 
     app.delete('/cardapio/codigo/:codigo', async (req, res) => {
-        const prato = req.params.codigo
+        const codigo = req.params.codigo
         try {
-            const deletaPrato = await CardapioValidacoes._ValidaDeletaCardapio(prato, CardapioDAO.deletaPrato)
+            const deletaPrato = await CardapioValidacoes._ValidaDeletaCardapio(codigo, CardapioDAO.deletaPrato)
 
             res.json({
                 "msg": "Prato deletado com sucesso",
@@ -76,14 +76,14 @@ const cardapioController = (app) => {
     })
 
     app.put('/cardapio/codigo/:codigo', async (req, res) => {
-        const cardapio = req.params.codigo
+        const codigo = req.params.codigo
         const body = req.body
         try {
-            const novoBody = await PedidosValidacoes._ValidaReqBodyCardapio(body)
-            const CardapioValidado = await PedidosValidacoes._PedidoAtualiza(cardapio, CardapioDAO.atualizaCardapio, novoBody )
+            const novoCardapio = await CardapioValidacoes._ValidaReqBodyCardapio(body)
+            const PratoAtualizado = await CardapioValidacoes._CardapioAtualiza(codigo, CardapioDAO.atualizaCardapio, novoCardapio )
             res.json({
                 "msg": "Prato atualizada com sucesso",
-                "Prato Validado": CardapioValidado,
+                "Prato Validado": PratoAtualizado,
                 "erro": false
             })
 

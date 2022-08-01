@@ -59,7 +59,7 @@ const cardapioDAO  = {
             })
         })
     },
-    atualizaCardapio : (codigo, novoPedidos)=>{
+    atualizaCardapio : (codigo, novoCardapio)=>{
         const ATUALIZA_CARDAPIO = `
         UPDATE CARDAPIO
         SET prato = ?
@@ -67,13 +67,13 @@ const cardapioDAO  = {
         `
         return new Promise((resolve, reject)=>{
             db.run(ATUALIZA_CARDAPIO,
-                novoCardapio.codigo, novoCardapio.prato,
+                 novoCardapio.prato,
                 codigo,
                 (error)=>{
                     if(error)
                         reject(error)
                     else
-                        resolve(novoPedidos)
+                        resolve(novoCardapio)
                 }
             )
         })  

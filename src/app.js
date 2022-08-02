@@ -5,8 +5,12 @@ import pedidosController from "./controllers/pedidosController.js"
 import fornecedoresController from "./controllers/fornecedoresController.js"
 import reservasController from "./controllers/reservasController.js"
 import funcionariosController from "./controllers/funcionariosController.js"
+import autenticacao from './middleware/autenticacaoReservas.js'
+
+
 const app = express();
 const port = 3000;
+
 
 
 app.use(express.json());
@@ -14,6 +18,7 @@ cardapioController(app)
 pedidosController(app)
 clientesController(app)
 fornecedoresController(app)
+autenticacao(app)
 reservasController(app)
 funcionariosController(app)
 

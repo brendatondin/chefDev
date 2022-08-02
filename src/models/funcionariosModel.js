@@ -1,20 +1,20 @@
-import funcionariosDAO from "../DAO/clientesDAO.js"
+import funcionariosDAO from "../DAO/funcionariosDAO.js"
 const funcionariosModel = {
 
     pegaFuncionario : async ()=>{
-        return await funcionariosDAO.pegaCliente()
+        return await funcionariosDAO.pegaFuncionario()
     },
     pegaUmFuncionarioContato : async (contato)=>{
-        return await funcionariosDAO.pegaUmClienteContato(contato)
+        return await funcionariosDAO.pegaUmFuncionarioContato(contato)
     },
-    insereFuncionario :  async(funcionario)=>{
-        return await funcionariosDAO.insereCliente(funcionario)
+    insereFuncionario :  async(funcionarios)=>{
+        return await funcionariosDAO.insereFuncionario(funcionarios)
     },
-    deletaFuncionario : async(id)=>{
-        return await funcionariosDAO.deletaCliente(id)
+    deletaFuncionario : async(contato)=>{
+        return await funcionariosDAO.deletaFuncionario(contato)
     },
-    atualizaFuncionario : async (id)=>{
-        return await funcionariosDAO.atualizaCliente(id)
+    atualizaFuncionario : async (id, novoFuncionario)=>{
+        return await funcionariosDAO.atualizaFuncionario(id, novoFuncionario)
     }
 }
 

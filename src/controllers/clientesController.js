@@ -1,6 +1,5 @@
-import clientesDAO from "../DAO/clientesDAO.js";
 import ClientesModel from "../models/ClientesModel.js";
-import Validacoes from "../services/Validacoes.js";
+import Validacoes from "../services/ClientesValidacoes.js";
 
 const clientesController = (app) => {
 
@@ -22,7 +21,7 @@ const clientesController = (app) => {
     app.get('/clientes/contato/:contato', async (req, res) => {
         const contato = req.params.contato
         try {
-            const cliente = await Validacoes._validaGet(contato, clientesDAO.pegaUmClienteContato)
+            const cliente = await Validacoes._validaGet(contato, ClientesModel.pegaUmClienteContato)
             res.status(201).json({
                 "cliente": cliente,
                 "msg": `o contato ${contato} esta no banco de dados`,
@@ -39,7 +38,7 @@ const clientesController = (app) => {
     app.post('/clientes', async (req, res) => {
         const cliente = req.body
         try {
-            const insereCliente = await Validacoes._validaGet(cliente, clientesDAO.insereCliente)
+            const insereCliente = await Validacoes._validaPostClientes(cliente, ClientesModel.insereCliente)
             res.status(201).json({
                 "msg": "Cliente inserido com sucesso",
                 "nome": insereCliente,
@@ -57,7 +56,7 @@ const clientesController = (app) => {
     app.delete('/clientes/contato/:contato', async (req, res) => {
         const cliente = req.params.contato
         try {
-            const deletaCliente = await Validacoes._ValidaDeleta(cliente, clientesDAO.deletaCliente)
+            const deletaCliente = await Validacoes._ValidaDeleta(cliente, ClientesModel.deletaCliente)
 
             res.status(200).json({
                 "msg": "Cliente deletado com sucesso",
@@ -77,7 +76,7 @@ const clientesController = (app) => {
         const body = req.body
         try {
             const novoBody = await Validacoes._ValidaReqBody(body)
-            const atualizaCliente = await Validacoes._ValidaAtualiza(cliente, clientesDAO.atualizaCliente, novoBody )
+            const atualizaCliente = await Validacoes._ValidaAtualiza(cliente, ClientesModel.atualizaCliente, novoBody )
             res.status(200).json({
                 "msg": "Cliente atualizado com sucesso",
                 "nome": atualizaCliente,

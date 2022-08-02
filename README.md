@@ -9,9 +9,9 @@ Projeto denvolvido em [Node.js](https://nodejs.org/en/) com framework [Express](
 - <a href="https://www.npmjs.com/">NPM</a> - v. 8.5.5
 - <a href="https://expressjs.com/pt-br/">Express</a> - v. 4.18.1
 - <a href="https://www.npmjs.com/package/sqlite3">SQLite3</a> - v. 5.0.10s
-- <a href="">Git</a>
-- <a href="">VsCode</a> ou qualquer editor de texto de preferência.
-- <a href="">Insomnia</a> ou qualquer outra ferramenta de cliente API Rest.
+- <a href="https://git-scm.com/downloads">Git</a>
+- <a href="https://code.visualstudio.com/download">VsCode</a> ou qualquer editor de texto de preferência.
+- <a href="https://insomnia.rest/download">Insomnia Rest</a> ou qualquer outra ferramenta de cliente API Rest.
 
 
 
@@ -71,18 +71,19 @@ New header: usertype / New value: maitre
 
 # Tabela de Entidades
 <!--ts-->
-   * [Pedidos]()
-   * []()
-   * []()
-   * []()
-   * []()
-   * []()
-   * []()
+   * [Cardápio](#cardápio)
+   * [Clientes](#clientes)
+   * [Fornecedores](#fornecedores)
+   * [Funcionários](#funcionários)
+   * [Pedidos](#pedidos)
+   * [Reservas](#reservas)
 <!--te-->
 
 ## Rotas
 
-```url/ ou url/```
+```
+url/ ou url/
+```
 
 ## Pedidos
 

@@ -11,7 +11,7 @@ const CardapioValidacoes = {
         }
     },
     _validaPostCardapio: async (cardapio, callback)=>{
-        if(!cardapio.prato){
+        if(cardapio.prato.length < 1 ){
             throw new Error ("Aviso: prato não inserido!")
         }else{
             const postCardapio = await callback(cardapio)

@@ -6,14 +6,14 @@ const reservasController = (app) => {
     app.get('/reservas', async (req, res) => {
         try {
             const reservas = await reservasModel.verReservas()
-            res.json(
+            res.status(200).json(
                 {
                     "reservas": reservas,
                     "erro": false
                 }
             )
         } catch (error) {
-            res.json({
+            res.status(400).json({
                 "msg": error.message,
                 "erro": true
             })
@@ -26,7 +26,7 @@ const reservasController = (app) => {
 
         try {
             const reserva = await ReservasValidacoes._validaGetReservas(idReserva, reservasModel.verUmaReserva)
-            res.json(
+            res.status(200).json(
                 {
                     "reserva": reserva,
                     "msg": `A reserva ${idReserva} foi agendada`,
@@ -34,7 +34,7 @@ const reservasController = (app) => {
                 }
             )
         } catch (error) {
-            res.json(
+            res.status(400).json(
                 {
                     "msg": error.message,
                     "erro": true
@@ -87,14 +87,14 @@ const reservasController = (app) => {
         try {
             const novoBody = await ReservasValidacoes._ValidaReqBodyReservas(body)
             const atualizaReserva = await ReservasValidacoes._ReservaAtualiza(idReserva, reservasModel.atualizaReserva, novoBody)
-            res.json({
+            res.status(202).json({
                 "msg": "Reserva atualizada com sucesso",
                 "nome": atualizaReserva,
                 "erro": false
             })
     
         } catch (error) {
-            res.json({
+            res.status(400).json({
                 "msg": error.message,
                 "erro": true
             })

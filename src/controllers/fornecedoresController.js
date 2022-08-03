@@ -6,12 +6,12 @@ const fornecedoresController = (app) => {
     app.get('/fornecedores', async (req, res) => {
         try {
             const todosFornecedores = await FornecedoresModel.pegaFornecedor()
-            res.json({
+            res.status(201).json({
                 "fornecedores": todosFornecedores,
                 "erro": false
             })
         } catch (error) {
-            res.json({
+            res.status(404).json({
                 "msg": error.message,
                 "erro": true
             })
@@ -22,12 +22,12 @@ const fornecedoresController = (app) => {
         const contato = req.params.contato
         try {
             const fornecedor = await FornecedoresModel.pegaUmFornecedorContato(contato, FornecedoresModel.pegaUmFornecedorContato)
-            res.json({
+            res.status(201).json({
                 "Fornecedor": fornecedor,
                 "erro": false
             })
         } catch (error) {
-            res.json({
+            res.status(404).json({
                 "msg": error.message,
                 "erro": true
             })
@@ -38,14 +38,14 @@ const fornecedoresController = (app) => {
         const body = req.body
         try {
             const novoFornecedor = await FornecedoresValidacoes._validaPostForcedores(body, FornecedoresModel.insereFornecedor)
-            res.json({
+            res.status(201).json({
                 "msg": "Fornecedor inserido com sucesso",
                 "fornecedor": novoFornecedor,
                 "erro": false
             })
 
         } catch (error) {
-            res.json({
+            res.status(400).json({
                 "msg": error.message,
                 "erro": true
             })
@@ -56,14 +56,14 @@ const fornecedoresController = (app) => {
         const contato = req.params.contato
         try {
             const deletaFornecedor = await FornecedoresValidacoes._ValidaDeletaFornecedor(contato, FornecedoresModel.deletaFornecedor)
-            res.json({
+            res.status(200).json({
                 "msg": `Fornecedor com o contato ${contato} deletado com sucesso`,
                 "deletaFornecedor": deletaFornecedor,
                 "erro": false
             })
 
         } catch (error) {
-            res.json({
+            res.status(400).json({
                 "msg": error.message,
                 "erro": true
             })
@@ -76,14 +76,14 @@ const fornecedoresController = (app) => {
         try {
             const novoBody = await FornecedoresValidacoes._ValidaReqBodyFornecedor(body)
             const fornecedorValidado = await FornecedoresValidacoes._FornecedorAtualiza(id, FornecedoresModel.atualizaFornecedor, novoBody)
-            res.json({
+            res.status(200).json({
                 "msg": "Fornecedor atualizado com sucesso",
                 "fornecedorValidado": fornecedorValidado,
                 "erro": false
             })
 
         } catch (error) {
-            res.json({
+            res.status(404).json({
                 "msg": error.message,
                 "erro": true
             })

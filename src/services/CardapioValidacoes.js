@@ -1,5 +1,5 @@
 
-import CardapioDAO from "../DAO/cardapioDAO.js"
+import CardapioDAO from "../DAO/DAOcardapio.js"
 
 const CardapioValidacoes = {
     _validaGetCardapio : async (codigo, callback)=>{

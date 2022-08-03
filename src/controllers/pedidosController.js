@@ -1,4 +1,4 @@
-import PedidosModel from "../models/PedidosModel.js"
+import PedidosModel from "../models/pedidosModel.js"
 import PedidosValidacoes from "../services/PedidosValidacoes.js";
 
 const pedidosController = (app) => {

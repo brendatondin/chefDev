@@ -39,7 +39,7 @@ const pedidosController = (app) => {
         const body = req.body
         try {
             const inserePedido = await PedidosValidacoes._validaPostPedidos(body, PedidosModel.inserePedidos)
-            res.status(200).json({
+            res.status(201).json({
                 "msg": "Pedido inserido com sucesso",
                 "inserePedido": inserePedido,
                 "erro": false

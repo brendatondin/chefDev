@@ -6,12 +6,12 @@ const cardapioController = (app) => {
         
             try {
                 const todosCardapio = await CardapioModel.pegaCardapio()
-                res.json({
+                res.status(201).json({
                     "cardapio": todosCardapio,
                     "erro": false
                 })
             } catch (error) {
-                res.json({
+                res.status(404).json({
                     "msg": error.message,
                     "erro": true
                 })
@@ -26,12 +26,12 @@ const cardapioController = (app) => {
         const codigo = req.params.codigo
         try {
             const todosCodigos = await CardapioValidacoes. _validaGetCardapio(codigo, CardapioDAO.pegaUmPrato)
-            res.json({
+            res.status(201).json({
                 "cardapio": todosCodigos,
                 "erro": false
             })
         } catch (error) {
-            res.json({
+            res.status(404).json({
                 "msg": error.message,
                 "erro": true
             })
@@ -42,14 +42,14 @@ const cardapioController = (app) => {
         const prato = req.body
         try {
             const inserePrato = await CardapioValidacoes._validaPostCardapio(prato, CardapioModel.inserePrato)
-            res.json({
+            res.status(201).json({
                 "msg": "Pedido inserido com sucesso",
                 "inserePedido": inserePrato,
                 "erro": false
             })
 
         } catch (error) {
-            res.json({
+            res.status(400).json({
                 "msg": error.message,
                 "erro": true
             })
@@ -61,13 +61,13 @@ const cardapioController = (app) => {
         try {
             const deletaPrato = await CardapioValidacoes._ValidaDeletaCardapio(codigo, CardapioModel.DeletaPrato)
 
-            res.json({
+            res.status(200).json({
                 "msg": "Prato deletado com sucesso",
                 "Prato" : deletaPrato,
                 "erro": false
             })
         } catch (error) {
-            res.json({
+            res.status(400).json({
                 "msg": error.message,
                 "erro": true
             })
@@ -80,14 +80,14 @@ const cardapioController = (app) => {
         try {
             const novoCardapio = await CardapioValidacoes._ValidaReqBodyCardapio(body)
             const PratoAtualizado = await CardapioValidacoes._CardapioAtualiza(codigo, CardapioModel.AtualizaPrato, novoCardapio )
-            res.json({
+            res.status(200).json({
                 "msg": "Prato atualizada com sucesso",
                 "Prato Validado": PratoAtualizado,
                 "erro": false
             })
 
         } catch (error) {
-            res.json({
+            res.status(404).json({
                 "msg": error.message,
                 "erro": true
             })

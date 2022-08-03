@@ -1,4 +1,4 @@
-# :woman_cook: <spam style="color: orange"> _chefDev_</spam> :man_cook:</spam>
+# :woman_cook: <spam style="color: orange">_chefDev_</spam> :man_cook:</spam>
 
 Projeto final do modulo 4 da Resilia Educação, com objetivo de desenvolver uma API Rest de um restaurante. <br>
 Projeto denvolvido em [Node.js](https://nodejs.org/en/) com framework [Express](https://expressjs.com/)
@@ -15,7 +15,7 @@ Projeto denvolvido em [Node.js](https://nodejs.org/en/) com framework [Express](
 
 
 
-## Tecnologias
+##  :desktop_computer: Tecnologias
 
 ```Json
 "dependencies": {
@@ -27,7 +27,7 @@ Projeto denvolvido em [Node.js](https://nodejs.org/en/) com framework [Express](
   }
 ```
 
-## Como instalar a aplicação localmente
+## :rocket: Como instalar a aplicação localmente
 
 1. Para clonar repositório:
 
@@ -53,7 +53,7 @@ Projeto denvolvido em [Node.js](https://nodejs.org/en/) com framework [Express](
     npm start
     ```
 
-## Inicializando Banco de Dados
+##  :floppy_disk: Inicializando Banco de Dados
 
 Para iniciar um banco de dados novo com os dados padrão, delete o arquivo `database.db` e rode o comando abaixo:
 
@@ -61,7 +61,7 @@ Para iniciar um banco de dados novo com os dados padrão, delete o arquivo `data
 npm run db
 ```
 
-## Validando o Usuário 
+## :ballot_box_with_check: Validando o Usuário 
 
 Para validar o usuário, insira no Header os seguintes dados:
 
@@ -69,7 +69,7 @@ Para validar o usuário, insira no Header os seguintes dados:
 New header: usertype / New value: maitre
 ```
 
-# Tabela de Entidades
+# :high_brightness: Tabela de Entidades
 <!--ts-->
    * [Cardápio](#cardápio)
    * [Clientes](#clientes)
@@ -79,7 +79,7 @@ New header: usertype / New value: maitre
    * [Reservas](#reservas)
 <!--te-->
 
-## Rotas
+## :bus: Rotas
 
 ```
 url/ ou url/
@@ -1068,3 +1068,16 @@ url/ ou url/
 	    "erro": true
     }
     ``` 
+
+---
+## :robot: Colaboradores:
+
+<table align='center'>
+  <tr>
+    <td align="center"><a href="https://github.com/BarbaraGuimaraes21"><img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/102765523?v=4" width="100px;" alt=""/><br /><sub><b>Bárbara Guimarães</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/brendatondin"><img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/102706943?v=4" width="100px;" alt=""/><br /><sub><b>Brenda Tondin</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/Dev-DaMata"><img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/102765157?v=4" width="100px;" alt=""/><br /><sub><b>Guilherme Cordeiro</b></sub></a><br /></td>
+     <td align="center"><a href="https://github.com/Henry-Januario"><img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/102758431?v=4" width="100px;" alt=""/><br /><sub><b>Henry Januário</b></sub></a><br /></td>
+       <td align="center"><a href="https://github.com/joao-pedro-de-moura"><img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/102768045?v=4" width="100px;" alt=""/><br /><sub><b>João Pedro de Moura</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/luiseduardot17"><img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/102761201?v=4" width="100px;" alt=""/><br /><sub><b>Luís Eduardo Gonçalves</b></sub></a><br /></td>
+  </tr>

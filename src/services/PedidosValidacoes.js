@@ -11,7 +11,7 @@ const PedidosValidacoes = {
         }
     },
     _validaPostPedidos : async (pedidos, callback)=>{
-        if(pedidos.prato.length < 1 || pedidos.mesa.length < 0){
+        if(pedidos.prato.length < 1 || pedidos.mesa.length < 1){
             throw new Error ("Aviso: preencha todos os campos")
         }else{
             const postPedidos = await callback(pedidos)

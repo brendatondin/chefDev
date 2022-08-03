@@ -77,7 +77,7 @@ const reservasDAO = {
         `
         return new Promise((resolve, reject)=>{
             db.run(ATUALIZA_RESERVA,
-                reservaAtualizada.nomeCliente, reservaAtualizada.email, reservaAtualizada.hora, reservaAtualizada.lugares,reservaAtualizada.mesa,
+                reservaAtualizada.nomeCliente, reservaAtualizada.data, reservaAtualizada.hora, reservaAtualizada.lugares,reservaAtualizada.mesa,
                 idReserva,
                 (error)=>{
                     if(error)

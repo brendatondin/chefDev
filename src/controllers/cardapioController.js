@@ -1,6 +1,5 @@
 import CardapioModel from "../models/cardapioModel.js"
 import CardapioValidacoes from "../services/CardapioValidacoes.js"
-import CardapioDAO from "../DAO/cardapioDAO.js"
 const cardapioController = (app) => {
 
     app.get('/cardapio', async (req, res) => {
@@ -40,9 +39,9 @@ const cardapioController = (app) => {
     })
 
     app.post('/cardapio', async (req, res) => {
-        const body = req.body
+        const prato = req.body
         try {
-            const inserePrato = await CardapioValidacoes._validaPostCardapio(body, CardapioDAO.inserePrato)
+            const inserePrato = await CardapioValidacoes._validaPostCardapio(prato, CardapioModel.inserePrato)
             res.json({
                 "msg": "Pedido inserido com sucesso",
                 "inserePedido": inserePrato,
@@ -60,7 +59,7 @@ const cardapioController = (app) => {
     app.delete('/cardapio/codigo/:codigo', async (req, res) => {
         const codigo = req.params.codigo
         try {
-            const deletaPrato = await CardapioValidacoes._ValidaDeletaCardapio(codigo, CardapioDAO.deletaPrato)
+            const deletaPrato = await CardapioValidacoes._ValidaDeletaCardapio(codigo, CardapioModel.DeletaPrato)
 
             res.json({
                 "msg": "Prato deletado com sucesso",
@@ -80,7 +79,7 @@ const cardapioController = (app) => {
         const body = req.body
         try {
             const novoCardapio = await CardapioValidacoes._ValidaReqBodyCardapio(body)
-            const PratoAtualizado = await CardapioValidacoes._CardapioAtualiza(codigo, CardapioDAO.atualizaCardapio, novoCardapio )
+            const PratoAtualizado = await CardapioValidacoes._CardapioAtualiza(codigo, CardapioModel.AtualizaPrato, novoCardapio )
             res.json({
                 "msg": "Prato atualizada com sucesso",
                 "Prato Validado": PratoAtualizado,

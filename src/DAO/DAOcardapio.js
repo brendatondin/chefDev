@@ -14,7 +14,7 @@ const cardapioDAO = {
             })
         })
     },
-    pegaUmPrato: (codigo) => {
+    pegaUmCodigo: (codigo) => {
         const PEGA_UM_PRATO = `
         SELECT * FROM CARDAPIO
         WHERE codigo = ?
@@ -45,7 +45,7 @@ const cardapioDAO = {
             )
         })
     },
-    deletaPrato: (codigo) => {
+    DeletaPrato: (codigo) => {
         const DELETA_PRATOS = `
         DELETE FROM CARDAPIO
         WHERE codigo = ?
@@ -59,7 +59,7 @@ const cardapioDAO = {
             })
         })
     },
-    atualizaCardapio: (codigo, novoCardapio) => {
+    AtualizaPrato: (codigo, novoCardapio) => {
         const ATUALIZA_CARDAPIO = `
         UPDATE CARDAPIO
         SET prato = ?

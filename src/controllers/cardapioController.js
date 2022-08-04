@@ -25,7 +25,7 @@ const cardapioController = (app) => {
     app.get('/cardapio/codigo/:codigo', async (req, res) => {
         const codigo = req.params.codigo
         try {
-            const todosCodigos = await CardapioValidacoes. _validaGetCardapio(codigo, CardapioDAO.pegaUmPrato)
+            const todosCodigos = await CardapioValidacoes. _validaGetCardapio(codigo, CardapioModel.pegaUmCodigo)
             res.status(201).json({
                 "cardapio": todosCodigos,
                 "erro": false

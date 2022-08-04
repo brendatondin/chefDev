@@ -19,7 +19,7 @@ const CardapioValidacoes = {
         }
     },
     _ValidaDeletaCardapio : async (codigo, callback)=>{
-        const cardapio = await CardapioDAO.pegaUmPrato(codigo)
+        const cardapio = await CardapioDAO.pegaUmCodigo(codigo)
         if(cardapio == undefined){
             throw new Error(`Aviso: ${codigo} não existente`)
         }else{

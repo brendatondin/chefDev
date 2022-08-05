@@ -6,7 +6,7 @@ const funcionariosController = (app) => {
     app.get('/funcionarios', async (req, res) => {
         try {
             const todosFuncionarios = await funcionariosModel.pegaFuncionario()
-            res.status(201).json({
+            res.status(200).json({
                 "funcionarios": todosFuncionarios,
                 "erro": false
             })
@@ -22,7 +22,7 @@ const funcionariosController = (app) => {
         const contato = req.params.contato
         try {
             const funcionarios = await FuncionariosValidacoes._validaGetFuncionarios(contato, funcionariosModel.pegaUmFuncionarioContato)
-            res.status(201).json({
+            res.status(200).json({
                 "funcionarios": funcionarios,
                 "msg": `o funcionário ${contato} esta no banco de dados`,
                 "erro": false
@@ -39,7 +39,7 @@ const funcionariosController = (app) => {
         const body = req.body
         try {
             const validaBody = await FuncionariosValidacoes._ValidaReqBodyFuncionarios(body)
-            const insereFuncionario = await FuncionariosValidacoes._validaPostFuncionarios(validaBody, funcionariosModel.insereFuncionario)
+            const insereFuncionario = await funcionariosModel.insereFuncionario(validaBody)
             res.status(201).json({
                 "msg": "Funcionário inserido com sucesso",
                 "funcionarios": insereFuncionario,
@@ -80,7 +80,7 @@ const funcionariosController = (app) => {
             const novoBody = await FuncionariosValidacoes._ValidaReqBodyFuncionarios(body)
             const validaContato = await FuncionariosValidacoes._validaGetFuncionarios(id, funcionariosModel.pegaUmFuncionarioContato)
             const funcionariosValidados = await FuncionariosValidacoes._AtualizaFuncionarios(validaContato.id, funcionariosModel.atualizaFuncionario, novoBody)
-            res.status(200).json({
+            res.status(202).json({
                 "msg": "Funcionários atualizado com sucesso",
                 "funcionariosValidados": funcionariosValidados,
                 "erro": false

@@ -9,14 +9,7 @@ const FornecedoresValidacoes = {
             return fornecedor
         }
     },
-    _validaPostForcedores: async (fornecedores, callback)=>{
-        if(!fornecedores.nome){
-            throw new Error ("Aviso: fornecedor não encontrado!")
-        }else{
-            const postFornecedor = await callback(fornecedores)
-            return fornecedores
-        }
-    },
+  
     _ValidaDeletaFornecedor : async (contato, callback)=>{
         const fornecedores = await fornecedoresDAO.pegaUmFornecedorContato(contato)
         if(fornecedores == undefined){

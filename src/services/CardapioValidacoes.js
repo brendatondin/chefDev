@@ -5,19 +5,12 @@ const CardapioValidacoes = {
     _validaGetCardapio : async (codigo, callback)=>{
         const cardapio = await callback(codigo)
         if(cardapio === undefined){
-            throw new Error (`Aviso: ${codigo} não encontrado!`)
+            throw new Error (`Aviso: prato de codigo ${codigo} não encontrado!`)
         }else{
             return cardapio
         }
     },
-    _validaPostCardapio: async (cardapio, callback)=>{
-        if(cardapio.prato.length < 1 ){
-            throw new Error ("Aviso: prato não inserido!")
-        }else{
-            const postCardapio = await callback(cardapio)
-            return cardapio
-        }
-    },
+   
     _ValidaDeletaCardapio : async (codigo, callback)=>{
         const cardapio = await CardapioDAO.pegaUmCodigo(codigo)
         if(cardapio == undefined){
@@ -39,7 +32,7 @@ const CardapioValidacoes = {
         if(body.prato){
             return body
         }else{
-            throw new Error ("Não foi possivel atualizar essa informação!")
+            throw new Error ("Preencha todos os campos!")
         }
     }
 }

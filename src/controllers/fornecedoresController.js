@@ -6,7 +6,7 @@ const fornecedoresController = (app) => {
     app.get('/fornecedores', async (req, res) => {
         try {
             const todosFornecedores = await FornecedoresModel.pegaFornecedor()
-            res.status(201).json({
+            res.status(200).json({
                 "fornecedores": todosFornecedores,
                 "erro": false
             })
@@ -22,7 +22,7 @@ const fornecedoresController = (app) => {
         const contato = req.params.contato
         try {
             const fornecedor = await FornecedoresModel.pegaUmFornecedorContato(contato, FornecedoresModel.pegaUmFornecedorContato)
-            res.status(201).json({
+            res.status(200).json({
                 "Fornecedor": fornecedor,
                 "erro": false
             })
@@ -37,7 +37,8 @@ const fornecedoresController = (app) => {
     app.post('/fornecedores', async (req, res) => {
         const body = req.body
         try {
-            const novoFornecedor = await FornecedoresValidacoes._validaPostForcedores(body, FornecedoresModel.insereFornecedor)
+            const validaFornecedorBody = await FornecedoresValidacoes._ValidaReqBodyFornecedor(body)
+            const novoFornecedor = await FornecedoresModel.insereFornecedor(validaFornecedorBody)
             res.status(201).json({
                 "msg": "Fornecedor inserido com sucesso",
                 "fornecedor": novoFornecedor,
@@ -77,7 +78,7 @@ const fornecedoresController = (app) => {
             const novoBody = await FornecedoresValidacoes._ValidaReqBodyFornecedor(body)
             const validaContato = await FornecedoresValidacoes._validaGetFornecedores(contato, FornecedoresModel.pegaUmFornecedorContato)
             const fornecedorValidado = await FornecedoresValidacoes._FornecedorAtualiza(validaContato.id, FornecedoresModel.atualizaFornecedor, novoBody)
-            res.status(200).json({
+            res.status(202).json({
                 "msg": "Fornecedor atualizado com sucesso",
                 "fornecedorValidado": fornecedorValidado,
                 "erro": false

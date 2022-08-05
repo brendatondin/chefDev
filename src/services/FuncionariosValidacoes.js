@@ -10,15 +10,6 @@ const FuncionariosValidacoes = {
         }
     },
 
-    _validaPostFuncionarios : async (funcionarios, callback)=>{
-        if(funcionarios.nome.length < 1 || funcionarios.email.length < 1 || funcionarios.cargo.length < 1 || funcionarios.salario.length < 1 || funcionarios.contato.length < 1 ){
-            throw new Error ("Aviso: preencha todos os campos")
-        }else{
-            const postFuncionarios = await callback(funcionarios)
-            return postFuncionarios
-        }
-    },
-
     _AtualizaFuncionarios: async (id, callback, funcionarioValidado) => {
         const funcionarios = await callback(id, funcionarioValidado)
         if (funcionarios === undefined) {

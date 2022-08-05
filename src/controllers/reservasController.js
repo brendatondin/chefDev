@@ -47,7 +47,7 @@ const reservasController = (app) => {
         const body = req.body
         try {
             const validaBody = await ReservasValidacoes._ValidaReqBodyReservas(body)
-            const agendarReserva = await ReservasValidacoes._validaPostReservas(validaBody, reservasModel.agendarReserva)
+            const agendarReserva = await reservasModel.agendarReserva(validaBody)
 
             res.status(201).json(
                 {

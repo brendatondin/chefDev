@@ -14,7 +14,7 @@ const CardapioValidacoes = {
     _ValidaDeletaCardapio : async (codigo, callback)=>{
         const cardapio = await CardapioDAO.pegaUmCodigo(codigo)
         if(cardapio == undefined){
-            throw new Error(`Aviso: ${codigo} não existente`)
+            throw new Error(`Aviso: prato de codigo ${codigo} não existente`)
         }else{
             await callback(codigo)
             return cardapio
@@ -23,7 +23,7 @@ const CardapioValidacoes = {
     _CardapioAtualiza : async (codigo, callback, novoCardapio)=>{
         const cardapio = await callback(codigo, novoCardapio)
         if(cardapio === undefined){
-            throw new Error("Não conseguimos atualizar essa informação no banco de dados")
+            throw new Error("Não conseguimos excluir essa informação do nosso banco de dados")
         }else{
                 return cardapio
             }

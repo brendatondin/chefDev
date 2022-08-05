@@ -1,10 +1,10 @@
 import fornecedoresDAO from "../DAO/fornecedoresDAO.js"
 
 const FornecedoresValidacoes = {
-    _validaGetFornecedores : async (id, callback)=>{
-        const fornecedor = await callback(id)
+    _validaGetFornecedores : async (contato, callback)=>{
+        const fornecedor = await callback(contato)
         if(fornecedor === undefined){
-            throw new Error (`Aviso: ${id} não encontrado!`)
+            throw new Error (`Aviso: fornecedor de contato ${contato} não encontrado!`)
         }else{
             return fornecedor
         }

@@ -70,12 +70,13 @@ const fornecedoresController = (app) => {
         }
     })
 
-    app.put('/fornecedores/id/:id', async (req, res) => {
+    app.put('/fornecedores/contato/:contato', async (req, res) => {
         const body = req.body
-        const id = req.params.id
+        const contato = req.params.contato
         try {
             const novoBody = await FornecedoresValidacoes._ValidaReqBodyFornecedor(body)
-            const fornecedorValidado = await FornecedoresValidacoes._FornecedorAtualiza(id, FornecedoresModel.atualizaFornecedor, novoBody)
+            const validaContato = await FornecedoresValidacoes._validaGetFornecedores(contato, FornecedoresModel.pegaUmFornecedorContato)
+            const fornecedorValidado = await FornecedoresValidacoes._FornecedorAtualiza(validaContato.id, FornecedoresModel.atualizaFornecedor, novoBody)
             res.status(200).json({
                 "msg": "Fornecedor atualizado com sucesso",
                 "fornecedorValidado": fornecedorValidado,

@@ -35,7 +35,7 @@ const FornecedoresValidacoes = {
             }
     },
     _ValidaReqBodyFornecedor : async (body)=>{
-        if(body.id && body.nome && body.email && body.contato){
+        if(body.nome && body.email && body.contato){
             return body
         }else{
             throw new Error ("Não foi possivel atualizar essa informação!")

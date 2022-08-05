@@ -10,7 +10,6 @@ const Validacoes = {
             return cliente
         }
     },
-    
     _validaPostClientes : async (cliente, callback)=>{
         if(cliente.nome.length < 1 || cliente.email.length < 1 || cliente.contato.length < 1 ){
             throw new Error ("Aviso: preencha todos os campos")

@@ -38,7 +38,8 @@ const funcionariosController = (app) => {
     app.post('/funcionarios', async (req, res) => {
         const body = req.body
         try {
-            const insereFuncionario = await FuncionariosValidacoes._validaPostFuncionarios(body, funcionariosModel.insereFuncionario)
+            const validaBody = await FuncionariosValidacoes._ValidaReqBodyFuncionarios(body)
+            const insereFuncionario = await FuncionariosValidacoes._validaPostFuncionarios(validaBody, funcionariosModel.insereFuncionario)
             res.status(201).json({
                 "msg": "Funcionário inserido com sucesso",
                 "funcionarios": insereFuncionario,
@@ -72,12 +73,13 @@ const funcionariosController = (app) => {
         }
     })
 
-    app.put('/funcionarios/id/:id', async (req, res) => {
+    app.put('/funcionarios/contato/:contato', async (req, res) => {
         const body = req.body
-        const id = req.params.id
+        const id = req.params.contato
         try {
             const novoBody = await FuncionariosValidacoes._ValidaReqBodyFuncionarios(body)
-            const funcionariosValidados = await FuncionariosValidacoes._AtualizaFuncionarios(id, funcionariosModel.atualizaFuncionario, novoBody)
+            const validaContato = await FuncionariosValidacoes._validaGetFuncionarios(id, funcionariosModel.pegaUmFuncionarioContato)
+            const funcionariosValidados = await FuncionariosValidacoes._AtualizaFuncionarios(validaContato.id, funcionariosModel.atualizaFuncionario, novoBody)
             res.status(200).json({
                 "msg": "Funcionários atualizado com sucesso",
                 "funcionariosValidados": funcionariosValidados,

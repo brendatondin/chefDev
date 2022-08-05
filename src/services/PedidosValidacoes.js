@@ -30,7 +30,7 @@ const PedidosValidacoes = {
     },
 
     _ValidaReqBodyPedidos : async (body)=>{
-        if(body.comanda && body.prato && body.mesa){
+        if(body.prato && body.mesa){
             return body
         }else{
             throw new Error ("Não foi possivel atualizar essa informação!")

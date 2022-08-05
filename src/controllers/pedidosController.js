@@ -38,7 +38,8 @@ const pedidosController = (app) => {
     app.post('/pedidos', async (req, res) => {
         const body = req.body
         try {
-            const inserePedido = await PedidosValidacoes._validaPostPedidos(body, PedidosModel.inserePedidos)
+            const validaBody = await PedidosValidacoes._ValidaReqBodyPedidos(body)
+            const inserePedido = await PedidosValidacoes._validaPostPedidos(validaBody, PedidosModel.inserePedidos)
             res.status(201).json({
                 "msg": "Pedido inserido com sucesso",
                 "inserePedido": inserePedido,
@@ -76,7 +77,8 @@ const pedidosController = (app) => {
         const body = req.body
         try {
             const novoBody = await PedidosValidacoes._ValidaReqBodyPedidos(body)
-            const pedidoValidado = await PedidosValidacoes._PedidoAtualiza(pedidos, PedidosModel.atualizaPedido, novoBody )
+            const validaComanda = await PedidosValidacoes._validaGetPedidos(pedidos, PedidosModel.pegaUmPedidoComanda)
+            const pedidoValidado = await PedidosValidacoes._PedidoAtualiza(validaComanda.comanda, PedidosModel.atualizaPedido, novoBody )
             res.status(200).json({
                 "msg": "Comanda atualizada com sucesso",
                 "pedidoValidado": pedidoValidado,

@@ -38,7 +38,8 @@ const clientesController = (app) => {
     app.post('/clientes', async (req, res) => {
         const cliente = req.body
         try {
-            const insereCliente = await Validacoes._validaPostClientes(cliente, ClientesModel.insereCliente)
+            const validaBody = await Validacoes._ValidaReqBody(cliente)
+            const insereCliente = await Validacoes._validaPostClientes(validaBody, ClientesModel.insereCliente)
             res.status(201).json({
                 "msg": "Cliente inserido com sucesso",
                 "nome": insereCliente,
@@ -71,12 +72,13 @@ const clientesController = (app) => {
         }
     })
 
-    app.put('/clientes/id/:id', async (req, res) => {
-        const cliente = req.params.id
+    app.put('/clientes/contato/:contato', async (req, res) => {
+        const cliente = req.params.contato
         const body = req.body
         try {
             const novoBody = await Validacoes._ValidaReqBody(body)
-            const atualizaCliente = await Validacoes._ValidaAtualiza(cliente, ClientesModel.atualizaCliente, novoBody )
+            const validaContato = await Validacoes._validaGet(cliente, ClientesModel.pegaUmClienteContato)
+            const atualizaCliente = await Validacoes._ValidaAtualiza(validaContato.id, ClientesModel.atualizaCliente, novoBody )
             res.status(200).json({
                 "msg": "Cliente atualizado com sucesso",
                 "nome": atualizaCliente,

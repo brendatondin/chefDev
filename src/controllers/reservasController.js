@@ -46,7 +46,8 @@ const reservasController = (app) => {
     app.post('/reservas', async (req, res) => {
         const body = req.body
         try {
-            const agendarReserva = await ReservasValidacoes._validaPostReservas(body, reservasModel.agendarReserva)
+            const validaBody = await ReservasValidacoes._ValidaReqBodyReservas(body)
+            const agendarReserva = await ReservasValidacoes._validaPostReservas(validaBody, reservasModel.agendarReserva)
 
             res.status(201).json(
                 {
@@ -86,7 +87,8 @@ const reservasController = (app) => {
         const body = req.body
         try {
             const novoBody = await ReservasValidacoes._ValidaReqBodyReservas(body)
-            const atualizaReserva = await ReservasValidacoes._ReservaAtualiza(idReserva, reservasModel.atualizaReserva, novoBody)
+            const validarReserva = await ReservasValidacoes._validaGetReservas(idReserva, reservasModel.verUmaReserva)
+            const atualizaReserva = await ReservasValidacoes._ReservaAtualiza(validarReserva.idReserva, reservasModel.atualizaReserva, novoBody)
             res.status(202).json({
                 "msg": "Reserva atualizada com sucesso",
                 "nome": atualizaReserva,

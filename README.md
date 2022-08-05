@@ -13,7 +13,10 @@ Projeto denvolvido em [Node.js](https://nodejs.org/en/) com framework [Express](
 - <a href="https://code.visualstudio.com/download">VsCode</a> ou qualquer editor de texto de preferência.
 - <a href="https://insomnia.rest/download">Insomnia Rest</a> ou qualquer outra ferramenta de cliente API Rest.
 
-
+## Link do deploy do Heroku:
+```
+https://chef-dev.herokuapp.com/
+```
 
 ##  :desktop_computer: Tecnologias
 
@@ -43,10 +46,13 @@ Projeto denvolvido em [Node.js](https://nodejs.org/en/) com framework [Express](
      cd chefDev
      ```
 
-3. Para instalar as bibliotecas:
+3. Para instalar as dependências necessárias/todas as dependências :
 
-    ```
+    ```js
+    //instalar todas as dependências:
     npm install
+    //instalar somente as dependências necessárias:
+    npm install --production
     ```
 
 4. Para iniciar o projeto:

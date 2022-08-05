@@ -1,5 +1,6 @@
 import CardapioModel from "../models/cardapioModel.js"
 import CardapioValidacoes from "../services/CardapioValidacoes.js"
+import Validacoes from "../services/ClientesValidacoes.js"
 const cardapioController = (app) => {
 
     app.get('/cardapio', async (req, res) => {
@@ -79,7 +80,8 @@ const cardapioController = (app) => {
         const body = req.body
         try {
             const novoCardapio = await CardapioValidacoes._ValidaReqBodyCardapio(body)
-            const PratoAtualizado = await CardapioValidacoes._CardapioAtualiza(codigo, CardapioModel.AtualizaPrato, novoCardapio )
+            const validaCardapio = await CardapioValidacoes._validaGetCardapio(codigo, CardapioModel.pegaUmCodigo)
+            const PratoAtualizado = await CardapioValidacoes._CardapioAtualiza(validaCardapio.codigo, CardapioModel.AtualizaPrato, novoCardapio )
             res.status(200).json({
                 "msg": "Prato atualizada com sucesso",
                 "Prato Validado": PratoAtualizado,

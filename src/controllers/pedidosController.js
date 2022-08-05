@@ -6,7 +6,7 @@ const pedidosController = (app) => {
     app.get('/pedidos', async (req, res) => {
         try {
             const todosPedidos = await PedidosModel.pegaPedidos()
-            res.status(201).json({
+            res.status(200).json({
                 "pedidos": todosPedidos,
                 "erro": false
             })
@@ -22,7 +22,7 @@ const pedidosController = (app) => {
         const comanda = req.params.comanda
         try {
             const pedido = await PedidosValidacoes._validaGetPedidos(comanda, PedidosModel.pegaUmPedidoComanda)
-            res.status(201).json({
+            res.status(200).json({
                 "pedido": pedido,
                 "msg": `o pedido ${comanda} esta no banco de dados`,
                 "erro": false
@@ -39,7 +39,7 @@ const pedidosController = (app) => {
         const body = req.body
         try {
             const validaBody = await PedidosValidacoes._ValidaReqBodyPedidos(body)
-            const inserePedido = await PedidosValidacoes._validaPostPedidos(validaBody, PedidosModel.inserePedidos)
+            const inserePedido = await PedidosModel.inserePedidos(validaBody)
             res.status(201).json({
                 "msg": "Pedido inserido com sucesso",
                 "inserePedido": inserePedido,
@@ -79,7 +79,7 @@ const pedidosController = (app) => {
             const novoBody = await PedidosValidacoes._ValidaReqBodyPedidos(body)
             const validaComanda = await PedidosValidacoes._validaGetPedidos(pedidos, PedidosModel.pegaUmPedidoComanda)
             const pedidoValidado = await PedidosValidacoes._PedidoAtualiza(validaComanda.comanda, PedidosModel.atualizaPedido, novoBody )
-            res.status(200).json({
+            res.status(202).json({
                 "msg": "Comanda atualizada com sucesso",
                 "pedidoValidado": pedidoValidado,
                 "erro": false

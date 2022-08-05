@@ -10,14 +10,6 @@ const ReservasValidacoes = {
             return reservas
         }
     },
-    _validaPostReservas : async (reserva, callback)=>{
-        if(reserva.nomeCliente.length < 2 ||  reserva.data.length < 1 || reserva.hora.length < 1 || reserva.lugares.length < 1 || reserva.mesa.length <= 1){
-            throw new Error ("Aviso: preencha todos os campos")
-        }else{
-            const postReserva = await callback(reserva)
-            return reserva
-        }
-    },
 
     _ReservaAtualiza : async (idReserva, callback, reservaValidada)=>{
         const reservas = await callback(idReserva, reservaValidada)

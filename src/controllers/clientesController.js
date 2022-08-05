@@ -6,7 +6,7 @@ const clientesController = (app) => {
     app.get('/clientes', async (req, res) => {
         try {
             const todosClientes = await ClientesModel.pegaCliente()
-            res.status(201).json({
+            res.status(200).json({
                 "clientes": todosClientes,
                 "erro": false
             })
@@ -22,7 +22,7 @@ const clientesController = (app) => {
         const contato = req.params.contato
         try {
             const cliente = await Validacoes._validaGet(contato, ClientesModel.pegaUmClienteContato)
-            res.status(201).json({
+            res.status(200).json({
                 "cliente": cliente,
                 "msg": `o contato ${contato} esta no banco de dados`,
                 "erro": false
@@ -39,7 +39,7 @@ const clientesController = (app) => {
         const cliente = req.body
         try {
             const validaBody = await Validacoes._ValidaReqBody(cliente)
-            const insereCliente = await Validacoes._validaPostClientes(validaBody, ClientesModel.insereCliente)
+            const insereCliente = await ClientesModel.insereCliente(validaBody)
             res.status(201).json({
                 "msg": "Cliente inserido com sucesso",
                 "nome": insereCliente,
@@ -79,7 +79,7 @@ const clientesController = (app) => {
             const novoBody = await Validacoes._ValidaReqBody(body)
             const validaContato = await Validacoes._validaGet(cliente, ClientesModel.pegaUmClienteContato)
             const atualizaCliente = await Validacoes._ValidaAtualiza(validaContato.id, ClientesModel.atualizaCliente, novoBody )
-            res.status(200).json({
+            res.status(202).json({
                 "msg": "Cliente atualizado com sucesso",
                 "nome": atualizaCliente,
                 "erro": false

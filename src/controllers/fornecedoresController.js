@@ -21,7 +21,7 @@ const fornecedoresController = (app) => {
     app.get('/fornecedores/contato/:contato', async (req, res) => {
         const contato = req.params.contato
         try {
-            const fornecedor = await FornecedoresModel.pegaUmFornecedorContato(contato, FornecedoresModel.pegaUmFornecedorContato)
+            const fornecedor = await FornecedoresValidacoes._validaGetFornecedores(contato, FornecedoresModel.pegaUmFornecedorContato)
             res.status(200).json({
                 "Fornecedor": fornecedor,
                 "erro": false

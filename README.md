@@ -90,7 +90,7 @@ New header: usertype / New value: maitre
 ## :bus: Rotas
 
 ```
-url/ ou url/
+url/ 
 ```
 
 ## Pedidos

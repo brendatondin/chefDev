@@ -7,6 +7,7 @@ import reservasController from "./controllers/reservasController.js"
 import funcionariosController from "./controllers/funcionariosController.js"
 import autenticacao from './middleware/autenticacao.js'
 import * as dotenv from "dotenv"
+import cors from "cors";
 
 dotenv.config()
 
@@ -19,6 +20,9 @@ const port = process.env.PORT || 3000;
 
 
 app.use(express.json());
+
+app.use(cors());
+
 autenticacao(app)
 cardapioController(app)
 pedidosController(app)

@@ -32,6 +32,23 @@ const reservasDAO = {
         })
     },
 
+    verUmaReservaData : (data) =>{
+        const VER_UMA_RESERVA = `
+        SELECT * FROM RESERVAS
+        WHERE data = ?`
+
+        return new Promise((resolve, reject)=>{
+            db.all(VER_UMA_RESERVA, data, (error, row)=>{
+                if(error){
+                    reject(error)
+                }else{
+                    resolve(row)
+                }
+
+            })
+        })
+    },
+
 
     agendarReserva : (reserva) =>{
         const AGENDA_RESERVA = `

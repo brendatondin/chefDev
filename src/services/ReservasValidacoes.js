@@ -4,7 +4,8 @@ import reservasDAO from "../DAO/reservasDAO.js"
 const ReservasValidacoes = {
     _validaGetReservas : async (idReserva, callback)=>{
         const reservas = await callback(idReserva)
-        if(reservas === undefined){
+        console.log(reservas);
+        if(reservas.length == 0){
             throw new Error (`Aviso: ${idReserva} não encontrado!`)
         }else{
             return reservas

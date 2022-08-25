@@ -43,6 +43,28 @@ const reservasController = (app) => {
         }
     })
 
+    app.get('/reservas/data/:data', async (req, res) => {
+        const data = req.params.data
+
+        try {
+            const reserva = await ReservasValidacoes._validaGetReservas(data, reservasModel.verUmaReservaData)
+            res.status(200).json(
+                {
+                    "reserva": reserva,
+                    "erro": false
+                }
+            )
+        } catch (error) {
+            res.status(400).json(
+                {
+                    "msg": error.message,
+                    "erro": true
+                }
+            )
+        }
+    })
+
+
     app.post('/reservas', async (req, res) => {
         const body = req.body
         try {

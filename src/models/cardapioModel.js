@@ -1,4 +1,4 @@
-import CardapioDao from "../DAO/cardapioDAO.js"
+import CardapioDao from "../DAO/DAOcardapio.js"
 
 
 const CardapioModel = {
